@@ -341,7 +341,7 @@ form, we usually use notations like \(\underline{v}\) or \(\vec{v}\) instead.
 \item Some terminologies:
 \begin{itemize}
 \item The \defn{zero vector} is a zero matrix with one column (i.e., a column
-vector where each entry is \(0\)). It is denoted by \(\vect{0}\).
+vector where each entry is \(0\)). It is denoted by \(\vect{0}\). More explicitly, we may denote an \(n\times 1\) zero vector by \(\vect{0}_{n}\).
 \item The notation \(\R^n\) denotes the set of all \emph{column} vectors with \(n\)
 real entries.
 \item A (column) vector in \(\R^n\), whose \(i\)th entry is \(1\) and other
@@ -472,7 +472,7 @@ node[pos=1.2]{\(-1.5\vect{u}_{1}-0.1\vect{u}_2=\mqty[-1.8\\ -3.1]\)};
 \[
 A\vect{v}=v_1\vect{a}_{1}+\dotsb+v_{n}\vect{a}_{n}
 \]
-where \(\displaystyle \vect{v}=\mqty[v_1\\ \vdots\\ v_n]\) and
+where \(\displaystyle \vect{v}=\mqty[v_1\\ \vdots\\ v_n]\), and
 \(\vect{a}_{1},\dotsc,\vect{a}_{n}\) denote the columns of \(A\) (as column
 vectors), i.e., \(\displaystyle A=\mqty[\vect{a}_{1}&\cdots&\vect{a}_{n}]\).
 Example:
@@ -502,8 +502,8 @@ column vectors).
 
 \item An important point of view that relates matrices and \emph{linear
 transformations} is to consider the function \(\vect{v}\mapsto A\vect{v}\)
-(which is indeed a linear transformation), that sends a (column) vector
-\(\vect{v}\in \R^n\) to another (column) vector \(A\vect{v}\in \R^m\) (with
+(which is indeed a linear transformation), that sends a column vector
+\(\vect{v}\in \R^n\) to another column vector \(A\vect{v}\in \R^m\) (with
 possibly different size), when the size of matrix \(A\) is \(m\times n\).
 
 \item The column vector \(A\vect{v}\) is a linear combination of \(\vect{v}\).
@@ -532,8 +532,8 @@ I=\mqty[\dmat[0]{1,1}],\quad
 I=\mqty[\dmat[0]{1,1,1}],\quad
 I=\mqty[\dmat[0]{1,1,1,1}],\text{ etc.}
 \]
-For the \(n\times n\) identity matrix, we may denote it more specifically by
-\(I_{n}\).
+For the \(n\times n\) identity matrix (\(n\in\N\)), we may denote it more
+specifically by \(I_{n}\).
 
 \begin{note}
 The columns of an identity matrix \(I\) are \emph{standard vectors}. More
@@ -1040,9 +1040,9 @@ the area ``above'' (``below'') the vector linearly transformed from
 on the ``right'' (``left'') of the vector linearly transformed from \(\vect{j}\)
 contributes positively (negatively) to this quantity.} (or its analogue in
 other dimension) of the geometrical object ``spanned'' by the vectors linearly
-transformed from the standard vectors (loosely, ``parallelogram'' (or its
-analogue in other dimension, e.g., parallelepiped in 3-dimensional case) with
-those transformed vectors as sides).
+transformed from the standard vectors (i.e., ``parallelogram''\footnote{or its
+analogue in other dimension, e.g., parallelepiped in 3-dimensional case} with
+those transformed vectors as sides, roughly speaking).
 
 \begin{center}
 \begin{tikzpicture}
@@ -1117,14 +1117,12 @@ also denote its determinant by \(\mqty|a&b\\ c&d|\) (replacing the brackets by
 vertical bars).
 \begin{warning}
 It may lead to some ambiguity for the \(1\times 1\) matrix case as we would
-just write \(|a|\), which may be understood as the absolute value of \(a\)
-(\underline{not} the determinant of \(1\times 1\) matrix \([a]\)!).
+just write \(|a|\), which may be understood as the absolute value of \(a\),
+which may \underline{not} be the determinant of \(1\times 1\) matrix \([a]\)!
 \end{warning}
 \end{note}
 \item For \(2\times 2\) and \(3\times 3\) matrices, the determinant is defined
-as follows (which turns out to coincide with the geometrical interpretation in
-\labelcref{it:deter-geo}, by considering \emph{cross product} (\(2\times 2\)
-case) and \emph{scalar triple product} (\(3\times 3\) case)):
+as follows. 
 \begin{itemize}
 \item The \defn{determinant of a \(2\times 2\) matrix} \(\mqty[a&b\\ c&d]\) is
 \[
@@ -1135,6 +1133,10 @@ case) and \emph{scalar triple product} (\(3\times 3\) case)):
 \boxed{\gc{aei}\blc{+bfg}\vc{+cdh}\rc{-ceg}\mgc{-bdi}\orc{-afh}}.
 \]
 \end{itemize}
+This definition turns out to coincide with the geometrical
+interpretation in \labelcref{it:deter-geo}, by considering \emph{cross product}
+(\(2\times 2\) case) and \emph{scalar triple product} (\(3\times 3\) case).
+
 \begin{mnemonic}
 Both expressions can be viewed via ``diagonal multiplication'':
 \begin{center}
@@ -1194,9 +1196,9 @@ Additionally, we have the following observations:
 \begin{itemize}
 \item The signs of the terms are alternating (``chessboard pattern'': \(+\),
 \(-\), \(+\), ...).
-\item The coefficients of the determinants are taken from the first row of the
-original matrix (without considering sign).
-\item The ``smaller'' determinants are determinants of some submatrices of the
+\item The coefficients of the determinants originate from the first row of the
+original matrix.
+\item The ``child'' determinants are determinants of some submatrices of the
 original. In fact, they are obtained by deleting a row and a column:
 \begin{center}
 \begin{tikzpicture}
@@ -1244,9 +1246,9 @@ When \(i+j\) is odd (even), the sign for the \((i,j)\)-cofactor is negative
 locations (corresponding to different values of \(i\) and \(j\)) for some
 cases, which are of ``chessboard pattern'':
 \[
-\mqty[+&-\\ +&-]\quad
+\mqty[+&-\\ -&+]\quad
 \mqty[+&-&+\\ -&+&-\\ +&-&+]\quad
-\mqty[+&-&+&-\\ +&-&+&-\\ +&-&+&-\\ +&-&+&-]
+\mqty[+&-&+&-\\ -&+&-&+\\ +&-&+&-\\ -&+&-&+]
 \]
 \end{note}
 
@@ -1298,8 +1300,8 @@ where the ``diagonal multiplication'' yields \(0\), but the actual determinant
 \end{warning}
 \item The \emph{definition} of determinant utilizes cofactor expansion along
 the \emph{first row}. Naturally, one may then ask whether we can perform
-cofactor expansion along other row (or even column) or not. It turns out
-cofactor expansion along \emph{any} row or column gives the same result, by the
+cofactor expansion along other row (or even column). It turns out cofactor
+expansion along \emph{any} row or column gives the same result, by the
 \emph{cofactor expansion theorem}.
 
 \begin{theorem}[Cofactor expansion theorem]
@@ -1516,7 +1518,7 @@ Let \(\vect{r}_{1},\dotsc,\vect{r}_{n}\) be \(1\times n\) row vectors and let
 \]
 \end{proposition}
 \begin{pf}
-For convenience, we denote the equality above by
+For convenience, we denote the equality above (which is to be proved) by
 \[
 \det A=\det B+c\det C.
 \]
@@ -1690,11 +1692,9 @@ Let \(A\) and \(B\) be two \(n\times n\) matrices. Then,
 \det(AB)=\det A\det B.
 \]
 \end{proposition}
-\begin{pf}
-Deferred to \cref{sect:sle}.
-\end{pf}
 
-\item To close \cref{subsect:det-prop}, we introduce a ``rule'' that simplifies
+\item \label{it:rule-simp-det-calc}
+To close \cref{subsect:det-prop}, we introduce a ``rule'' that simplifies
 computation of determinants, based on the properties we derive. Consider an
 \(n\times n\) matrix \(A\), written by
 \[
@@ -1736,9 +1736,11 @@ Example:
 \label{subsect:matrix-inv}
 \begin{enumerate}
 \item The (multiplicative) \emph{inverse} of a real number \(a\) is a real
-number \(b\) such that \(ab=1\), which is denoted by \(a^{-1}\). (However, the
-inverse may not exist. For example, \(0\) does not have an inverse.) We have a
-similar notion for matrices.
+number \(b\) such that \(ab=1\), which is denoted by \(a^{-1}\). \begin{note}
+The inverse may not exist. For example, \(0\) does not have an inverse.
+\end{note}
+
+We have a similar notion for matrices.
 
 \item An \(n\times n\) matrix \(A\) is \defn{invertible} (or
 \defn{non-singular}\footnote{Note that ``invertible'' corresponds to
@@ -1757,11 +1759,11 @@ condition: \(AB=BA\) (which may not hold due to the non-commutativity of matrix
 multiplication). But it turns out that if we have either \(AB=I_n\) or
 \(BA=I_n\), then another one would automatically hold\footnote{This is asserted
 by the \emph{invertible matrix theorem}, which gives a series of statements
-equivalent to invertibility.}). So, to prove invertibility we only need to show
-one of the equalities.
+equivalent to invertibility.}). So, to prove invertibility we actually only
+need to show one of the equalities.
 \end{remark}
 
-\item Like the case for real numbers, the matrix inverse is unique (if exist).
+\item Like the case for real numbers, the matrix inverse is unique (if exists).
 \begin{proposition}
 \label{prp:matrix-inv-unique}
 Let \(A\) be an \(n\times n\) matrix. Then, the inverse of \(A\), if exists,
@@ -1860,16 +1862,16 @@ a_{n1}&\cdots&a_{nn}\\
 Since \(A'\) has two identical rows, we have \(\det(A')=0\). On the other hand,
 by considering cofactor expansion of \(A'\) along \(j\)th row (which equals the
 original \(i\)th row of \(A\), yet positioned at \(j\)th row), we see that the
-\((i,j)\)-entry of \(A\adj A\) \(a_{i1}C_{j1}+\dotsb+a_{1n}C_{jn}\) is indeed
-\(\det A'\). Thus, we conclude that the \((i,j)\)-entry of \(A\adj A\) is \(0\)
-when \(i\ne j\).
+\((i,j)\)-entry of \(A\adj A\), namely \(a_{i1}C_{j1}+\dotsb+a_{1n}C_{jn}\), is
+indeed \(\det A'\). Thus, we conclude that the \((i,j)\)-entry of \(A\adj A\)
+is \(0\) when \(i\ne j\).
 
 Hence, we have \(A\adj A=(\det A)I_n\).
 \end{pf}
 
 \item The following corollary shows the ``if'' direction.
 \begin{corollary}
-\label{cor:nonzero-det-inv}
+\label{cor:matrix-inv-fmla}
 Let \(A\) be an \(n\times n\) matrix with \(\det A\ne 0\). Then, \(A\) is
 invertible and
 \[
@@ -1890,7 +1892,7 @@ By definition, this means that \(A\) is invertible and
 A^{-1}=\frac{1}{\det A}\adj A.
 \]
 \end{pf}
-\item With \cref{prp:det-inv-fmla} and \cref{cor:nonzero-det-inv}, we can prove
+\item With \cref{prp:det-inv-fmla} and \cref{cor:matrix-inv-fmla}, we can prove
 our desired result about matrix invertibility and determinant:
 \begin{theorem}
 \label{thm:inv-iff-nonzero-det}
@@ -1898,7 +1900,7 @@ An \(n\times n\) matrix \(A\) is invertible if and only if \(\det A\ne 0\).
 \end{theorem}
 \begin{pf}
 It follows from \cref{prp:det-inv-fmla} (``only if'') and
-\cref{cor:nonzero-det-inv} (``if'').
+\cref{cor:matrix-inv-fmla} (``if'').
 \end{pf}
 \item Lastly, we introduce some properties regarding matrix inverse.
 \begin{proposition}

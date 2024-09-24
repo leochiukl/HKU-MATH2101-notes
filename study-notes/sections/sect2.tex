@@ -1,2 +1,1038 @@
 \section{Systems of Linear Equations}
 \label{sect:sle}
+\subsection{Basic Notions and Methods for Systems of Linear Equations}
+\begin{enumerate}
+\item\label{it:sle} A \defn{system of \(m\) linear equations in \(n\) unknowns} (or
+\defn{variables}) \(x_1,,\dotsc,x_n\) is a family of equations of the form
+\[
+\begin{cases}
+a_{11}x_1+\dotsb+a_{1n}x_{n}=b_1\\
+a_{21}x_1+\dotsb+a_{2n}x_{n}=b_2\\
+\hspace{2cm}\vdots\\
+a_{m1}x_1+\dotsb+a_{mn}x_{n}=b_m\\
+\end{cases}
+\]
+where \(a_{ij}\)'s and \(b_k\)'s are some real constants.
+
+\item For the system in \labelcref{it:sle}, the \(m\times n\) matrix
+\([a_{ij}]\) is called the \defn{coefficient matrix} of the system, while the
+matrix
+\[
+\left[
+\begin{array}{@{}cccc|c@{}}
+a_{11}&a_{12}&\cdots&a_{1n}&b_1\\
+a_{21}&a_{22}&\cdots&a_{2n}&b_2\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+a_{m1}&a_{m2}&\cdots&a_{2n}&b_m
+\end{array}
+\right]
+\]
+is called the \defn{augmented matrix} of the system.
+
+\begin{note}
+The vertical line only serves for decorational purpose (entries on its right
+are the values appearing on the right of ``\(=\)'' in the system), and it does
+not affect the nature of the matrix, i.e., the vertical line can be ignored
+when interpreting the matrix.
+\end{note}
+
+\item Writing \(A=[a_{ij}]\), \(\vect{x}=\mqty[x_1\\\vdots\\ x_n]\), and
+\(\vect{b}=\mqty[b_1\\ \vdots\\ b_m]\), the system in \labelcref{it:sle} can be
+rewritten simply as
+\[
+A\vect{x}=\vect{b}.
+\]
+Then, we can observe that solving the system is just the same as solving this
+matrix equation. Hence, a \emph{solution} to the system is just a column vector
+\(\vect{v}\in\R^m\) such that \(A\vect{v}=\vect{b}\). The \defn{solution set}
+of the system is the set \(\{\vect{v}\in\R^m:A\vect{v}=\vect{b}\}\), i.e., the
+set of all solutions to the system.
+
+\item \label{it:matrix-inv-solve-sle}
+Next, we will introduce two approaches for solving a system of linear
+equations. The first one is related to the matrix inverse, and is applicable
+when the coefficient matrix \(A\) is an \emph{invertible square matrix}.
+
+To solve the system \(A\vect{v}=\vect{b}\), multiplying both sides by
+\(A^{-1}\) gives
+\[
+\vect{x}=A^{-1}\rc{A\vect{x}}=\boxed{A^{-1}\rc{\vect{b}}}.
+\]
+This suggests a way of solving the system. Furthermore, we have the following
+result which guarantees the \emph{uniqueness} of the solution in this case.
+
+\begin{proposition}
+\label{prp:inv-sle-unique}
+Let \(A\) be an \(n\times n\) \emph{invertible} matrix and let \(\vect{b}\in\R^n\) be a column
+vector. Then, the system of linear equations \(A\vect{x}=\vect{b}\) must have a
+unique solution.
+\end{proposition}
+\begin{pf}
+This follows from the uniqueness of matrix inverse. Particularly, the unique
+solution is given by \(\vect{x}=A^{-1}\vect{b}\).
+\end{pf}
+
+\item Another approach for solving a system of linear equations is also only
+applicable when \(A\) is an invertible square matrix. However, it often
+requires fewer computations than the matrix inverse approach, and so is more
+frequently used. It is known as \emph{Cramer's rule}:
+\begin{theorem}[Cramer's rule]
+\label{thm:cramer-rule}
+Let \(A\) be an \(n\times n\) invertible matrix and let \(\vect{b}\in\R^n\) be
+a column vector. Then, the (unique) solution of the system
+\[
+A\mqty[x_1\\ \vdots\\ x_n]=\vect{b}
+\]
+is given by
+\[
+x_i=\frac{\det A_i}{\det A}
+\]
+where \(A_i\) is the matrix obtained by replacing the \(i\)th column of \(A\)
+by \(\vect{b}\), for any \(i=1,\dotsc,n\).
+\end{theorem}
+\begin{pf}
+By \cref{cor:matrix-inv-fmla}, we have
+\[
+A^{-1}=\frac{1}{\det A}\adj A.
+\]
+We also know that the solution of the system is \(\vect{x}=A^{-1}\vect{b}\), so
+it suffices to show that for any \(i=1,\dotsc,n\),
+\[
+\frac{\det A_i}{\det A}=\qty(\frac{1}{\det A}(\adj A)\vect{b})_{i1},
+\]
+or
+\[
+\det A_i=\qty[(\adj A)\vect{b}]_{i1},
+\]
+where RHS denotes the \((i,1)\)-entry of the \(n\times 1\) matrix
+\((\adj A)\vect{b}\).
+
+First fix any \(i=1,\dotsc,n\). By the definition of matrix multiplication,
+\[
+\qty[(\adj A)\vect{b}]_{i1}
+=C_{1i}b_1+\dotsb+C_{ni}b_n
+\]
+where \(C_{ji}=(-1)^{j+i}\widetilde{A}_{ji}\) is the \((j,i)\)-cofactor of
+\(A\). On the other hand, performing cofactor expansion for \(\det A_i\) along
+the \(i\)th column gives also
+\[
+\det A_i=b_1C_{1i}+\dotsb+b_nC_{ni}.
+\]
+This shows the desired equality.
+\end{pf}
+\end{enumerate}
+\subsection{Elementary Row Operations}
+\begin{enumerate}
+\item \label{it:motivate-ero}
+To motivate the concept of \emph{elementary row operations}. Consider the
+following system:
+\[
+\systeme{
+x_1+x_2=3,
+x_2=2
+}
+\]
+It is straightforward to solve this system since we can simply put \(x_2=2\)
+into the first equation to get \(x_1=1\). However, a system is generally not
+that easy to solve, and this leads us to consider some systematic methods to
+``transform'' an arbitrary system into a ``simple'' system like the above one.
+It turns out that it is possible by performing the so-called \emph{elementary
+row operations}.
+
+\item There are three types of \defn{elementary row operations} (EROs) to be
+performed on a matrix:
+\begin{itemize}
+\item \defn{type I}: interchanging two different rows
+\item \defn{type II}: multiply a row by a \emph{nonzero} scalar
+\item \defn{type III}: adding a scalar multiple of a row to another row
+\end{itemize}
+Here, we shall use \(\vect{r}_1\), \(\vect{r}_{2}\), \ldots, \(\vect{r}_{m}\)
+to denote the \(m\) rows of an \(m\times n\), from top to bottom. We have the
+following notations for the three types of EROs:
+\begin{itemize}
+\item (type I) \(\vect{r}_{i}\leftrightarrow \vect{r}_{j}\): interchanging the
+\(i\)th and the \(j\)th row (``putting \(\vect{r}_{i}\) to the \(j\)th row
+\(\vect{r}_{j}\), and putting \(\vect{r}_{j}\) to the \(i\)th row
+\(\vect{r}_{i}\)'')
+\item (type II) \(k\vect{r}_{i}\to \vect{r}_{i}\): multiplying the \(i\)th row
+by a \emph{nonzero} scalar \(k\) (``putting \(k\vect{r}_{i}\) back to the
+\(i\)th row \(\vect{r}_{i}\)'')
+\item (type III) \(k\vect{r}_{j}+\vect{r}_{i}\to \vect{r}_{i}\): adding \(k\)
+times the \(j\)th row to the \(i\)th row (``putting
+\(k\vect{r}_{j}+\vect{r}_{i}\) to the \(i\)th row \(\vect{r}_{i}\)'')
+\end{itemize}
+\end{enumerate}
+\subsection{Elementary Matrices}
+\begin{enumerate}
+\item To utilize the results for \emph{matrices} in \cref{sect:matrix-algebra}
+for EROs, we need to find a way to associate each ERO with a \emph{matrix}. It
+turns out that \emph{elementary matrices} are able to capture the essence of
+EROs.
+
+\item An \defn{elementary matrix} is a square matrix obtained by performing
+\emph{exactly one} ERO on an identity matrix. An elementary matrix is of type
+I, II, or III if the ERO performed on the identity matrix is of type I, II, or
+III respectively.
+
+Examples:
+\begin{itemize}
+\item \(\mqty[1&0\\ 0&1]\) is a type I elementary matrix.
+\item \(\mqty[1&0&0\\0&3&0\\ 0&0&1]\) is a type II elementary matrix.
+\item \(\mqty[1&2\\ 0&1]\) is a type III elementary matrix.
+\end{itemize}
+
+\item The following theorem suggests the connection between elementary matrix
+and ERO:
+\begin{theorem}
+\label{thm:elementary-matrix-ero-relate}
+Let \(A\) be an \(m\times n\) matrix. If \(B\) is obtained from \(A\) by
+performing an ERO, then there exists an \(m\times m\) elementary matrix \(E\)
+such that \(B=EA\), and the matrix \(E\) can be obtained by performing the same
+ERO on \(I_m\).
+
+Conversely, if \(E\) is an \(m\times m\) elementary matrix, then \(EA\) is the
+matrix obtained from \(A\) by performing the ERO corresponding to \(E\).
+\end{theorem}
+\item An important property of elementary matrix is \emph{invertibility}:
+\begin{proposition}
+\label{prp:elementary-matrix-inv}
+Elementary matrices are invertible. Furthermore, the inverse of an elementary
+matrix is an elementary matrix of the same type.
+\end{proposition}
+\begin{pf}
+It follows from \cref{thm:elementary-matrix-ero-relate} and the property that
+the effect from any ERO can be cancelled out by performing an ERO of the same
+type. More explicitly, the reverse processes of all kinds of ERO are given as
+follows.
+\begin{itemize}
+\item The reverse process of \(\vect{r}_{i}\leftrightarrow \vect{r}_{j}\) is
+\(\vect{r}_{i}\leftrightarrow \vect{r}_{j}\).
+\item The reverse process of \(c\vect{r}_{i}\to \vect{r}_{i}\) is
+\(\displaystyle \frac{1}{c}\vect{r}_{i}\to\vect{r}_{i}\). (Note that \(c\ne 0\).)
+\item The reverse process of \(c\vect{r}_{j}+\vect{r}_{i}\to \vect{r}_{i}\) is
+\(-c\vect{r}_{j}+\vect{r}_{i}\to \vect{r}_{i}\).
+\end{itemize}
+\end{pf}
+\end{enumerate}
+
+\subsection{(Reduced) Row Echelon Form}
+\begin{enumerate}
+\item Recall the simple-to-solve system in \labelcref{it:motivate-ero}:
+\[
+\systeme{
+x_1+x_2=3,
+x_2=2
+}
+\]
+In augmented matrix form, it can be expressed as
+\[
+\left[\begin{array}{@{}cc|c@{}}
+1&1&3\\
+0&1&2
+\end{array}\right].
+\]
+Consider yet another simple-to-solve system of three equations:
+\[
+\systeme{
+x_1+2x_3=3,
+x_2+x_3=2,
+x_3=1
+}.
+\]
+The corresponding augmented matrix is
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&0&2&3\\
+0&1&1&2\\
+0&0&1&1\\
+\end{array}\right].
+\]
+A common feature for these augmented matrices of these simple-to-solve systems
+is that there appears to be a ``triangle of zeros'' located at the lower left
+corner. We can observe that if the augmented matrix of a system has this kind
+of nice ``format'', then the system is quite easy to solve.
+
+\item To formalize this notion, we introduce the concept of \emph{row echelon
+form}. A matrix is said to be in \defn{row echelon form} (REF) if the
+following conditions are all satisfied:
+\begin{itemize}
+\item All rows having only zero entries (called \defn{zero rows}), if any, lie
+at the bottom of the matrix (i.e., below every nonzero row).
+\item The \defn{leading entry} (i.e., the leftmost nonzero entry) in a
+nonzero row is on the right of the leading entry of every row above.
+\end{itemize}
+Examples and non-examples:
+\begin{itemize}
+\item \(
+\left[\begin{array}{@{}cc|c@{}}
+\rc{1}&1&3\\
+0&\rc{1}&2
+\end{array}\right]
+\) is in REF.
+\item \(
+\left[\begin{array}{@{}ccc|c@{}}
+\rc{1}&0&2&3\\
+0&\rc{1}&1&2\\
+0&0&\rc{1}&1\\
+\end{array}\right]
+\) is in REF.
+
+\item \(\left[\begin{array}{@{}cc|c@{}}
+\rc{1}&1&3\\
+0&\rc{1}&2\\
+0&0&0\\
+\end{array}\right]
+\) is in REF.
+
+\item \(\left[\begin{array}{@{}cc|c@{}}
+1&1&3\\
+0&0&0\\
+0&1&2\\
+\end{array}\right]
+\) is \emph{not} in REF. This is because the zero row (second row) is not at
+the bottom of the matrix.
+
+\item \(\mqty[\rc{1}&2&3&4\\ 0&0&\rc{2}&1\\ 0&0&0&\rc{1}]\) is in REF.
+
+\item \(I_n\) and any zero matrix are in REF.
+
+\item \(\mqty[1&2&3&4\\ 0&0&\blc{2}&1\\ 0&0&\rc{1}&1]\) is \emph{not} in REF.
+This is because the leading entry \(\rc{1}\) in the third row is not on the
+right of the leading entry \(\blc{2}\) in the second row.
+\end{itemize}
+
+\item Consider the following system
+\[
+\systeme{
+x_1=3,
+x_2=2,
+x_3=1
+}.
+\]
+Its augmented matrix is
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&0&0&3\\
+0&1&0&2\\
+0&0&1&1\\
+\end{array}\right].
+\]
+
+It is very straightforward to obtain the solution to this system. Indeed, in
+this case we can even directly ``read out'' the solution. Hence, we would also
+like to introduce a notion to describe this kind of \emph{very}
+easy-to-solve system. It is known as \emph{reduced row echelon form}.
+
+\item A matrix is said to be in \defn{reduced row echelon form} (RREF) if it is
+in REF with the following additional conditions satisfied:
+\begin{itemize}
+\item The leading entry of every nonzero row is \(1\) (called \defn{leading one}).
+\item For each leading one, all other entries in the same column are \(0\).
+\end{itemize}
+Examples and non-examples:
+\begin{itemize}
+\item \(
+\left[\begin{array}{@{}ccc|c@{}}
+\rc{1}&0&0&3\\
+0&\rc{1}&0&2\\
+0&0&\rc{1}&1\\
+\end{array}\right]
+\) is in RREF.
+
+\item \(
+\left[\begin{array}{@{}cc|c@{}}
+\rc{1}&1&3\\
+0&\rc{1}&2
+\end{array}\right]
+\) is \emph{not} in RREF.
+
+\item \(\mqty[\rc{1}&2&0&4\\ 0&0&\rc{1}&1\\ 0&0&0&0]\) is in RREF.
+\item \(\mqty[\rc{1}&0&3\\ 0&0&\rc{1}]\) is \emph{not} in RREF.
+
+\item \(I_n\) and any zero matrix are in RREF.
+\end{itemize}
+
+\item Apart from the practical application of solving systems of linear
+equations, the concept of RREF is also useful \emph{theoretically}. It turns
+that for a square matrix in RREF, there are some extra equivalent criteria for
+matrix invertibility:
+\begin{theorem}
+\label{thm:rref-matx-inv-equiv}
+Let \(A\) be an \(n\times n\) matrix in RREF. Then the following statements are
+equivalent.
+\begin{enumerate}
+\item \(A\) is invertible.
+\item \(A\) has \(n\) leading ones.
+\item \(A=I_n\).
+\end{enumerate}
+\end{theorem}
+\begin{pf}
+To prove statements of this form, a method is to prove a ``cycle of
+implications'' (logically speaking). Here we will prove that
+\(\text{(a)}\implies \text{(b)}\implies \text{(c)}\implies \text{(a)}\).
+
+\underline{\(\text{(a)}\implies \text{(b)}\)}: Assume that \(A\) is invertible.
+Then, there must be no zero row in \(A\); otherwise, performing cofactor
+expansion along the zero row suggests that \(\det A=0\), which means \(A\) is
+not invertible, contradiction. Hence, each row must have a leading one, and so
+\(A\) has \(n\) leading ones in total.
+
+\underline{\(\text{(b)}\implies \text{(c)}\)}: Assume that \(A\) has \(n\)
+leading ones. Since \(A\) has \(n\) rows, it implies that each row of \(A\) has
+a leading one. Now, as \(A\) is in RREF, the leading ones have to occupy all
+the diagonal entries, thus all non-diagonal entries are zero. So,
+\(A\) must be \(I_n\).
+
+\underline{\(\text{(c)}\implies \text{(a)}\)}: It follows from the fact that
+\(I_n\) is invertible.
+\end{pf}
+\end{enumerate}
+\subsection{Gaussian Elimination}
+\begin{enumerate}
+\item As noted previously, one can solve a system whose augmented matrix is in
+RREF very easily. It turns out that there is a systematic method for
+``converting''/``reducing'' \emph{any} system of linear equations into a system
+whose augmented matrix is in RREF. This is known as \emph{Gaussian
+elimination}, which is an important tool for solving a system of linear
+equation.
+
+\item But before discussing Gaussian elimination, we first introduce a
+preliminary notion: \emph{row equivalence}. For two \(m\times n\) matrices
+\(A\) and \(B\), the matrix \(A\) is said to be \defn{row equivalent} to \(B\)
+if there exist elementary matrices \(E_1,\dotsc,E_k\) such that \(E_k\dotsb
+E_1A=B\) (or equivalently, \(B\) can be obtained from \(A\) by performing some
+EROs).
+
+\item \label{it:row-equiv-equiv-relation}
+Row equivalence is indeed an \emph{equivalence relation} in mathematical sense.
+To see this, consider the following. (\(A\), \(B\), and \(C\) denote arbitrary
+matrices below.)
+\begin{itemize}
+\item reflexive: \(A\) is row equivalent to \(A\). For example, we can
+interchange two rows of \(A\) twice to get back \(A\).
+
+\item symmetric: Suppose that \(A\) is row equivalent to \(B\), i.e., \(E_k\dotsb
+E_1A=B\) for some elementary matrices \(E_1,\dotsc,E_k\). Since the
+inverse of any elementary matrix exists and is also elementary, by writing
+\[
+A=E_1^{-1}\dotsb E_k^{-1}B,
+\]
+we see that \(B\) is row equivalent to \(A\).
+
+\item transitive: Assume that \(A\) is row equivalent to \(B\), and \(B\) is row
+equivalent to \(C\). Then, we have
+\[
+E_{k}\dotsb E_{1}A=B\qqtext{and}
+F_{\ell}\dotsb F_1B=C
+\]
+for some elementary matrices \(E_1,\dotsc,E_k,F_1,\dotsc,F_{\ell}\). But then
+we can write
+\[
+F_{\ell}\dotsb F_1E_{k}\dotsb E_{1}A=C,
+\]
+so \(A\) is row equivalent to \(C\).
+\end{itemize}
+\item An important result that serves as the foundation for the Gaussian
+elimination is the following.
+
+\begin{theorem}
+\label{thm:row-equiv-same-sol}
+Let \(A\vect{x}=\vect{b}\) and \(A'\vect{x}=\vect{b}'\) be two systems of
+linear equations with the same number of equations and the same number of
+variables. If the augmented matrices \([A|\vect{b}]\) and \([A'|\vect{b}']\) are
+\emph{row equivalent}, then the two systems have the same solution set.
+\end{theorem}
+\begin{pf}
+By row equivalence, there exist elementary matrices \(E_1,\dotsc,E_k\) such
+that
+\[
+E_k\dotsb E_1[A|\vect{b}]=[A'|\vect{b}'].
+\]
+By block multiplication, we can write
+\[
+[E_k\dotsb E_1A|E_k\dotsb E_1\vect{b}]=[A'|\vect{b}'],
+\]
+which implies that \(A'=E_{k}\dotsb E_1A\) and \(b'=E_{r}\dotsb E_1b\).
+
+To prove that the two systems have the same solution set, it suffices to prove
+the logical equivalence \(A\vect{v}=\vect{b}\iff A'\vect{v}=\vect{b}'\).
+
+``\(\Rightarrow\)'': Assume that \(A\vect{v}=\vect{b}\). Then, multiplying
+\(E_k\dotsb E_1\) on both sides gives
+\[
+E_{k}\dotsb E_1A\vect{v}=E_{k}\dotsb E_1\vect{b},
+\]
+thus \(A'\vect{v}=\vect{b}'\).
+
+``\(\Leftarrow\)'': Assume that \(A'\vect{v}=\vect{b}'\). Then, we have
+\[
+E_{k}\dotsb E_1A\vect{v}=E_{k}\dotsb E_1\vect{b}.
+\]
+Since elementary matrices are invertible, we have
+\[
+E_{1}^{-1}\dotsb E_{k}^{-1}E_{k}\dotsb E_1A\vect{v}=E_{1}^{-1}\dotsb E_{k}^{-1}E_{k}\dotsb E_1\vect{b},
+\]
+which implies \(A\vect{v}=\vect{b}\).
+\end{pf}
+
+\item A corollary \cref{thm:row-equiv-same-sol} is the following \emph{column
+correspondence property}. Loosely, it suggests that there are identical ``linear
+relationships'' between \emph{columns} for two row equivalent matrices.
+
+\begin{corollary}[Column correspondence property]
+\label{cor:col-correspond}
+Let \(A\) and \(B\) be two \(m\times n\) matrices that are row equivalent.
+Write \(A=\mqty[\vect{a}_{1}&\cdots&\vect{a}_{n}]\) and
+\(B=\mqty[\vect{b}_{1}&\cdots&\vect{b}_{n}]\). Then,
+\[
+c_1\vect{a}_{1}+\dotsb+c_n\vect{a}_{n}=\vect{0}\iff
+c_1\vect{b}_{1}+\dotsb+c_n\vect{b}_{n}=\vect{0}
+\]
+where \(c_1,\dotsc,c_n\) are some constants.
+\end{corollary}
+\begin{pf}
+It follows from \cref{thm:row-equiv-same-sol} with
+\(\vect{b}=\vect{b}'=\vect{0}\) and \(B=A'\).
+\end{pf}
+
+\item Given a matrix \(A\), the \defn{RREF of \(A\)} is a matrix in RREF that
+is row equivalent to \(A\).
+
+Due to \cref{thm:row-equiv-same-sol}, our main goal here is to find a RREF of
+the given augmented matrix, so that solving the underlying system is easy
+afterwards. \emph{Gaussian elimination} provides a method for finding it
+systematically.
+
+\item The \defn{Gaussian elimination} is a standard procedure for obtaining
+RREF of a matrix as follows.
+\begin{enumerate}[label=(\arabic*)]
+\item Identify the leftmost nonzero column.
+\item Make the top entry of this column (called the \defn{pivot position})
+nonzero by a type I ERO (if needed).
+\item Make the entries below the pivot position zero by type III EROs (if
+needed).
+\item Ignore the row containing the pivot position and all rows above, and
+focus on the submatrix remaining.
+\item Repeat (1)--(4) as long as there is a nonzero row in the remained
+submatrix.
+\item Make the last pivot position \(1\) by a type II ERO (if needed).
+\item Make all entries in the same column as this pivot position \(0\) by type
+III EROs (if needed).
+\item Repeat (6)--(7) with the rows above, until all rows have been handled.
+\end{enumerate}
+
+\newpage
+\item Example of Gaussian elimination: Consider an augmented matrix 
+\(\displaystyle A=\left[\begin{array}{@{}ccc|c@{}}
+0&0&1&2\\
+2&2&4&6\\
+1&0&1&1
+\end{array}\right]\).
+\begin{align*}
+&\left[\begin{array}{@{}ccc|c@{}}
+0&0&1&2\\
+2&2&4&6\\
+1&0&1&1
+\end{array}\right]\\
+(1)\qquad&\left[\begin{array}{@{}ccc|c@{}}
+\blc{0}&0&1&2\\
+\blc{2}&2&4&6\\
+\blc{1}&0&1&1
+\end{array}\right]\\
+(2)\qquad\overset{\vect{r}_{1}\leftrightarrow\vect{r}_{2}}{\longrightarrow}&
+\left[\begin{array}{@{}ccc|c@{}}
+\gc{2}&\gc{2}&\gc{4}&\gc{6}\\
+\gc{0}&\gc{0}&\gc{1}&\gc{2}\\
+1&0&1&1
+\end{array}\right]\\
+(3)\qquad\overset{-\frac{1}{2}\vect{r}_{1}+\vect{r}_{3}\to\vect{r}_{3}}{\longrightarrow}&
+\left[\begin{array}{@{}ccc|c@{}}
+\rc{2}&2&4&6\\
+0&0&1&2\\
+\vc{0}&\vc{-1}&\vc{-1}&\vc{-2}
+\end{array}\right]\\
+(4)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+0&0&1&2\\
+0&-1&-1&-2
+\end{array}\right]\\
+(1)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+0&\blc{0}&1&2\\
+0&\blc{-1}&-1&-2
+\end{array}\right]\\
+(2)\qquad\overset{\vect{r}_{2}\leftrightarrow\vect{r}_{3}}{\longrightarrow}&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+\gc{0}&\gc{-1}&\gc{-1}&\gc{-2}\\
+\gc{0}&\gc{0}&\gc{1}&\gc{2}\\
+\end{array}\right]\\
+(3)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+0&\rc{-1}&-1&-2\\
+0&0&1&2\\
+\end{array}\right]\text{\cmark}\\
+(4)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+\gyc{0}&\gyc{-1}&\gyc{-1}&\gyc{-2}\\
+0&0&1&2\\
+\end{array}\right]\\
+(1)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+\gyc{0}&\gyc{-1}&\gyc{-1}&\gyc{-2}\\
+0&0&\blc{1}&2\\
+\end{array}\right]\\
+(4)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+\gyc{2}&\gyc{2}&\gyc{4}&\gyc{6}\\
+\gyc{0}&\gyc{-1}&\gyc{-1}&\gyc{-2}\\
+\gyc{0}&\gyc{0}&\gyc{1}&\gyc{2}\\
+\end{array}\right]\\
+\end{align*}
+
+\begin{align*}
+(6)\qquad&
+\left[\begin{array}{@{}ccc|c@{}}
+2&2&4&6\\
+0&-1&-1&-2\\
+0&0&\rc{1}&2\\
+\end{array}\right]\text{\cmark}\\
+(7)\qquad\overset{\stackon{\(\vect{r}_{3}+\vect{r}_{2}\to\vect{r}_{2}\)}
+{\(-4\vect{r}_{3}+\vect{r}_{1}\to\vect{r}_{1}\)}}{\longrightarrow}&
+\left[\begin{array}{@{}ccc|c@{}}
+\vc{2}&\vc{2}&\vc{0}&\vc{-2}\\
+\vc{0}&\vc{-1}&\vc{0}&\vc{0}\\
+0&0&\rc{1}&2\\
+\end{array}\right]\\
+&
+\left[\begin{array}{@{}ccc|c@{}}
+2&2&0&-2\\
+0&\rc{-1}&0&0\\
+0&0&1&2\\
+\end{array}\right]\\
+(6)\qquad\overset{-\vect{r}_{2}\to\vect{r}_{2}}{\longrightarrow}&\left[\begin{array}{@{}ccc|c@{}}
+2&2&0&-2\\
+\brc{0}&\brc{1}&\brc{0}&\brc{0}\\
+0&0&1&2\\
+\end{array}\right]\\
+(7)\qquad\overset{-2\vect{r}_{2}+\vect{r}_{3}\to\vect{r}_{3}}{\longrightarrow}&\left[\begin{array}{@{}ccc|c@{}}
+\vc{2}&\vc{0}&\vc{0}&\vc{-2}\\
+0&1&0&0\\
+0&0&1&2\\
+\end{array}\right]\\
+&\left[\begin{array}{@{}ccc|c@{}}
+\rc{2}&0&0&-2\\
+0&1&0&0\\
+0&0&1&2\\
+\end{array}\right]\\
+(6)\qquad\overset{\frac{1}{2}\vect{r}_{1}\to\vect{r}_{1}}{\longrightarrow}
+&\left[\begin{array}{@{}ccc|c@{}}
+\brc{1}&\brc{0}&\brc{0}&\brc{-1}\\
+0&1&0&0\\
+0&0&1&2\\
+\end{array}\right].
+\end{align*}
+Hence, the RREF of \(A\) is given by:
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&0&0&-1\\
+0&1&0&0\\
+0&0&1&2\\
+\end{array}\right].
+\]
+This suggests that the solution to the underlying system is given by
+\(x_1=-2\), \(x_2=0\), and \(x_3=2\).
+
+\item Gaussian elimination ensures the \emph{existence} of RREF of any given
+matrix \(A\), since this standard procedure can be applied to any matrix \(A\)
+to obtain a matrix in RREF that is row equivalent to \(A\). Expressing this
+fact using elementary matrices, we can say that there always exist elementary
+matrices \(E_1,\dotsc,E_k\) such that
+\[
+R=E_k\dotsb E_1A
+\]
+where \(R\) is a RREF of \(A\). Naturally, one would then ask whether such RREF
+of \(A\) is \emph{unique}. It turns out that it is indeed unique:
+
+\begin{theorem}
+\label{thm:rref-unique}
+Every \(m\times n\) matrix \(A\) has a unique RREF.
+\end{theorem}
+\begin{pf}
+(Sketch) The existence of RREF of \(A\) is guaranteed by Gaussian elimination.
+So it suffices to prove the uniqueness part.
+
+We may prove this by induction on \(n\) (the number of columns). The
+result holds when \(n=1\), since there are only two possible \(m\times 1\)
+matrices in RREF:
+\[
+\mqty[1\\ 0\\\vdots\\ 0]\qqtext{and}\mqty[0\\ 0\\\vdots\\ 0].
+\]
+Note that the leading one must be at the first row for the former matrix, so
+that all zero rows lie at the bottom of the matrix. It is then not hard to see
+that the unique RREF of any nonzero \(m\times 1\) matrix is the former one, and
+the unique RREF of the zero \(m\times 1\) matrix is the latter one (itself).
+
+Now, assume the result holds when \(n=k\), for some \(k\in\N\). Let \(R_1\) and
+\(R_2\) be two RREFs of \(A\). Let \(A'\), \(R_1'\), and \(R_2'\) denote the
+matrix obtained by removing the last column of \(A\), \(R_1\), and \(R_2\)
+respectively.
+
+\textbf{Claim:} \(R_1'\) and \(R_2'\) are two RREFs of \(A'\).
+
+\begin{pf}
+First of all, it is easy to see that \(R_1'\) and \(R_2'\) are both row equivalent
+to \(A'\), since \(R_1'\) and \(R_2'\) can be obtained by the respective EROs
+performed to get \(R_1\) and \(R_2\) from \(A\).
+
+It then suffices to show that \(R_1'\) and \(R_2'\) are in RREF. WLOG, we focus
+on \(R_1'\). When \(R\) is in RREF, we have the following cases.
+\begin{itemize}
+\item Case 1: All the leading ones are \emph{not} at the last column of \(R\).
+
+In this case, removing the last column still retains all leading ones, and
+every zero row (if exists) still remains as a zero row. It is not hard to see
+that the leading ones still satisfy with the requirements imposed by RREF (as
+they are not ``affected'' by the removal).
+
+\item Case 2: The last column of \(R\) contains a leading one.
+
+Since \(R\) is in RREF, every row below the row with leading one at the last
+column (if exists) must be zero row. So, after removing the last column, the
+original row with leading one at the last column becomes a zero row (and of
+course every original zero row, if exist, is still a zero row). Similarly, the
+other leading ones are not ``affected'' by the removal, and so still satisfy
+the requirements from RREF.
+\end{itemize}
+\end{pf}
+
+Then, the induction hypothesis implies that \(R_1'=R_2'\). Next, we can show
+that the last columns of \(R_1\) and \(R_2\) are also the same by using
+\cref{cor:col-correspond}.
+\end{pf}
+
+\item The RREF of a square matrix can provides information on the invertibility
+of the square matrix, as suggested by the following result.
+
+\begin{proposition}
+\label{prp:matx-inv-iff-rref-inv}
+Let \(A\) be an \(n\times n\) matrix. Then \(A\) is invertible iff the RREF of
+\(A\) is invertible.
+\end{proposition}
+\begin{pf}
+Let \(R\) be the RREF of \(A\). Then, we can write
+\[
+R=E_k\dotsb E_1A
+\]
+for some elementary matrices \(E_1,\dotsc,E_k\). Now we consider
+\emph{determinant}. Since elementary matrices are invertible, \(\det E_i\ne 0\)
+for any \(i=1,\dotsc,k\). Thus, by multiplicativity of determinant we have
+\[
+\det R=(\text{nonzero constant})\times \det A.
+\]
+This then suggests that \(\det A=0\) iff \(\det R=0\), so the desired result
+follows.
+\end{pf}
+
+\item \label{it:solve-sle-algo} Since Gaussian elimination allows us to convert
+an arbitrary matrix to its RREF, it gives us a general and systematic algorithm
+for solving a system of linear equations (\emph{assuming that the system has a
+solution}) as follows.
+
+\begin{enumerate}
+\item Given a system of linear equations \(A\vect{x}=\vect{b}\), consider its
+associated augmented matrix \([A|\vect{b}]\). Using Gaussian elimination, we
+can find its RREF, denoted by \([A'|\vect{b}']\). \begin{note}
+By the claim in the proof of \cref{thm:rref-unique}, \(A'\) is indeed the RREF
+of \(A\).
+\end{note}
+
+\item Every variable in the system corresponding to a leading entry of
+\([A'|\vect{b}']\) is called a \defn{leading variable} (or \defn{basic
+variable}). Every other variable in the system is known as \defn{free
+variable}.
+\item Set the free variables (if any) as arbitrary values, and then obtain the
+solutions for leading variables based on the RREF \([A'|\vect{b}']\), possibly
+in terms of the free variables.
+\end{enumerate}
+\begin{note}
+The solution set obtained is sometimes called the \defn{general solution} of
+the system (especially when some free variables are involved).
+\end{note}
+\end{enumerate}
+\subsection{Number of Solutions for a System of Linear Equations}
+\begin{enumerate}
+\item In \labelcref{it:solve-sle-algo}, we have assumed the system has a
+solution. But in general, a system of linear equations may have no solution,
+e.g.
+\[
+\systeme{0x_1+0x_2=1,
+x_1+x_2=2}
+\]
+has no solution. So, we are interested in finding some ways to determine the
+number of solutions for a system.
+
+\item A system of linear equations is \defn{consistent} if it has at least one
+solution. Otherwise, the system is called \defn{inconsistent}. The following
+theorem provides a criterion of (in)consistency, using the notion of RREF.
+
+\begin{theorem}
+\label{thm:consist-criterion}
+A system of linear equations \(A\vect{x}=\vect{b}\) is \emph{inconsistent} iff
+the RREF of the augmented matrix \([A|\vect{b}]\) has a leading one in the last
+\emph{column}.
+\end{theorem}
+\begin{pf}
+``\(\Leftarrow\)'': When the RREF has a leading one in the last column, it
+means that a certain row of the RREF is
+\[
+\mqty[0&0&\cdots&0|1],
+\]
+which implies that there is no solution.
+
+``\(\Rightarrow\)'': We prove by contrapositive. Assume that the RREF of
+\([A|\vect{b}]\) does not have any leading one in the last column. Then, for
+every row with a leading one, we can obtain an expression for the corresponding
+leading variable (possibly in terms of free variables).\footnote{Note that such
+expression would not contain other leading variables since by definition of
+RREF, all other entries in the same column as leading one are zero.} After
+setting the free variables (if any) as arbitrary values, we would obtain a
+solution for the system, so the system is consistent.
+\end{pf}
+
+\item After deducing that a system is consistent, we would like to know the
+\emph{number} of solutions it has. Of course when the coefficient matrix is
+invertible, the system would have a unique solution by
+\cref{prp:inv-sle-unique}. But this is not necessarily the case, and it is
+possible to have \emph{infinitely many} solutions. For example, the system
+\[
+\systeme{x_1+x_2=0,
+x_1+x_2=0}
+\]
+has infinitely many solutions. The solution set is \(\{(t,-t):t\in\R\}\), which
+is infinite.
+
+\item To study the case with infinitely many solutions, an useful notion is
+\emph{homogeneity}.  A system of linear equations \(A\vect{x}=\vect{b}\) is
+called \defn{homogeneous} if \(\vect{b}=\vect{0}\). Note that a homogeneous
+system is \emph{always} consistent since the zero vector \(\vect{x}=\vect{0}\)
+is always a solution (known as \defn{trivial solution}). Every other solution
+of a homogeneous system, if exists, is called \defn{non-trivial solution}.
+
+\item The following result provides a sufficient condition for a homogeneous
+system to have infinitely many solutions.
+
+\begin{proposition}
+\label{prp:homo-var-more-than-eqs-inf}
+Let \(A\vect{x}=\vect{0}_n\) be a homogeneous system of \(m\) linear equations in
+\(n\) variables. If the number of variables (\(n\)) exceeds that of equations
+(\(m\)), then the system has infinitely many solutions.
+\end{proposition}
+\begin{pf}
+Since the augmented matrix of the system is \([A|\vect{0}_{n}]\), its RREF
+would be of the form \([A'|\vect{0}_{n}]\) for some \(m\times n\) matrix \(A\).
+As \(n>m\) and \(A'\) can have at most \(m\) leading entries, there must be at
+least one free variable, which must lead to infinitely many solutions (since
+the system is consistent).
+\end{pf}
+
+\item Utilizing \cref{prp:homo-var-more-than-eqs-inf}, we can show a more
+general result that applies to any consistent system.
+
+\begin{proposition}
+\label{prp:var-more-than-eqs-sol-set}
+Let \(A\vect{x}=\vect{b}\) be a system of \(m\) linear equations in \(n\)
+variables. Suppose that \(n>m\) and the system is consistent. Let
+\(\vect{x}_p\) be a \emph{particular solution} of the system, i.e., it
+satisfies \(A\vect{x}_p=\vect{b}\). Then, the solution set for the system
+\(A\vect{x}=\vect{b}\) is
+\[
+\{\vect{x}_p+\vect{y}\in\R^m:A\vect{y}=\vect{0}\}.
+\]
+\end{proposition}
+\begin{note}
+Since there are infinitely many \(\vect{y}\) satisfying \(A\vect{y}=\vect{0}\)
+in such case by \cref{prp:homo-var-more-than-eqs-inf}, the solution set is
+infinite, thus the system \(A\vect{x}=\vect{b}\) has infinitely many solutions
+as well.
+\end{note}
+
+\begin{pf}
+Let \(S\) be the solution set for the system \(A\vect{x}=\vect{b}\), i.e.,
+\(S=\{\vect{x}\in\R^m:A\vect{x}=\vect{b}\}\). We shall prove the two subset
+inclusions separately.
+
+\underline{\(S\supseteq \{\vect{x}_p+\vect{y}\in\R^m:A\vect{y}=\vect{0}\}\)}:
+Fix any \(\vect{x}'\in\{\vect{x}_p+\vect{y}\in\R^m:A\vect{y}=\vect{0}\}\). Then,
+\(\vect{x}'=\vect{x}_p+\vect{y}\) for some \(\vect{y}\) satisfying
+\(A\vect{y}=\vect{0}\). Hence,
+\[
+A\vect{x}'=A(\vect{x}_p+\vect{y})=A\vect{x}_p+A\vect{y}=\vect{b}+\vect{0}=\vect{b},
+\]
+which implies that \(\vect{x}'\in S\).
+
+\underline{\(S\subseteq \{\vect{x}_p+\vect{y}\in\R^m:A\vect{y}=\vect{0}\}\)}:
+Fix any \(\vect{x}'\in S\). Then, we have \(A\vect{x}'=\vect{b}\), thus
+\(A\blc{(\vect{x}'-\vect{x}_p)}=\vect{b}-\vect{b}=\vect{0}\). Hence,
+\[
+\vect{x}'=\vect{x}_p+\blc{(\vect{x}'-\vect{x}_p)}
+\in\{\vect{x}_p+\vect{y}\in\R^m:A\vect{y}=\vect{0}\}.
+\]
+\end{pf}
+
+\item So far we have seen systems with unique solution or infinitely many
+solutions. A natural follow-up question is then whether it is possible to have
+more than one solution but still \emph{finitely} many solutions. It turns out
+that this is impossible, as suggested by the following result.
+
+\begin{proposition}
+\label{prp:sle-more-than-one-sol-inf}
+If a system of linear equations \(A\vect{x}=\vect{b}\) has more than one
+solution, then it must have infinitely many solutions.
+\end{proposition}
+\begin{pf}
+Assume that \(A\vect{x}=\vect{b}\) has more than one solution. Let
+\(\vect{x}_1\) and \(\vect{x}_2\) be two such solutions. Then, we have
+\(A\vect{x}_1=\vect{b}\) and \(A\vect{x}_2=\vect{b}\). It follows that
+\(A(\vect{x}_1-\vect{x}_2)=\vect{b}-\vect{b}=\vect{0}\). Thus, \emph{for any}
+\(t\in\R\), we have
+\[
+A[\vect{x}_1+t(\vect{x_1}-\vect{x}_2)]
+=\vect{0}+t\vect{0}
+=\vect{0},
+\]
+so \(\vect{x}_1+t(\vect{x}_1-\vect{x}_2)\) is also a solution of the system.
+This then suggests that the system has infinitely many solutions.
+\end{pf}
+
+\item The next result concerns with a homogeneous system with the same numbers
+of variables and equations.
+
+\begin{proposition}
+\label{prp:homo-same-var-eqs-equiv}
+Let \(A\) be an \(n\times n\) matrix. Then, the following statements are
+equivalent.
+\begin{enumerate}
+\item The system \(A\vect{x}=\vect{0}\) has a non-trivial solution.
+\item The system \(A\vect{x}=\vect{0}\) has infinitely many solutions.
+\item \(A\) is \emph{not} invertible.
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+Here we will prove that \(\text{(a)}\implies \text{(c)}\implies
+\text{(b)}\implies \text{(a)}\).
+
+\underline{\(\text{(a)}\implies \text{(c)}\)}: We prove by contrapositive.
+Assume that \(A\) is invertible. Then by \cref{prp:inv-sle-unique}, the system
+\(A\vect{x}=\vect{0}\) has a \emph{unique} solution. Since the trivial solution
+must be a solution of the homogeneous system \(A\vect{x}=\vect{0}\), it follows
+that it is the \emph{only} one, thus the system does \emph{not} have a
+non-trivial solution.
+
+\underline{\(\text{(c)}\implies\text{(b)}\)}: Assume that \(A\) is not
+invertible. Then, the RREF of \(A\), denoted by \(R\), is also \emph{not} invertible
+by \cref{prp:matx-inv-iff-rref-inv}. Note that the RREF of the augmented matrix
+\([A|\vect{0}]\) can be written as \([R|\vect{0}]\). For the ``\(R\)'' part, it
+follows from the claim in the proof of \cref{thm:rref-unique}. The RHS is still
+\(\vect{0}\) since any ERO would have no impact on the column of zeros.
+
+Now, by \cref{thm:rref-matx-inv-equiv}, since the \(n\times n\) matrix \(R\)
+(in RREF) is not invertible, it must have \emph{less than} \(n\) leading ones.
+This means there are less than \(n\) leading entries, implying the existence of
+\emph{free variable}. It then follows that the system must have infinitely many
+solutions, as a free variable can take arbitrary values.
+
+\underline{\(\text{(b)}\implies\text{(a)}\)}: It is clear since having
+infinitely many solutions implies that there are solutions other than the trivial
+solution, i.e., there is a non-trivial solution.
+\end{pf}
+\end{enumerate}
+\subsection{Finding Matrix Inverses via Elementary Row Operations}
+\begin{enumerate}
+\item It turns out that EROs are not only useful for solving system of linear
+equations, but also helpful for \emph{finding matrix inverses}. Indeed, when
+the sizes of the matrices involved are large, often this ERO-based approach is
+more computationally feasible than the formula in \cref{cor:matrix-inv-fmla}.
+
+\item Before introducing the methods of finding matrix inverses based on EROs,
+we first prove some theoretical results. The first one provides yet another
+equivalent criterion for invertibility.
+
+\begin{proposition}
+\label{prp:inv-iff-rref-identity}
+Let \(A\) be an \(n\times n\) matrix. Then \(A\) is invertible iff the RREF of
+\(A\) is \(I_n\).
+\end{proposition}
+\begin{pf}
+Note that
+\begin{align*}
+&\text{\(A\) is invertible}\\
+\iff&\text{RREF of \(A\) is invertible}&\text{(\cref{prp:matx-inv-iff-rref-inv})}\\
+\iff&\text{RREF of \(A\) is \(I_n\)}&\text{(\cref{thm:rref-matx-inv-equiv})}.
+\end{align*}
+\end{pf}
+\item The next result relates invertible matrix and elementary matrices.
+\begin{corollary}
+\label{cor:inv-matx-prod-elementary}
+Every invertible matrix \(A\) is a product of elementary matrices.
+\end{corollary}
+\begin{pf}
+Since \(A\) is invertible, by \cref{prp:inv-iff-rref-identity}, the RREF of
+\(A\) is \(I_n\). Then, due to the row equivalence of \(A\) and \(I_n\) (which
+is a \emph{symmetric} relation), we have
+\[
+A=E_r\dotsb E_1I_n=E_r\dotsb E_1
+\]
+for some elementary matrices \(E_1,\dotsc,E_r\), as desired.
+\end{pf}
+\item Now, we are ready to introduce the method of finding matrix inverse via
+EROs.
+
+\begin{theorem}
+\label{thm:find-inv-ero}
+Let \(A\) be an invertible \(n\times n\) matrix. Then the RREF of the \(n\times
+2n\) augmented matrix \([A|I_n]\) is \([I_n|A^{-1}]\).
+\end{theorem}
+\begin{pf}
+Assume that \(A\) is invertible. Then the RREF of \(A\) is \(I_n\) by
+\cref{prp:inv-iff-rref-identity}. Hence, we have
+\begin{equation}
+\label{eq:inv-rref-identity}
+E_r\dotsb E_1A=I_n
+\end{equation}
+for some elementary matrices \(E_1,\dotsc,E_r\).
+
+Using matrix block multiplication, we have
+\[
+E_r\dotsb E_1[A|I_n]
+=[E_r\dotsb E_1A|E_r\dotsb E_1I_n]
+=[I_n|E_r\dotsb E_1]
+\]
+From \cref{eq:inv-rref-identity}, we can further write
+\[
+A=E_1^{-1}\dotsb E_r^{-1},
+\]
+so \(A^{-1}=E_r\dotsb E_1\) by \cref{prp:matrix-inv-prop}, as desired.
+\end{pf}
+
+\begin{remark}
+\item Practically, to get from \([A|I_n]\) to \([I_n|A^{-1}]\), we typically use
+\emph{Gaussian elimination} on the \(n\times 2n\) augmented matrix \([A|I_n]\).
+(It is not hard to see that \([I_n|A^{-1}]\) is the RREF of \([A|I_n]\).)
+\item This result also tells us how to express an invertible matrix as a
+product of elementary matrices implicitly. 
+
+We first perform Gaussian elimination on \([A|I_n]\) and record the EROs
+performed. Then, by considering the reverse processes of the EROs
+(corresponding to the inverses of elementary matrices, which are also
+elementary), we can write
+\[
+A=E_1^{-1}\dotsb E_r^{-1}.
+\]
+\end{remark}
+\end{enumerate}
