@@ -1,2 +1,600 @@
 \section{Vector Spaces}
 \label{sect:vector-spaces}
+\subsection{Vector Spaces and Vector Subspaces}
+\begin{enumerate}
+\item In \cref{sect:vector-spaces}, we will start studying a main object of
+interest in linear algebra: \emph{vector space}, which \emph{abstractizes} the
+properties we know in \(\R^n\).
+\item A \defn{vector space} over \(\R\) (or simply \emph{real} vector space) is
+a nonempty set \(V\) on which two operations, called \defn{vector addition} and
+\defn{scalar multiplication} are defined such that for any elements
+\(\vect{u},\vect{v},\vect{w}\in V\) (called \defn{vectors} in \(V\)) and any
+scalars \(a,b\in\R\), (i) the sum \(\vect{u}+\vect{v}\) and the scalar multiple
+\(a\vect{v}\) are unique elements of \(V\), and (ii) the following axioms hold.
+\begin{enumerate}[label={(\arabic*)}]
+\item (commutativity) \(\vect{v}+\vect{u}=\vect{u}+\vect{v}\).
+\item (associativity) \((\vect{v}+\vect{u})+\vect{w}=\vect{u}+(\vect{v}+\vect{w})\).
+\item (zero vector) There exists an element \(\vect{0}\in V\) such that \(\vect{v}+\vect{0}=\vect{v}\).
+\item (additive inverse) There exists an element \(\vc{-\vect{v}}\in V\) such that
+\(\vect{v}+\vc{(-\vect{v})}=\vect{0}\).
+\item \(1\vect{v}=\vect{v}\).
+\item \((ab)\vect{v}=a(b\vect{v})\).
+\item \(a(\vect{u}+\vect{v})=a\vect{u}+a\vect{v}\).
+\item \((a+b)\vect{v}=a\vect{v}+b\vect{v}\).
+\end{enumerate}
+\begin{note}
+In general, we can define a vector space over a \emph{field} \(K\), where the
+scalars are elements of the \emph{field} \(K\). But here we shall focus on real
+vector spaces. See MATH2102 for more details about this more general notion of
+vector space.
+\end{note}
+\item With these axioms, we can deduce the following ``natural'' properties.
+\begin{proposition}
+\label{prp:vector-space-prop}
+Let \(\vect{v}\) be a vector in a vector space \(V\). Then, the following hold.
+\begin{enumerate}
+\item The zero vector \(\vect{0}\) in axiom (3) is unique.
+\item The scalar multiple \(0\vect{v}\) is the zero vector.
+\item The additive inverse \(-\vect{v}\) in axiom (4) equals \((-1)\vect{v}\)
+(and thus is uniquely determined by \(\vect{v}\)).
+\item For any \(a\in\R\), we have \(a\vect{0}=\vect{0}\).
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+\begin{enumerate}
+\item Assume that there are two zero vectors \(\vect{0}\) and \(\vect{0}'\)
+satisfying axiom (3). Then, by applying axioms (1) and (3), we have
+\[
+\vect{0}'\overset{\text{(3)}}{=}\vect{0}'+\vect{0}\overset{\text{(1)}}{=}
+\vect{0}+\vect{0}\overset{\text{(3)}}{=}\vect{0}.
+\]
+\item Using the axioms (5) and (8), we have
+\[
+0\vect{v}+\vect{v}\overset{\text{(5)}}{=}0\vect{v}+1\vect{v}
+\overset{\text{(8)}}{=}(0+1)\vect{v}
+=1\vect{v}
+\overset{\text{(5)}}{=}\vect{v}.
+\]
+Adding additive inverse \(-\vect{v}\) on both sides, we get
+\[
+(0\vect{v}+\vect{v})+(-\vect{v})=\vect{v}+(-\vect{v})
+\overset{\text{(2), (4)}}{\implies}
+0\vect{v}+\vect{0}=\vect{0}
+\overset{\text{(3)}}{\implies}
+0\vect{v}=\vect{0}.
+\]
+\item Consider:
+\begin{align*}
+\vect{v}+(-\vect{v})&=\vect{0}&\text{(4)}\\
+\implies(-1)\vect{v}+[\vect{v}+(-\vect{v})]&=(-1)\vect{v}+\vect{0}\\
+\implies[(-1)\vect{v}+\vect{v}]+(-\vect{v})&=(-1)\vect{v}&\text{(2), (3)}\\
+\implies[(-1)\vect{v}+1\vect{v}]+(-\vect{v})&=(-1)\vect{v}&\text{(5)}\\
+\implies 0\vect{v}+(-\vect{v})&=(-1)\vect{v}&\text{(8)}\\
+\implies -\vect{v}&=(-1)\vect{v}&\text{(b), (1), (3)}.
+\end{align*}
+\item Setting \(\vect{v}=\vect{0}\) in (b), we have \(0\vect{0}=\vect{0}\).
+Hence,
+\[
+a\vect{0}=a(0\vect{0})=(a0)\vect{0}=0\vect{0}=\vect{0}.
+\]
+\end{enumerate}
+\end{pf}
+\item Some examples of vector space (the vector addition and scalar
+multiplication are naturally defined in the usual way for the following):
+\begin{enumerate}
+\item The set of \(\R^n\) of column vectors.
+\item The set of \(m\times n\) matrices, denoted by \defn{\(M_{m\times n}(\R)\)}.
+\begin{note}
+The zero vector in this vector space is the \emph{zero matrix} \(O_{m\times n}\).
+\end{note}
+\item The set of all functions from \(\R\) to \(\R\).
+\begin{note}
+The zero vector in this vector space is the constant zero function, i.e.,
+function \(f:\R \to\R\) defined by \(f(x)=0\) for any \(x\in\R\).
+\end{note}
+\end{enumerate}
+\item Just like a set can have \emph{subsets}, a vector space can have (vector)
+\emph{subspaces}. The idea is that we want to extract a ``part'' of a vector
+space such that the part is still a valid vector space on its own.
+
+\item Let \(V\) be a vector space. A nonempty subset \(W\) of \(V\) is a
+\defn{vector subspace} (or simply \defn{subspace}) of \(V\) if for any
+\(\vect{u},\vect{v}\in W\) and any scalar \(a\in\R\),
+\begin{enumerate}
+\item (closed under addition) \(\vect{u}+\vect{v}\in W\).
+\item (closed under scalar multiplication) \(a\vect{v}\in W\).
+\end{enumerate}
+\item The following property is useful for showing that a given set is
+\emph{not} a vector subspace.
+\begin{proposition}
+\label{prp:vec-subsp-contain-zero}
+Let \(W\) be a vector subspace of a vector space \(V\). Then, the zero vector
+\(\vect{0}\) in \(V\) belongs also to \(W\).
+\end{proposition}
+\begin{pf}
+Consider any \(\vect{v}\in W\subseteq V\), which exists since \(W\) is
+nonempty. Then note that
+\[
+\vect{0}=-\vect{v}+\vect{v}=(-1)\vect{v}+\vect{v}\in W
+\]
+where the last ``\(\in\)'' follows from the closedness under addition and
+scalar multiplication.
+\end{pf}
+
+From this result, we know that if a subset \(W\) of a vector space \(V\) does
+\emph{not} contain the zero vector \(\vect{0}\) in \(V\), then it cannot
+possibly be a vector subspace.
+
+\item The following result justifies that a vector subspace is indeed a vector
+space.
+\begin{proposition}
+\label{prp:vec-subsp-is-vec-sp}
+Let \(W\) be a vector subspace of a vector space \(V\). Then \(W\) is also a
+vector space, with the vector addition and scalar multiplication from \(V\).
+\end{proposition}
+\begin{pf}
+Firstly, closedness under addition and scalar multiplication guarantees that
+vector addition and scalar multiplication must yield unique elements in \(W\).
+So it remains to check the axioms of vector space. In fact, we only need to
+check axioms (3) and (4) since other axioms must hold due to the fact that
+\(W\subseteq V\) and \(V\) is a vector space.
+
+Axiom (3) follows from \cref{prp:vec-subsp-contain-zero}. Axiom (4) holds by
+noting that, for any \(\vect{v}\in W\), there exists \((-1)\vect{v}\in W\) such
+that
+\[
+\vect{v}+(-1)\vect{v}=(1-1)\vect{v}=0\vect{v}=\vect{0}.
+\]
+\end{pf}
+\item Some examples of vector subspaces:
+\begin{enumerate}
+\item A vector space \(V\) is always a vector subspace of itself.
+\item Given any vector space \(V\), the subset of \(V\) containing only the
+zero vector, i.e., \(W=\{\vect{0}\}\) is a vector subspace of \(V\). It is
+called the \defn{zero subspace} of \(V\).
+\item The set of all diagonal \(n\times n\) matrices is a vector subspace of the
+vector space \(M_{n\times n}(\R)\).
+\item The set of all (real) polynomials is a vector subspace of the vector
+space of all functions from \(\R\) to \(\R\).
+\end{enumerate}
+\end{enumerate}
+\subsection{Spanning Sets}
+\begin{enumerate}
+\item Consider a fixed vector \(\vect{v}\in\R^n\). Note that the set
+\(\{c\vect{v}:c\in\R\}\) is a vector subspace of \(\R^n\). Here, we use a
+single vector to ``yield''  a vector subspace.
+
+Next, consider two vectors \(\vect{i}\) and \(\vect{j}\) in \(\R^2\). Note that
+the set \(\{a\vect{i}+b\vect{j}:a,b\in\R\}\) is indeed just \(\R^2\). So it
+turns out that the whole vector space \(\R^2\) can be obtained by using just
+two vectors. They may be seen as ``cores'' of \(\R^2\).
+
+\item We have used the notion of \emph{linear combination} above, which is
+defined in \labelcref{it:lin-comb} in the context of vector space \(\R^n\).
+Here, we will define it more generally as follows.
+
+Let \(S\) be a nonempty subset of \(V\). A vector \(\vect{v}\in V\) is a
+\defn{linear combination} of vectors in \(S\) if there exist a \emph{finite}
+number of vectors \(\vect{v}_1,\dotsc,\vect{v}_{n}\in S\) and scalars
+\(a_1,\dotsc,a_n\in\R\) such that
+\[
+\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n.
+\]
+In such case, we call \(\vect{v}\) as a \defn{linear combination} of vectors
+\(\vect{v}_1,\dotsc,\vect{v}_n\).
+
+\item Some examples of linear combination:
+\begin{enumerate}
+\item In \(\R^3\), \(\mqty[1\\2\\3]\) is a linear combination of
+\(\mqty[1\\0\\0]\), \(\mqty[0\\1\\0]\), and \(\mqty[0\\0\\1]\).
+\item In \(M_{2\times 2}(\R)\), \(\mqty[1&3\\ 2&0]\) is a linear combination of
+\(\mqty[1&3\\ 0&0]\), \(\mqty[0&0\\ 2&-1]\), and \(\mqty[0&0\\ 2&1]\) since
+\[
+\mqty[1&3\\ 2&0]=\mqty[1&3\\ 0&0]+\frac{1}{2}\mqty[0&0\\ 2&-1]+\frac{1}{2}\mqty[0&0\\ 2&1].
+\]
+\item In the vector space of all polynomials, \(1+2x-6x^5\) is a linear
+combination of \(1+3x\) and \(x+6x^5\) since
+\[
+1+2x-6x^5=(1+3x)-(x+6x^5).
+\]
+\end{enumerate}
+\item Let \(S\) be a nonempty subset of a vector space \(V\). The \defn{span}
+of \(S\), denoted by \(\spn{S}\), is the set of all linear
+combinations of the vectors in \(S\), i.e.,
+\[
+\spn{S}=\qty{\sum_{i=1}^{k}a_i\vect{v}_i:a_1,\dotsc,a_k\in\R, \vect{v}_1,\dotsc,\vect{v}_k\in S, k\in\N}
+\]
+Conventionally, we define \(\spn{\varnothing}=\{\vect{0}\}\). \begin{intuition}
+The span of empty set, \(\spn{\varnothing}\) is a set including only an ``empty
+sum'', which should naturally be \(\vect{0}\): The sum of a vector and an
+``empty sum'' should still be that vector.
+\end{intuition}
+
+\item It turns out that ``spanning'' always results in a vector subspace.
+\begin{theorem}
+\label{thm:span-vec-subsp}
+Let \(V\) be a vector space and \(S\) be any subset of \(V\). Then, \(\spn{S}\)
+is a vector subspace of \(V\).
+\end{theorem}
+\begin{pf}
+If \(S=\varnothing\), then there is nothing to prove as
+\(\spn{S}=\{\vect{0}\}\) is simply the zero subspace in this case.
+Henceforth assume that \(S\ne\varnothing\). Fix any
+\(\vect{u},\vect{v}\in\spn{S}\). Then we can write
+\[
+\vect{u}=a_1\vect{u}_1+\dotsb+a_r\vect{u}_r,
+\]
+for some \(a_1,\dotsc,a_r\in\R\) and \(\vect{u}_1,\dotsc,\vect{u}_r\in S\).
+Also, we can write
+\[
+\vect{v}=b_1\vect{v}_1+\dotsb+b_s\vect{v}_s,
+\]
+for some \(b_1,\dotsc,b_s\in\R\) and \(\vect{v}_1,\dotsc,\vect{v}_s\in S\).
+
+Now, it remains to check that \(\vect{u}+\vect{v}\in\spn{S}\) and
+\(c\vect{v}\in\spn{S}\) for any \(c\in\R\).
+
+\underline{\(\vect{u}+\vect{v}\in\spn{S}\)}: Note that
+\[
+\vect{u}+\vect{v}
+=(a_1\vect{u}_1+\dotsb+a_r\vect{u}_r)+(b_1\vect{v}_1+\dotsb+b_s\vect{v}_s)
+\]
+is a linear combination of vectors
+\(\vect{u}_1,\dotsc,\vect{u}_r,\vect{v}_1,\dotsc,\vect{v}_s\) in \(S\). Thus,
+\(\vect{u}+\vect{v}\in\spn{S}\).
+
+\underline{\(c\vect{v}\in\spn{S}\) for any \(c\in\R\)}: Note that for any
+\(c\in\R\),
+\[
+c\vect{v}=c(b_1\vect{v}_1+\dotsb+b_s\vect{v}_s)
+=(cb_1)\vect{v}_1+\dotsb+(cb_s)\vect{v}_s
+\]
+is a linear combination of vectors in \(S\), hence \(c\vect{v}\in\spn{S}\).
+\end{pf}
+\item A special kind of vector subspace obtained by spanning is the
+\emph{column space}, which is related to spanning the \emph{columns} of a
+matrix.
+
+Let \(A\) be an \(m\times n\) matrix and let \(\vect{v}_1,\dotsc,\vect{v}_n\)
+be the columns of \(A\). Then,
+\[
+\col{A}=\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}
+\]
+is called the \defn{column space} of \(A\). 
+
+\item\label{it:col-space-expr} By definition of matrix-vector product, we can
+show that
+\[
+\col{A}=\{A\vect{x}\in\R^n:\vect{x}\in\R^m\}.
+\]
+\begin{pf}
+``\(\subseteq\)'': Fix any \(\vect{u}\in\col{A}\). Then, we have
+\[
+\vect{u}=x_1\vect{v}_1+\dotsb+x_n\vect{v}_n
+\]
+for some scalars \(x_1,\dotsc,x_n\in\R\). But then we can just express it as
+\[
+\vect{u}=A\vect{x}
+\]
+where \(\vect{x}=\mqty[x_1&\cdots& x_n]^{T}\in\R^m\) by definition of matrix-vector product.
+
+``\(\supseteq\)'': Fix any \(\vect{u}\in\{A\vect{x}\in\R^n:\vect{x}\in\R^m\}\).
+Then, \(\vect{u}=A\vect{x}\) for some \(\vect{x}\in\R^m\). Then, applying the
+definition of matrix-vector product again, writing
+\(\vect{x}=\mqty[x_1&\cdots &x_n]^{T}\), we have
+\[
+\vect{u}=x_1\vect{v}_1+\dotsb+x_n\vect{v}_n,
+\]
+which means that \(\vect{u}\in\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}\).
+\end{pf}
+\item A subset \(S\) of a vector space \(V\) is said to \defn{span} \(V\), or
+is a \defn{spanning set} of \(V\) if \(\spn{S}=V\).
+
+Since every linear combination of vectors in \(S\subseteq V\) lies in \(V\) by
+the definition of vector space, we always have \(\spn{S}\subseteq V\). Hence,
+to show that \(S\) spans \(V\), it actually suffices to show that
+\(\spn{S}\supseteq V\), i.e., \emph{every vector in \(V\) is a linear
+combination of vectors in \(S\).}
+
+\item It turns that the concept of \emph{solving system of linear equations} we
+have studied in \cref{sect:sle} is useful for showing this.
+
+For example, consider \(V=\R^m\) and
+\(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\subseteq V\). Then, for any
+\(\vect{u}=\mqty[u_1&\cdots&u_m]^{T}\in\R^m\), we need to investigate whether
+the following equation, with unknowns \(x_1,\dotsc,x_n\), has any solution:
+\[
+x_1\vect{v}_1+\dotsb+x_n\vect{v}_n=\vect{u}.
+\]
+Writing \(\vect{v}_j=\mqty[v_{1j}\\\vdots\\v_{mj}]\) for any \(j=1,\dotsc,n\),
+we can write the equation above more explicitly as a system of \(m\) linear
+equations in \(n\) unknowns:
+\[
+\begin{cases}
+v_{11}x_1+\dotsb+v_{1n}x_n=u_1,\\
+v_{21}x_1+\dotsb+v_{2n}x_n=u_2,\\
+\qquad\vdots\\
+v_{m1}x_1+\dotsb+v_{mn}x_n=u_m.\\
+\end{cases}
+\]
+Its augmented matrix is
+\[
+\left[\begin{array}{@{}cccc|c@{}}
+v_{11}&v_{12}&\cdots&v_{1n}&u_{1}\\
+v_{21}&v_{22}&\cdots&v_{2n}&u_{2}\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+v_{m1}&v_{m2}&\cdots&v_{mn}&u_{m}\\
+\end{array}\right].
+\]
+Then, we know that \(S\) spans \(V\) iff the system is \emph{consistent}. So
+methods for determining consistency in \cref{subsect:sys-sol-num} can be
+utilized to determine whether \(S\) spans \(V\) or not.
+\end{enumerate}
+\subsection{Linear Independence}
+\begin{enumerate}
+\item While \emph{spanning set} is about the \emph{existence} of solution to a
+system, \emph{linear independence} is about the \emph{uniqueness} of solution
+to a system.
+
+\item A subset \(S\) of a vector space \(V\) is called \defn{linearly
+dependent} if there exist distinct vectors \(\vect{v}_1,\dotsc,\vect{v}_n\in
+S\), and scalars \(a_1,\dotsc,a_n\in\R\) which are \emph{not all zero} (for
+some \(n\in\N\)) such that
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0}.
+\]
+\begin{intuition}
+This means that we can express a vector in \(S\) as a linear combination of
+some other vectors in the same set \(S\), so some vectors in \(S\) are
+``related linearly'' \faIcon{arrow-right} ``linearly dependent''.
+
+The equality would hold if the scalars were all zero, \emph{regardless} of what
+\(S\) is. So we would like to exclude this ``boring'' case.
+\end{intuition}
+
+\item A subset \(S\) of a vector space \(V\) is called \defn{linearly
+independent} if \(S\) is \emph{not} linearly dependent, i.e., for any
+\(n\in\N\), the only scalars \(a_1,\dotsc,a_n\in\R\) satisfying
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0},\quad\text{where
+\(\vect{v}_1,\dotsc,\vect{v}_n\in S\) are distinct},
+\]
+are the trivial one: \(a_1=\dotsb=a_n=0\), i.e., symbolically,
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0}
+\implies a_1=\dotsb=a_n=0.
+\]
+In other words, for any finitely
+many distinct \(\vect{v}_1,\dotsc,\vect{v}_n\in S\), the homogeneous system
+(with unknowns \(a_1,\dotsc,a_n\))
+\[
+\mqty[\vect{v}_1&\cdots&\vect{v}_n]\mqty[a_1\\\vdots\\ a_n]=\mqty[0\\\vdots\\ 0]
+\]
+only has the trivial solution \(a_1=\dotsb=a_n=0\). Since a homogeneous system
+always has the trivial solution, this is equivalent to saying that the
+homogeneous system has a \emph{unique} solution. So again the methods discussed
+in \cref{subsect:sys-sol-num} are useful for determining linear independence.
+\item \label{it:two-nonzero-vec-lin-dep}
+We can have a more ``intuitive'' equivalent definition for linear
+dependence when we focus on a set of two nonzero vectors.
+
+Consider a subset \(S=\{\vect{u},\vect{v}\}\) of a vector space \(V\), where
+\(\vect{u}\) and \(\vect{v}\) are nonzero. Then \(S\) is linearly dependent iff
+\(\vect{u}=a\vect{v}\) for some \(a\ne 0\).
+
+\begin{pf}
+``\(\Leftarrow\)'': Assume that \(\vect{u}=a\vect{v}\) for some \(a\ne 0\).
+Then, we can write
+\[
+(1)\vect{u}+(-a)\vect{v}=\vect{0},
+\]
+so \(S\) is linearly dependent.
+
+``\(\Rightarrow\)'': Assume that \(S\) is linearly dependent. Then there exist
+scalars \(a_1,a_2\in\R\), not all zero, such that
+\[
+a_1\vect{u}+a_2\vect{v}=\vect{0}.
+\]
+We claim that \(a_1\ne 0\). To prove this, assume to the contrary that
+\(a_1=0\). Then, we have \(a_2\ne 0\) and also \(a_2\vect{v}=\vect{0}\). This
+implies \(\vect{v}=\vect{0}\), contradiction. Similarly, we can show that
+\(a_2\ne 0\).
+
+Hence, we can write
+\[
+\vect{u}=\underbrace{\frac{-a_2}{a_1}}_{\ne 0}\vect{v}
+\]
+as desired.
+\end{pf}
+\item \label{it:lin-dep-subsets}
+Let \(V\) be a vector space and let \(S_1\subseteq S_2\subseteq V\). Then, the
+following hold.
+\begin{enumerate}
+\item If \(S_2\) is linearly independent, then \(S_1\) is also linearly independent.
+\item If \(S_1\) is linearly dependent, then \(S_2\) is also linearly
+dependent.
+\end{enumerate}
+\begin{pf}
+\begin{enumerate}
+\item Assume that \(S_2\) is linearly independent. Then for any \(n\in\N\) and
+any distinct vectors \(\vect{v}_1,\dotsc,\vect{v}_n\in S_2\), we have
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0}
+\implies a_1=\dotsb=a_n=0.
+\]
+But as \(S_1\subseteq S_2\), this implication must also hold for arbitrary
+distinct vectors in \(S_1\).
+
+\item The statement is just the contrapositive of (a), and hence is true also.
+\end{enumerate}
+\end{pf}
+
+However, the converse does \emph{not} hold in general. WLOG, we focus on the
+converse of (a): ``If \(S_1\) is linearly independent, then \(S_2\) is linearly
+independent.'' Take any \(S_1\subseteq V\) which is linearly independent and
+take \(S_2=S_1\cup\{\vect{0}\}\).  Then, \(S_2\supseteq S_1\) but \(S_2\) is
+always linearly dependent.
+\end{enumerate}
+\subsection{Basis}
+\begin{enumerate}
+\item The next concept to be discussed is \emph{basis}, which neatly
+``marries'' the concept of \emph{spanning set} and \emph{linear independence}.
+A \defn{basis} for a vector space \(V\) is a \emph{linearly independent} subset
+of \(V\) which also \emph{spans} \(V\).
+
+\begin{intuition}
+A basis can be seen as a ``minimal'' spanning set for \(V\), without
+``redundancy''.
+\end{intuition}
+
+\item \label{it:basis-minimal} To illustrate why a basis can be seen as
+``minimal'' spanning set for \(V\), consider the following results. Let
+\(\beta\) be a basis for a vector space \(V\).
+\begin{enumerate}
+\item If \(S\) is a proper subset of \(\beta\), then \(\spn{S}\ne V\).
+
+\begin{pf}
+Assume that \(S\) is a proper subset of \(\beta\). Then, there exists
+\(\vect{v}\in\beta\subseteq V\) with \(\vect{v}\notin S\). Now, suppose on the
+contrary that \(\vect{v}\in\spn{S}\). Then, we can write
+\[
+\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
+\]
+where \(a_1,\dotsc,a_n\in\R\), \(v_1,\dotsc,v_n\in S\), and \(n\in\N\).
+This implies that
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n+(-1)\vect{v}=\vect{0},
+\]
+thus \(\{\vect{v}_1,\dotsc,\vect{v}_n,\vect{v}\}\subseteq \beta\) is \emph{not}
+linearly independent, which would imply that \(\beta\) is \emph{not} linearly
+independent also by \labelcref{it:lin-dep-subsets}, contradiction. This means
+\(\vect{v}\notin\spn{S}\), so we have found an element in \(V\) \emph{not} in
+\(\spn{S}\), meaning that \(\spn{S}\ne V\).
+\end{pf}
+
+\begin{intuition}
+This means that there is not ``smaller'' spanning set for \(V\) than the
+``minimal'' one.
+\end{intuition}
+\item If \(\beta\) is a proper subset of a set \(S\subseteq V\), then \(S\) is
+not linearly independent.
+
+\begin{pf}
+Assume that \(\beta\) is a proper subset of \(S\subseteq V\). Then there exists
+\(\vect{v}\in S\subseteq V\) with \(\vect{v}\notin \beta\). Since
+\(\beta=\{\vect{b}_1,\dotsc,\vect{b}_n\}\) spans \(V\), we can write
+\[
+\vect{v}=a_1\vect{b}_1+\dotsb+a_n\vect{b}_n
+\]
+for some scalars \(a_1,\dotsc,a_n\in\R\). But since \(\beta\) is a proper
+subset of \(S\), we have \(S\supseteq
+\{\vect{b}_1,\dotsc,\vect{b}_n,\vect{v}\}\). By writing the equation above as
+\[
+a_1\vect{b}_1+\dotsb+a_n\vect{b}_n+(-1)\vect{v}=\vect{0},
+\]
+we note that the latter set \(\{\vect{b}_1,\dotsc,\vect{b}_n,\vect{v}\}\) is
+\emph{not} linearly independent, so do \(S\) (by \labelcref{it:lin-dep-subsets}).
+\end{pf}
+\begin{intuition}
+Note that \(S\) also spans \(V\) since \(\beta\) is a proper subset of \(S\).
+However, as a set ``larger'' than the ``minimal'' spanning set, it would
+contain some ``redundancy'' \faIcon{arrow-right} not linearly independent.
+\end{intuition}
+\end{enumerate}
+\item Consider the vector space \(\R^n\). A standard example of basis of
+\(\R^n\) is the set \(\beta=\{\vect{e}_1,\dotsc,\vect{e}_n\}\), where the
+elements are the standard vectors. It is called the \defn{standard basis} for
+\(\R^n\).
+
+\begin{pf}
+We can prove that the standard basis is indeed a basis for \(\R^n\).
+
+Firstly, we show that it spans \(\R^n\). For any
+\(\vect{v}=\mqty[v_1&\cdots&v_n]^{T}\in\R^n\), we can write
+\[
+\vect{v}=v_1\vect{e}_1+\dotsb+v_n\vect{e}_n,
+\]
+so \(\vect{v}\in\spn{\beta}\). This implies that \(\spn{\beta}=\R^n\).
+
+Next, to show the linear independence of \(\beta\), consider first the equation
+\[
+x_1\vect{e}_1+\dotsb+x_n\vect{e}_n=\vect{0}.
+\]
+It can be rewritten as a homogeneous system
+\[
+I_n\mqty[x_1\\ \vdots\\ x_n]=\mqty[0\\ \vdots\\ 0],
+\]
+which clearly has the unique solution \(x_1=\dotsb=x_n=0\).
+\end{pf}
+\item Note that basis is \emph{not unique}. For example, for the vector space
+\(\R^2\), two possible bases are the standard basis \(\{\vect{i},\vect{j}\}\),
+and the set \(\{2\vect{i},2\vect{j}\}\).
+
+\item Let \(V\) be a vector space and \(S\) be any linearly independent subset
+of \(V\). Then, \(S\) is a basis for its span \(\spn{S}\).
+
+\begin{pf}
+Linear independence of \(S\) follows from assumption, and by definition \(S\)
+must be a spanning set of \(\spn{S}\), where \(\spn{S}\) is considered as a
+vector space.
+\end{pf}
+
+\item The main result about \emph{basis} is the following.
+\begin{theorem}
+\label{thm:basis-unique-lin-comb}
+Let \(V\) be a vector space and \(\beta\) be a subset of \(V\). Then, \(\beta\)
+is a basis for \(V\) iff for any vector \(\vect{u}\in V\), \(\vect{u}\) can be
+uniquely written as a linear combination of vectors in \(\beta\), i.e.,
+\[
+\vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
+\]
+for some \emph{unique} scalars \(a_1,\dotsc,a_n\in\R\), with
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\).
+\end{theorem}
+\begin{intuition}
+The spanning property of basis corresponds to the \emph{existence} of such
+linear combination, and the linear independence of basis corresponds to the
+\emph{uniqueness} of such linear combination.
+\end{intuition}
+
+\begin{pf}
+``\(\Rightarrow\)'': Assume that \(\beta\) is a basis for \(V\), and fix any
+vector \(\vect{u}\in V\).
+
+\underline{Existence}: Since \(\beta\) spans \(V\), there exist scalars
+\(a_1,\dotsc,a_n\in\R\) such that
+\[
+\vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n.
+\]
+
+\underline{Uniqueness}: Suppose that we can also write
+\(\vect{u}=b_1\vect{v}_1+\dotsb+b_n\vect{v}_n\) for some scalars
+\(b_1,\dotsc,b_n\). Then, we have
+\[
+\vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=b_1\vect{v}_1+\dotsb+b_n\vect{v}_n,
+\]
+which implies
+\[
+(a_1-b_1)\vect{v}_1+\dotsb+(a_n-b_n)\vect{v}_n=\vect{0}.
+\]
+By linear independence of \(\beta\), it follows that
+\[
+a_1-b_1=\dotsb=a_n-b_n=0,
+\]
+which means \(a_1=b_1,\dotsc,a_n=b_n\).
+
+``\(\Leftarrow\)'': Assume that for any \(\vect{u}\in V\), we can write
+\[
+\vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
+\]
+for some \emph{unique} scalars \(a_1,\dotsc,a_n\in\R\), with
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\). This immediately shows that
+\(\spn{\beta}=V\). So it remains to prove that \(\beta\) is linearly
+independent. Consider the equation
+\[
+c_1\vect{v}_1+\dotsb+c_n\vect{v}_n=\vect{0}=0\vect{v}_1+\dotsb+0\vect{v}_n.
+\]
+By the uniqueness, we must have \(c_1=\dotsb=c_n=0\), as desired.
+\end{pf}
+\end{enumerate}
+

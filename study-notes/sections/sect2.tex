@@ -142,9 +142,9 @@ row operations}.
 \item There are three types of \defn{elementary row operations} (EROs) to be
 performed on a matrix:
 \begin{itemize}
-\item \defn{type I}: interchanging two different rows
-\item \defn{type II}: multiply a row by a \emph{nonzero} scalar
-\item \defn{type III}: adding a scalar multiple of a row to another row
+\item \defn{type I ERO}: interchanging two different rows
+\item \defn{type II ERO}: multiply a row by a \emph{nonzero} scalar
+\item \defn{type III ERO}: adding a scalar multiple of a row to another row
 \end{itemize}
 Here, we shall use \(\vect{r}_1\), \(\vect{r}_{2}\), \ldots, \(\vect{r}_{m}\)
 to denote the \(m\) rows of an \(m\times n\), from top to bottom. We have the
@@ -354,7 +354,7 @@ Examples and non-examples:
 
 \item Apart from the practical application of solving systems of linear
 equations, the concept of RREF is also useful \emph{theoretically}. It turns
-that for a square matrix in RREF, there are some extra equivalent criteria for
+that for a square matrix in RREF, there are some extra criteria for
 matrix invertibility:
 \begin{theorem}
 \label{thm:rref-matx-inv-equiv}
@@ -716,7 +716,7 @@ that the last columns of \(R_1\) and \(R_2\) are also the same by using
 \cref{cor:col-correspond}.
 \end{pf}
 
-\item The RREF of a square matrix can provides information on the invertibility
+\item The RREF of a square matrix can provide information on the invertibility
 of the square matrix, as suggested by the following result.
 
 \begin{proposition}
@@ -766,6 +766,7 @@ the system (especially when some free variables are involved).
 \end{note}
 \end{enumerate}
 \subsection{Number of Solutions for a System of Linear Equations}
+\label{subsect:sys-sol-num}
 \begin{enumerate}
 \item In \labelcref{it:solve-sle-algo}, we have assumed the system has a
 solution. But in general, a system of linear equations may have no solution,
@@ -805,14 +806,38 @@ setting the free variables (if any) as arbitrary values, we would obtain a
 solution for the system, so the system is consistent.
 \end{pf}
 
+\item When we know the exact distribution of leading ones, we can say even
+more.
+\begin{corollary}
+\label{cor:unique-criterion}
+A system of linear equations \(A\vect{x}=\vect{b}\) has a \emph{unique}
+solution iff the RREF of the augmented matrix \([A|\vect{b}]\) has a leading
+one in each column \emph{except the last one}.
+\end{corollary}
+\begin{pf}
+``\(\Leftarrow\)'': Assume that the RREF has a leading one in each column
+except the last one. Then by \cref{thm:consist-criterion}, the system is
+consistent. Furthermore, by having a leading one in each column except the
+last one, there must be no free variable, so the solution is unique.
+
+``\(\Rightarrow\)'': Assume that the system has a unique solution. Then, the
+system is consistent, thus there is no leading one in the last column by
+\cref{thm:consist-criterion}. Furthermore, due to the uniqueness of solution,
+the system cannot possibly have any free variable. Hence, every other column
+must have a leading one.
+\end{pf}
+
 \item After deducing that a system is consistent, we would like to know the
 \emph{number} of solutions it has. Of course when the coefficient matrix is
-invertible, the system would have a unique solution by
-\cref{prp:inv-sle-unique}. But this is not necessarily the case, and it is
-possible to have \emph{infinitely many} solutions. For example, the system
+invertible or when the RREF of the augmented matrix has a leading one in each
+column except the last one, the system would have a unique solution, by
+\cref{prp:inv-sle-unique} or \cref{cor:unique-criterion} respectively.
+
+But this is not necessarily the case, and it is possible to have
+\emph{infinitely many} solutions. For example, the system
 \[
 \systeme{x_1+x_2=0,
-x_1+x_2=0}
+2x_1+2x_2=0}
 \]
 has infinitely many solutions. The solution set is \(\{(t,-t):t\in\R\}\), which
 is infinite.
@@ -961,7 +986,7 @@ more computationally feasible than the formula in \cref{cor:matrix-inv-fmla}.
 
 \item Before introducing the methods of finding matrix inverses based on EROs,
 we first prove some theoretical results. The first one provides yet another
-equivalent criterion for invertibility.
+criterion for invertibility.
 
 \begin{proposition}
 \label{prp:inv-iff-rref-identity}

@@ -177,7 +177,7 @@ inverse}). Here we adopt a similar approach for defining matrix subtraction.
 First, we introduce several more terminologies:
 \begin{itemize}
 \item A \defn{zero matrix} is a matrix where each entry is \(0\). The \(m\times
-n\) zero matrix is denoted by \(O_{m\times n}\) (or simply \(O\)). It is also
+n\) zero matrix is denoted by \defn{\(O_{m\times n}\)} (or simply \(O\)). It is also
 the \emph{additive identity} for matrix addition since \(A+O=A\) for any matrix
 \(A\) (whenever the sizes of the matrices involved are proper).
 
@@ -341,11 +341,11 @@ form, we usually use notations like \(\underline{v}\) or \(\vec{v}\) instead.
 \item Some terminologies:
 \begin{itemize}
 \item The \defn{zero vector} is a zero matrix with one column (i.e., a column
-vector where each entry is \(0\)). It is denoted by \(\vect{0}\). More explicitly, we may denote an \(n\times 1\) zero vector by \(\vect{0}_{n}\).
-\item The notation \(\R^n\) denotes the set of all \emph{column} vectors with \(n\)
+vector where each entry is \(0\)). It is denoted by \(\vect{0}\). More explicitly, we may denote an \(n\times 1\) zero vector by \defn{\(\vect{0}_{n}\)}.
+\item The notation \defn{\(\R^n\)} denotes the set of all \emph{column} vectors with \(n\)
 real entries.
 \item A (column) vector in \(\R^n\), whose \(i\)th entry is \(1\) and other
-entries are \(0\), is denoted by \(\vect{e}_{i}\). The vectors
+entries are \(0\), is denoted by \defn{\(\vect{e}_{i}\)}. The vectors
 \(\vect{e}_{1},\dotsc,\vect{e}_{n}\) are known as the \defn{standard
 vectors}/\defn{standard unit vectors}/\defn{standard basis vectors} of
 \(\R^n\).
@@ -441,12 +441,12 @@ rule}.
 \node[] () at (1.5,-1) {\(\displaystyle {\color{magenta}\mqty[-1/2\\ -1]}=-\frac{1}{2}{\color{blue}\mqty[1\\ 2]}\)};
 \end{tikzpicture}
 \end{center}
-\item  A \defn{linear combination} of the vectors
-\(\vect{u}_{1},\dotsc,\vect{u}_{k}\) is a vector of the form
+\item\label{it:lin-comb} A \defn{linear combination} of the vectors
+\(\vect{u}_{1},\dotsc,\vect{u}_{n}\) is a vector of the form
 \[
-c_1\vect{u}_{1}+\dotsb+c_{k}\vect{u}_{k}
+c_1\vect{u}_{1}+\dotsb+c_{n}\vect{u}_{n}
 \]
-where \(c_{1},\dotsc,c_{k}\) are constant scalars.
+where \(c_{1},\dotsc,c_{n}\) are constant scalars.
 \begin{center}
 \begin{tikzpicture}
 \draw[-Latex] (-5,0) -- (5,0);
@@ -533,7 +533,7 @@ I=\mqty[\dmat[0]{1,1,1}],\quad
 I=\mqty[\dmat[0]{1,1,1,1}],\text{ etc.}
 \]
 For the \(n\times n\) identity matrix (\(n\in\N\)), we may denote it more
-specifically by \(I_{n}\).
+specifically by \defn{\(I_{n}\)}.
 
 \begin{note}
 The columns of an identity matrix \(I\) are \emph{standard vectors}. More
