@@ -8,21 +8,22 @@ transformations} (between \emph{vector spaces}).
 
 \item In linear algebra, a popular mathematical concept with wide applicability
 is \emph{matrix}, which is essentially a rectangular array. So we will study it
-in \cref{sect:matrix-algebra}. Nonetheless, from a mathematical point of view,
+in \Cref{sect:matrix-algebra}. Nonetheless, from a mathematical point of view,
 the more important (but also more abstract) concepts in linear algebra are
 instead \emph{vector spaces} and \emph{linear transformations} (which are
 somehow related to matrices, as we will see).
 
 \item Before studying matrices, we shall illustrate the stricture and the
 relationship between different topics in MATH2101:
+\tikzexternaldisable
 \begin{center}
 \begin{tikzpicture}
-\node[draw] (ma) at (0,0) {Matrix algebra (\cref{sect:matrix-algebra})};
-\node[draw, text width=3.5cm] (sle) at (-3,-2) {Systems of linear equations (\cref{sect:sle})};
-\node[draw] (vs) at (4,-2) {Vector spaces (\cref{sect:vector-spaces})};
-\node[draw, text width=4cm] (lt) at (3,-4) {Linear transformations (\cref{sect:linear-transformations})};
-\node[draw] (ort) at (8,-4) {Orthogonalization (\cref{sect:orthogonalization})};
-\node[draw] (diag) at (-1,-6) {Diagonalization (\cref{sect:diagonalization})};
+\node[draw] (ma) at (0,0) {Matrix algebra (\Cref{sect:matrix-algebra})};
+\node[draw, text width=3.5cm] (sle) at (-3,-2) {Systems of linear equations (\Cref{sect:sle})};
+\node[draw] (vs) at (4,-2) {Vector spaces (\Cref{sect:vector-spaces})};
+\node[draw, text width=4cm] (lt) at (3,-4) {Linear transformations (\Cref{sect:linear-transformations})};
+\node[draw] (ort) at (8,-4) {Orthogonalization (\Cref{sect:orthogonalization})};
+\node[draw] (diag) at (-1,-6) {Diagonalization (\Cref{sect:diagonalization})};
 \draw[-Latex] (ma) -- (sle)
 node[midway,left]{application};
 \draw[-Latex] (ma) -- (vs)
@@ -37,6 +38,7 @@ node[midway, right=0.3cm]{advanced topics};
 node[midway, left]{advanced topics};
 \end{tikzpicture}
 \end{center}
+\tikzexternalenable
 \end{enumerate}
 \subsection{Introduction to Matrices}
 \begin{enumerate}
@@ -198,17 +200,17 @@ multiplications: (i) \emph{scalar multiplication} and (ii) \emph{matrix
 multiplication}. Here, we first introduce \emph{scalar multiplication} and we
 defer \emph{matrix multiplication} to later part.
 
-\item for any \(m\times n\) matrix \(A=[a_{ij}]\) and scalar \(k\), we define
+\item For any \(m\times n\) matrix \(A=[a_{ij}]\) and scalar \(k\), we define
 \(kA=[ka_{ij}]\) (i.e, \(k[a_{ij}]=[ka_{ij}]\)), and this is known as
 \defn{scalar multiplication of a matrix}. Examples:
 \begin{itemize}
-\item \(0A=O\).
-\item \(1A=A\).
-\item \((-1)A=-A\).
 \item \[
 \rc{3}\mqty[1&2\\3&4\\5&6]
 =\mqty[\rc{3}\cdot 1&\rc{3}\cdot 2\\ \rc{3}\cdot 3 & \rc{3}\cdot 4\\ \rc{3}\cdot 5& \rc{3}\cdot 6].
 \]
+\item \(0A=O\).
+\item \(1A=A\).
+\item \((-1)A=-A\).
 \end{itemize}
 \item \label{it:matrix-add-scalar-mult-dist}
 Like the usual addition and multiplication (of real numbers), the
@@ -254,11 +256,11 @@ Note that
 =s(tA).
 \]
 \end{pf}
-\item The next operation to be discussed is exclusively to matrices (not useful
+\item The next operation to be discussed is exclusively for matrices (not useful
 for scalars): \emph{matrix transpose}. The \defn{transpose} of a matrix
 \(A=[a_{\blc{i}\rc{j}}]\), denoted by \(A^{T}\), is defined by
-\(A^{T}=[a_{\rc{j}\blc{i}}]\) (i.e., the matrix obtained from interchanging
-the rows and columns of \(A\), while preserving the relative order). Example:
+\(A^{T}=[a_{\rc{j}\blc{i}}]\), i.e., the matrix obtained from interchanging
+the rows and columns of \(A\), while preserving the relative order. Example:
 \[
 \mqty[\blc{1}&\orc{2}\\\blc{3}&\orc{4}\\\blc{5}&\orc{6}]^{T}
 =\mqty[
@@ -359,8 +361,8 @@ denote \(\vect{e}_{1}\), \(\vect{e}_{2}\), and \(\vect{e}_{3}\) by
 \end{itemize}
 
 \item Since vectors are matrices according to the definition, addition and
-scalar multiplication of vectors work in the same as way as addition and scalar
-multiplication of matrices (defined in \cref{subsect:matrix-operations}).
+scalar multiplication of vectors work in the same way as addition and scalar
+multiplication of matrices (defined in \Cref{subsect:matrix-operations}).
 Examples:
 \begin{itemize}
 \item 
@@ -511,13 +513,13 @@ possibly different size), when the size of matrix \(A\) is \(m\times n\).
 \item We have the following results regarding matrix-vector product (whenever
 the sizes of the matrices involved are proper):
 \begin{itemize}
-\item \(A\vect{e}_{j}=\vect{a}_{j}\) (\(\vect{a}_{j}\) is the \(j\)th column of \(A\)).
+\item \(A\vect{e}_{j}=\vect{a}_{j}\), where \(\vect{a}_{j}\) is the \(j\)th column of \(A\).
 \item \(A\vect{0}=0\).
-\item \(O\vect{v}=0\) (for any column vector \(\vect{v}\)).
+\item \(O\vect{v}=0\) for any column vector \(\vect{v}\).
 \end{itemize}
 
-\item Recall the concept of \emph{identity function}, which sends any input (in
-its domain) back to its own (symbolically, \(f(x)=x\) for any \(x\) in the
+\item Recall the concept of \emph{identity function}, which sends any input in
+its domain back to its own (symbolically, \(f(x)=x\) for any \(x\) in the
 domain of \(f\)). We know from the previous remark that we can associate the
 concept of \emph{matrix-vector product} with \emph{function} (linear
 transformation), so now we are interested in investigating what kind of
@@ -528,6 +530,7 @@ matrix-vector product corresponds to an \emph{identity function}.
 function. The \defn{identity matrix} \(I\) is a square matrix whose all diagonal
 entries are \(1\) and other entries are \(0\). Examples:
 \[
+I=\mqty[\dmat[0]{1}],\quad
 I=\mqty[\dmat[0]{1,1}],\quad
 I=\mqty[\dmat[0]{1,1,1}],\quad
 I=\mqty[\dmat[0]{1,1,1,1}],\text{ etc.}
@@ -777,9 +780,9 @@ where the ``left matrix-vector product'' \(\vect{v}'B\) is defined by
 \vect{v}'B=v_1\vect{b}_{1}'+\dotsb+v_n\vect{b}_{n}'
 \]
 with \(\vect{v}'=\mqty[v_1&\cdots&v_n]\) and \(\displaystyle
-B=\mqty[\vect{b}_{1}'\\ \vdots\\ \vect{b}_{n}']\) (so that
-\((\vect{v}'B)^{T}=B^T(\vect{v}')^T\) where RHS is consistent with the usual
-matrix-vector product).
+B=\mqty[\vect{b}_{1}'\\ \vdots\\ \vect{b}_{n}']\), so that
+\((\vect{v}'B)^{T}=B^T(\vect{v}')^T\) where the RHS \(B^T(\vect{v}')^T\)
+carries the meaning from the usual matrix-vector product discussed previously.
 
 Examples:
 \begin{itemize}
@@ -829,9 +832,8 @@ involved are large.
 
 The basic idea of \defn{block multiplication} is to divide a large matrix into
 several partitions or \emph{blocks}, and ``treat'' each block like a scalar.
-Then, it turns out that performing matrix multiplication as usual under this
-treatment results in a correct matrix product (which can be proved
-mathematically).
+Then, it can be shown that performing matrix multiplication as usual under this
+treatment results in a correct matrix product.
 
 \item From a ``partition'' perspective, the previous ``by column'' (``by row'')
 definition of matrix multiplication is actually indeed just block
@@ -928,7 +930,7 @@ the \((1,1)\)-entry can be obtained by
 +(\vc{3}\cdot \gc{1}+\vc{5}\cdot \gc{2}).
 \]
 
-\item To close \cref{subsect:matrix-mult}, we introduce the concept of
+\item To close \Cref{subsect:matrix-mult}, we introduce the concept of
 \emph{matrix power}.  If \(A\) is a \emph{square} matrix and \(k\) is a
 positive integer, then the \defn{\(k\)th power of \(A\)} is
 \[
@@ -995,10 +997,8 @@ Similar to the proof above.
 \item \label{it:matrix-mult-noncomm}
 This ``property'' is of particular importance: \emph{\underline{non}-commutativity} (\warn{}
 \underline{unlike} matrix addition!). Even for two square matrices \(A\) and
-\(B\), we do \emph{not} always have
-\[
-AB=BA!
-\]
+\(B\), we do \emph{not} always have \(AB=BA\)!
+
 \begin{pf}
 To prove this, it suffices to give a counterexample. Take \(A=\mqty[1&1\\
 0&1]\) and \(B=\mqty[1&0\\ 1&1]\). Then,
@@ -1009,8 +1009,8 @@ BA=\mqty[1&1\\ 1&2].
 \end{pf}
 
 \item \label{it:matrix-prod-transpose-anticomm}
-The final property we discuss here is related to \emph{matrix transpose}.
-Let \(A\) be an \(m\times n\) matrix and \(B\) be an \(n\times p\). Then we
+The final property we discuss here is related to \emph{matrix transpose}.  Let
+\(A\) be an \(m\times n\) matrix and \(B\) be an \(n\times p\) matrix. Then we
 have the following \emph{anti-commutativity} for transpose of \(AB\):
 \[
 (AB)^{T}=B^{T}A^{T}.
@@ -1091,9 +1091,8 @@ node[pos=1.6, font=\small]{\(\mqty[-\sqrt{3}/2\\ 0.5]\)};
 \item First, we consider a special case where \(n=1\). In such case, instead of
 considering signed \emph{area}, we consider a \emph{lower-dimensional}
 analogue: signed \emph{length}. In the \(n=1\) case, the \defn{determinant of a
-\(1\times 1\) matrix} (which is just a scalar essentially) \([a]\) is just
-the signed length of line segment joining \(0\) and \(a\) in the real number
-line, namely \(\boxed{a}\).
+\(1\times 1\) matrix} \([a]\) is just the signed length of line segment joining
+\(0\) and \(a\) in the real number line, namely \(\boxed{a}\).
 \begin{center}
 \begin{tikzpicture}
 \draw[-Latex] (-5,0) -- (5,0);
@@ -1109,7 +1108,6 @@ node[midway, below]{signed length: \(3\)};
 node[midway, below]{signed length: \(-4\)};
 \end{tikzpicture}
 \end{center}
-\begin{note}
 The determinant of a matrix \(A\) is denoted by \(\det A\) or \(|A|\).
 When, we
 write out the entries of \(A\) explicitly like \(A=\mqty[a&b\\ c&d]\), we can
@@ -1117,10 +1115,9 @@ also denote its determinant by \(\mqty|a&b\\ c&d|\) (replacing the brackets by
 vertical bars).
 \begin{warning}
 It may lead to some ambiguity for the \(1\times 1\) matrix case as we would
-just write \(|a|\), which may be understood as the absolute value of \(a\),
-which may \underline{not} be the determinant of \(1\times 1\) matrix \([a]\)!
+just write \(|a|\), which may be understood as the absolute value of \(a\).
+But it may \underline{not} equal the determinant of \(1\times 1\) matrix \([a]\)!
 \end{warning}
-\end{note}
 \item For \(2\times 2\) and \(3\times 3\) matrices, the determinant is defined
 as follows. 
 \begin{itemize}
@@ -1333,7 +1330,7 @@ expansion along the first row). Examples:
 -1&-2&0&0&2\\
 2&-3&-2&0&-1
 |
-=\vc{-}\rc{1}\mqty|
+=\gc{-}\rc{1}\mqty|
 2&3&\blc{0}&4\\
 3&2&\blc{2}&1\\
 -2&0&\blc{0}&2\\
@@ -1480,7 +1477,7 @@ Example:
 \mqty|2&1\\3&-1|
 =-\mqty|3&-1\\2&1|.
 \]
-\item A corollary from \cref{prp:det-alter} is the following.
+\item A corollary from \Cref{prp:det-alter} is the following.
 \begin{corollary}
 \label{cor:two-identical-rows-zero-det}
 Let \(A\) be an \(n\times  n\) matrix. If \(A\) has two identical rows, then
@@ -1488,7 +1485,7 @@ Let \(A\) be an \(n\times  n\) matrix. If \(A\) has two identical rows, then
 \end{corollary}
 \begin{pf}
 Switching the two identical rows of \(A\) results in the same matrix \(A\). But
-then by \cref{prp:det-alter}, we must have
+then by \Cref{prp:det-alter}, we must have
 \[
 \det A=-\det A\implies 2\det A=0\implies \det A=0.
 \]
@@ -1586,7 +1583,7 @@ so the case \(n=k+1\) holds. Hence, the result follows by induction.
 \end{pf}
 
 \item Since taking \emph{transpose} interchanges rows and columns (while
-preserving the relative order), \cref{prp:trans-not-affect-det} ``translates''
+preserving the relative order), \Cref{prp:trans-not-affect-det} ``translates''
 the previous \emph{alternating} and \emph{multilinear} properties for rows
 into the corresponding ``column version'':
 \begin{proposition}[Column version of alternating and multilinear properties]
@@ -1689,12 +1686,12 @@ Now, applying \labelcref{it:det-multilinear-col} \(n\) times gives
 \label{prp:det-multiplicative}
 Let \(A\) and \(B\) be two \(n\times n\) matrices. Then,
 \[
-\det(AB)=\det A\det B.
+\det(AB)=\det A\cdot \det B.
 \]
 \end{proposition}
 
 \item \label{it:rule-simp-det-calc}
-To close \cref{subsect:det-prop}, we introduce a ``rule'' that simplifies
+To close \Cref{subsect:det-prop}, we introduce a ``rule'' that simplifies
 computation of determinants, based on the properties we derive. Consider an
 \(n\times n\) matrix \(A\), written by
 \[
@@ -1707,14 +1704,14 @@ i\). Let \(c\in\R\). Then,
 \begin{align*}
 \det\mqty[\vect{r}_{1}\\ \vdots\\ \vect{r}_{i}-c\vect{r}_j\\\vdots\\\vect{r}_{j}\\\vdots\\ \vect{r}_{n}]
 &=\det\mqty[\vect{r}_{1}\\ \vdots\\ \vect{r}_{i}\\\vdots\\\vect{r}_{j}\\\vdots\\ \vect{r}_{n}]
--c\det\mqty[\vect{r}_{1}\\ \vdots\\ \vect{r}_{j}\\\vdots\\\vect{r}_{j}\\\vdots\\ \vect{r}_{n}]&\text{(\cref{prp:det-multilinear})}\\
-&=\det A-c(0)&\text{(\cref{cor:two-identical-rows-zero-det})}\\
+-c\det\mqty[\vect{r}_{1}\\ \vdots\\ \vect{r}_{j}\\\vdots\\\vect{r}_{j}\\\vdots\\ \vect{r}_{n}]&\text{(\Cref{prp:det-multilinear})}\\
+&=\det A-c(0)&\text{(\Cref{cor:two-identical-rows-zero-det})}\\
 &=\det A.
 \end{align*}
 For convenience, we denote this subtraction by \(-c\vect{r}_{j}+\vect{r}_{i}\to
 \vect{r}_{i}\) (``adding \(-c\) times the \(j\)th row to the \(i\)th row, and
-putting the result in the \(i\)th row'').  (This will be helpful in \cref{sect:sle}
-later.)
+putting the result in the \(i\)th row'').  This will be helpful in \Cref{sect:sle}
+later.
 
 \begin{remark}
 \item This ``rule'' is usually used to create many zeros in a column, so that
@@ -1783,7 +1780,7 @@ establishing the uniqueness.
 
 \item It turns out that there is a special relationship between
 \emph{invertibility} and \emph{determinant}. One main result we would like to
-prove in \cref{subsect:matrix-inv} is that a matrix \(A\) is invertible
+prove in \Cref{subsect:matrix-inv} is that a matrix \(A\) is invertible
 \emph{if and only if} \(\det A\ne 0\).
 
 \item Proving the ``only if'' direction is not too hard:
@@ -1835,7 +1832,7 @@ multiplication, the \((i,j)\)-entry of \(A\adj A\) is
 a_{i1}C_{j1}+\dotsb+a_{1n}C_{jn}.
 \]
 When \(i=j\), this equals \(\det A\) by the cofactor expansion theorem
-(\cref{thm:cofactor-expansion}). Now consider the case where \(i\ne j\). Let
+(\Cref{thm:cofactor-expansion}). Now consider the case where \(i\ne j\). Let
 \(A'\) be the matrix obtained from \(A\) by replacing its \(j\)th row by its
 \(i\)th row, i.e.,
 \[
@@ -1859,12 +1856,12 @@ a_{11}&\cdots&a_{1n}\\
 a_{n1}&\cdots&a_{nn}\\
 ].
 \]
-Since \(A'\) has two identical rows, we have \(\det(A')=0\). On the other hand,
+Since \(A'\) has two identical rows, we have \(\det A'=0\). On the other hand,
 by considering cofactor expansion of \(A'\) along \(j\)th row (which equals the
 original \(i\)th row of \(A\), yet positioned at \(j\)th row), we see that the
 \((i,j)\)-entry of \(A\adj A\), namely \(a_{i1}C_{j1}+\dotsb+a_{1n}C_{jn}\), is
-indeed \(\det A'\). Thus, we conclude that the \((i,j)\)-entry of \(A\adj A\)
-is \(0\) when \(i\ne j\).
+indeed \(\det A'=0\). Thus, we can conclude that the \((i,j)\)-entry of \(A\adj
+A\) is \(0\) when \(i\ne j\).
 
 Hence, we have \(A\adj A=(\det A)I_n\).
 \end{pf}
@@ -1879,7 +1876,7 @@ A^{-1}=\frac{1}{\det A}\adj A.
 \]
 \end{corollary}
 \begin{pf}
-By \cref{thm:a-adj-det-a}, we have
+By \Cref{thm:a-adj-det-a}, we have
 \[
 A(\adj A)=(\det A)I_n=(\adj A)A.
 \]
@@ -1892,15 +1889,15 @@ By definition, this means that \(A\) is invertible and
 A^{-1}=\frac{1}{\det A}\adj A.
 \]
 \end{pf}
-\item With \cref{prp:det-inv-fmla} and \cref{cor:matrix-inv-fmla}, we can prove
+\item With \Cref{prp:det-inv-fmla} and \Cref{cor:matrix-inv-fmla}, we can prove
 our desired result about matrix invertibility and determinant:
 \begin{theorem}
 \label{thm:inv-iff-nonzero-det}
 An \(n\times n\) matrix \(A\) is invertible if and only if \(\det A\ne 0\).
 \end{theorem}
 \begin{pf}
-It follows from \cref{prp:det-inv-fmla} (``only if'') and
-\cref{cor:matrix-inv-fmla} (``if'').
+It follows from \Cref{prp:det-inv-fmla} (``only if'') and
+\Cref{cor:matrix-inv-fmla} (``if'').
 \end{pf}
 \item Lastly, we introduce some properties regarding matrix inverse.
 \begin{proposition}

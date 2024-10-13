@@ -91,7 +91,7 @@ where \(A_i\) is the matrix obtained by replacing the \(i\)th column of \(A\)
 by \(\vect{b}\), for any \(i=1,\dotsc,n\).
 \end{theorem}
 \begin{pf}
-By \cref{cor:matrix-inv-fmla}, we have
+By \Cref{cor:matrix-inv-fmla}, we have
 \[
 A^{-1}=\frac{1}{\det A}\adj A.
 \]
@@ -164,7 +164,7 @@ times the \(j\)th row to the \(i\)th row (``putting
 \end{enumerate}
 \subsection{Elementary Matrices}
 \begin{enumerate}
-\item To utilize the results for \emph{matrices} in \cref{sect:matrix-algebra}
+\item To utilize the results for \emph{matrices} in \Cref{sect:matrix-algebra}
 for EROs, we need to find a way to associate each ERO with a \emph{matrix}. It
 turns out that \emph{elementary matrices} are able to capture the essence of
 EROs.
@@ -200,7 +200,7 @@ Elementary matrices are invertible. Furthermore, the inverse of an elementary
 matrix is an elementary matrix of the same type.
 \end{proposition}
 \begin{pf}
-It follows from \cref{thm:elementary-matrix-ero-relate} and the property that
+It follows from \Cref{thm:elementary-matrix-ero-relate} and the property that
 the effect from any ERO can be cancelled out by performing an ERO of the same
 type. More explicitly, the reverse processes of all kinds of ERO are given as
 follows.
@@ -475,9 +475,10 @@ E_{1}^{-1}\dotsb E_{k}^{-1}E_{k}\dotsb E_1A\vect{v}=E_{1}^{-1}\dotsb E_{k}^{-1}E
 which implies \(A\vect{v}=\vect{b}\).
 \end{pf}
 
-\item A corollary \cref{thm:row-equiv-same-sol} is the following \emph{column
-correspondence property}. Loosely, it suggests that there are identical ``linear
-relationships'' between \emph{columns} for two row equivalent matrices.
+\item A corollary of \Cref{thm:row-equiv-same-sol} is the following
+\emph{column correspondence property}. Loosely, it suggests that there are
+identical ``linear relationships'' between \emph{columns} for two row
+equivalent matrices.
 
 \begin{corollary}[Column correspondence property]
 \label{cor:col-correspond}
@@ -491,14 +492,14 @@ c_1\vect{b}_{1}+\dotsb+c_n\vect{b}_{n}=\vect{0}
 where \(c_1,\dotsc,c_n\) are some constants.
 \end{corollary}
 \begin{pf}
-It follows from \cref{thm:row-equiv-same-sol} with
+It follows from \Cref{thm:row-equiv-same-sol} with
 \(\vect{b}=\vect{b}'=\vect{0}\) and \(B=A'\).
 \end{pf}
 
 \item Given a matrix \(A\), the \defn{RREF of \(A\)} is a matrix in RREF that
 is row equivalent to \(A\).
 
-Due to \cref{thm:row-equiv-same-sol}, our main goal here is to find a RREF of
+Due to \Cref{thm:row-equiv-same-sol}, our main goal here is to find a RREF of
 the given augmented matrix, so that solving the underlying system is easy
 afterwards. \emph{Gaussian elimination} provides a method for finding it
 systematically.
@@ -705,7 +706,7 @@ they are not ``affected'' by the removal).
 Since \(R\) is in RREF, every row below the row with leading one at the last
 column (if exists) must be zero row. So, after removing the last column, the
 original row with leading one at the last column becomes a zero row (and of
-course every original zero row, if exist, is still a zero row). Similarly, the
+course every original zero row, if exists, is still a zero row). Similarly, the
 other leading ones are not ``affected'' by the removal, and so still satisfy
 the requirements from RREF.
 \end{itemize}
@@ -713,7 +714,7 @@ the requirements from RREF.
 
 Then, the induction hypothesis implies that \(R_1'=R_2'\). Next, we can show
 that the last columns of \(R_1\) and \(R_2\) are also the same by using
-\cref{cor:col-correspond}.
+\Cref{cor:col-correspond}.
 \end{pf}
 
 \item The RREF of a square matrix can provide information on the invertibility
@@ -748,7 +749,7 @@ solution}) as follows.
 \item Given a system of linear equations \(A\vect{x}=\vect{b}\), consider its
 associated augmented matrix \([A|\vect{b}]\). Using Gaussian elimination, we
 can find its RREF, denoted by \([A'|\vect{b}']\). \begin{note}
-By the claim in the proof of \cref{thm:rref-unique}, \(A'\) is indeed the RREF
+By the claim in the proof of \Cref{thm:rref-unique}, \(A'\) is indeed the RREF
 of \(A\).
 \end{note}
 
@@ -816,13 +817,13 @@ one in each column \emph{except the last one}.
 \end{corollary}
 \begin{pf}
 ``\(\Leftarrow\)'': Assume that the RREF has a leading one in each column
-except the last one. Then by \cref{thm:consist-criterion}, the system is
+except the last one. Then by \Cref{thm:consist-criterion}, the system is
 consistent. Furthermore, by having a leading one in each column except the
 last one, there must be no free variable, so the solution is unique.
 
 ``\(\Rightarrow\)'': Assume that the system has a unique solution. Then, the
 system is consistent, thus there is no leading one in the last column by
-\cref{thm:consist-criterion}. Furthermore, due to the uniqueness of solution,
+\Cref{thm:consist-criterion}. Furthermore, due to the uniqueness of solution,
 the system cannot possibly have any free variable. Hence, every other column
 must have a leading one.
 \end{pf}
@@ -831,7 +832,7 @@ must have a leading one.
 \emph{number} of solutions it has. Of course when the coefficient matrix is
 invertible or when the RREF of the augmented matrix has a leading one in each
 column except the last one, the system would have a unique solution, by
-\cref{prp:inv-sle-unique} or \cref{cor:unique-criterion} respectively.
+\Cref{prp:inv-sle-unique} or \Cref{cor:unique-criterion} respectively.
 
 But this is not necessarily the case, and it is possible to have
 \emph{infinitely many} solutions. For example, the system
@@ -866,7 +867,7 @@ least one free variable, which must lead to infinitely many solutions (since
 the system is consistent).
 \end{pf}
 
-\item Utilizing \cref{prp:homo-var-more-than-eqs-inf}, we can show a more
+\item Utilizing \Cref{prp:homo-var-more-than-eqs-inf}, we can show a more
 general result that applies to any consistent system.
 
 \begin{proposition}
@@ -882,7 +883,7 @@ satisfies \(A\vect{x}_p=\vect{b}\). Then, the solution set for the system
 \end{proposition}
 \begin{note}
 Since there are infinitely many \(\vect{y}\) satisfying \(A\vect{y}=\vect{0}\)
-in such case by \cref{prp:homo-var-more-than-eqs-inf}, the solution set is
+in such case by \Cref{prp:homo-var-more-than-eqs-inf}, the solution set is
 infinite, thus the system \(A\vect{x}=\vect{b}\) has infinitely many solutions
 as well.
 \end{note}
@@ -953,7 +954,7 @@ Here we will prove that \(\text{(a)}\implies \text{(c)}\implies
 \text{(b)}\implies \text{(a)}\).
 
 \underline{\(\text{(a)}\implies \text{(c)}\)}: We prove by contrapositive.
-Assume that \(A\) is invertible. Then by \cref{prp:inv-sle-unique}, the system
+Assume that \(A\) is invertible. Then by \Cref{prp:inv-sle-unique}, the system
 \(A\vect{x}=\vect{0}\) has a \emph{unique} solution. Since the trivial solution
 must be a solution of the homogeneous system \(A\vect{x}=\vect{0}\), it follows
 that it is the \emph{only} one, thus the system does \emph{not} have a
@@ -961,12 +962,12 @@ non-trivial solution.
 
 \underline{\(\text{(c)}\implies\text{(b)}\)}: Assume that \(A\) is not
 invertible. Then, the RREF of \(A\), denoted by \(R\), is also \emph{not} invertible
-by \cref{prp:matx-inv-iff-rref-inv}. Note that the RREF of the augmented matrix
+by \Cref{prp:matx-inv-iff-rref-inv}. Note that the RREF of the augmented matrix
 \([A|\vect{0}]\) can be written as \([R|\vect{0}]\). For the ``\(R\)'' part, it
-follows from the claim in the proof of \cref{thm:rref-unique}. The RHS is still
+follows from the claim in the proof of \Cref{thm:rref-unique}. The RHS is still
 \(\vect{0}\) since any ERO would have no impact on the column of zeros.
 
-Now, by \cref{thm:rref-matx-inv-equiv}, since the \(n\times n\) matrix \(R\)
+Now, by \Cref{thm:rref-matx-inv-equiv}, since the \(n\times n\) matrix \(R\)
 (in RREF) is not invertible, it must have \emph{less than} \(n\) leading ones.
 This means there are less than \(n\) leading entries, implying the existence of
 \emph{free variable}. It then follows that the system must have infinitely many
@@ -976,13 +977,50 @@ solutions, as a free variable can take arbitrary values.
 infinitely many solutions implies that there are solutions other than the trivial
 solution, i.e., there is a non-trivial solution.
 \end{pf}
+
+\item Recall that \Cref{prp:inv-sle-unique} suggests that invertibility of
+\(A\) implies unique solution. With the help of
+\Cref{prp:homo-same-var-eqs-equiv}, we can prove also the converse, i.e.,
+unique solution implies invertibility of \(A\), provided that \(A\) is square.
+
+\begin{proposition}
+\label{prp:unique-sol-imp-inv}
+Let \(A\) be an \(n\times n\) matrix and \(\vect{b}\in\R^n\) be a column
+vector. If the system \(A\vect{x}=\vect{b}\) has a unique solution, then \(A\)
+is invertible.
+\end{proposition}
+\begin{pf}
+Assume to the contrary that \(A\vect{x}=\vect{b}\) has a unique solution
+\(\vect{x}_0\) while \(A\) is not invertible. Then, by
+\Cref{prp:homo-same-var-eqs-equiv}, we know that \(A\vect{x}=\vect{0}\) has a
+non-trivial solution, and we call it \(\vect{y}\ne\vect{0}\).
+
+Since \(A\vect{y}=\vect{0}\), we would have
+\[
+A(\vect{x}_0+\vect{y})=A\vect{x}_0+A\vect{y}=\vect{b}+\vect{0}=\vect{b},
+\]
+implying that \(\vect{x}_0+\vect{y}\ne\vect{x}_0\) is also a solution to the
+system, in addition to \(\vect{x}_0\). This contradicts the uniqueness.
+\end{pf}
+\item Consequently, we obtain yet another criterion for matrix invertibility,
+in terms of the uniqueness of solution to a system of linear equations.
+
+\begin{proposition}
+\label{prp:inv-iff-unique-sol}
+Let \(A\) be an \(n\times n\) matrix and \(\vect{b}\in\R^n\) be a column
+vector. The matrix \(A\) is invertible iff the system \(A\vect{x}=\vect{b}\)
+has a unique solution.
+\end{proposition}
+\begin{pf}
+Combine \Cref{prp:inv-sle-unique} and \Cref{prp:unique-sol-imp-inv}.
+\end{pf}
 \end{enumerate}
 \subsection{Finding Matrix Inverses via Elementary Row Operations}
 \begin{enumerate}
 \item It turns out that EROs are not only useful for solving system of linear
 equations, but also helpful for \emph{finding matrix inverses}. Indeed, when
 the sizes of the matrices involved are large, often this ERO-based approach is
-more computationally feasible than the formula in \cref{cor:matrix-inv-fmla}.
+more computationally feasible than the formula in \Cref{cor:matrix-inv-fmla}.
 
 \item Before introducing the methods of finding matrix inverses based on EROs,
 we first prove some theoretical results. The first one provides yet another
@@ -997,8 +1035,8 @@ Let \(A\) be an \(n\times n\) matrix. Then \(A\) is invertible iff the RREF of
 Note that
 \begin{align*}
 &\text{\(A\) is invertible}\\
-\iff&\text{RREF of \(A\) is invertible}&\text{(\cref{prp:matx-inv-iff-rref-inv})}\\
-\iff&\text{RREF of \(A\) is \(I_n\)}&\text{(\cref{thm:rref-matx-inv-equiv})}.
+\iff&\text{RREF of \(A\) is invertible}&\text{(\Cref{prp:matx-inv-iff-rref-inv})}\\
+\iff&\text{RREF of \(A\) is \(I_n\)}&\text{(\Cref{thm:rref-matx-inv-equiv})}.
 \end{align*}
 \end{pf}
 \item The next result relates invertible matrix and elementary matrices.
@@ -1007,7 +1045,7 @@ Note that
 Every invertible matrix \(A\) is a product of elementary matrices.
 \end{corollary}
 \begin{pf}
-Since \(A\) is invertible, by \cref{prp:inv-iff-rref-identity}, the RREF of
+Since \(A\) is invertible, by \Cref{prp:inv-iff-rref-identity}, the RREF of
 \(A\) is \(I_n\). Then, due to the row equivalence of \(A\) and \(I_n\) (which
 is a \emph{symmetric} relation), we have
 \[
@@ -1025,7 +1063,7 @@ Let \(A\) be an invertible \(n\times n\) matrix. Then the RREF of the \(n\times
 \end{theorem}
 \begin{pf}
 Assume that \(A\) is invertible. Then the RREF of \(A\) is \(I_n\) by
-\cref{prp:inv-iff-rref-identity}. Hence, we have
+\Cref{prp:inv-iff-rref-identity}. Hence, we have
 \begin{equation}
 \label{eq:inv-rref-identity}
 E_r\dotsb E_1A=I_n
@@ -1038,19 +1076,19 @@ E_r\dotsb E_1[A|I_n]
 =[E_r\dotsb E_1A|E_r\dotsb E_1I_n]
 =[I_n|E_r\dotsb E_1]
 \]
-From \cref{eq:inv-rref-identity}, we can further write
+From \Cref{eq:inv-rref-identity}, we can further write
 \[
 A=E_1^{-1}\dotsb E_r^{-1},
 \]
-so \(A^{-1}=E_r\dotsb E_1\) by \cref{prp:matrix-inv-prop}, as desired.
+so \(A^{-1}=E_r\dotsb E_1\) by \Cref{prp:matrix-inv-prop}, as desired.
 \end{pf}
 
 \begin{remark}
 \item Practically, to get from \([A|I_n]\) to \([I_n|A^{-1}]\), we typically use
 \emph{Gaussian elimination} on the \(n\times 2n\) augmented matrix \([A|I_n]\).
 (It is not hard to see that \([I_n|A^{-1}]\) is the RREF of \([A|I_n]\).)
-\item This result also tells us how to express an invertible matrix as a
-product of elementary matrices implicitly. 
+\item The proof of this result also tells us how to express an invertible
+matrix as a product of elementary matrices implicitly.
 
 We first perform Gaussian elimination on \([A|I_n]\) and record the EROs
 performed. Then, by considering the reverse processes of the EROs

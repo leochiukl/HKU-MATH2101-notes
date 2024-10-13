@@ -2,7 +2,7 @@
 \label{sect:vector-spaces}
 \subsection{Vector Spaces and Vector Subspaces}
 \begin{enumerate}
-\item In \cref{sect:vector-spaces}, we will start studying a main object of
+\item In \Cref{sect:vector-spaces}, we will start studying a main object of
 interest in linear algebra: \emph{vector space}, which \emph{abstractizes} the
 properties we know in \(\R^n\).
 \item A \defn{vector space} over \(\R\) (or simply \emph{real} vector space) is
@@ -139,7 +139,7 @@ So it remains to check the axioms of vector space. In fact, we only need to
 check axioms (3) and (4) since other axioms must hold due to the fact that
 \(W\subseteq V\) and \(V\) is a vector space.
 
-Axiom (3) follows from \cref{prp:vec-subsp-contain-zero}. Axiom (4) holds by
+Axiom (3) follows from \Cref{prp:vec-subsp-contain-zero}. Axiom (4) holds by
 noting that, for any \(\vect{v}\in W\), there exists \((-1)\vect{v}\in W\) such
 that
 \[
@@ -211,11 +211,11 @@ sum'', which should naturally be \(\vect{0}\): The sum of a vector and an
 \end{intuition}
 
 \item It turns out that ``spanning'' always results in a vector subspace.
-\begin{theorem}
-\label{thm:span-vec-subsp}
+\begin{proposition}
+\label{prp:span-vec-subsp}
 Let \(V\) be a vector space and \(S\) be any subset of \(V\). Then, \(\spn{S}\)
 is a vector subspace of \(V\).
-\end{theorem}
+\end{proposition}
 \begin{pf}
 If \(S=\varnothing\), then there is nothing to prove as
 \(\spn{S}=\{\vect{0}\}\) is simply the zero subspace in this case.
@@ -297,7 +297,7 @@ to show that \(S\) spans \(V\), it actually suffices to show that
 combination of vectors in \(S\).}
 
 \item It turns that the concept of \emph{solving system of linear equations} we
-have studied in \cref{sect:sle} is useful for showing this.
+have studied in \Cref{sect:sle} is useful for showing this.
 
 For example, consider \(V=\R^m\) and
 \(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\subseteq V\). Then, for any
@@ -327,7 +327,7 @@ v_{m1}&v_{m2}&\cdots&v_{mn}&u_{m}\\
 \end{array}\right].
 \]
 Then, we know that \(S\) spans \(V\) iff the system is \emph{consistent}. So
-methods for determining consistency in \cref{subsect:sys-sol-num} can be
+methods for determining consistency in \Cref{subsect:sys-sol-num} can be
 utilized to determine whether \(S\) spans \(V\) or not.
 \end{enumerate}
 \subsection{Linear Independence}
@@ -373,7 +373,14 @@ many distinct \(\vect{v}_1,\dotsc,\vect{v}_n\in S\), the homogeneous system
 only has the trivial solution \(a_1=\dotsb=a_n=0\). Since a homogeneous system
 always has the trivial solution, this is equivalent to saying that the
 homogeneous system has a \emph{unique} solution. So again the methods discussed
-in \cref{subsect:sys-sol-num} are useful for determining linear independence.
+in \Cref{subsect:sys-sol-num} are useful for determining linear independence.
+
+\begin{note}
+Writing \(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\), sometimes we say
+``\(\vect{v}_1,\dotsc,\vect{v}_n\) are linearly (in)dependent'' to mean
+``\(S\) is linearly (in)dependent''.
+\end{note}
+
 \item \label{it:two-nonzero-vec-lin-dep}
 We can have a more ``intuitive'' equivalent definition for linear
 dependence when we focus on a set of two nonzero vectors.
@@ -447,11 +454,11 @@ A basis can be seen as a ``minimal'' spanning set for \(V\), without
 ``redundancy''.
 \end{intuition}
 
-\item \label{it:basis-minimal} To illustrate why a basis can be seen as
+\item To illustrate why a basis can be seen as
 ``minimal'' spanning set for \(V\), consider the following results. Let
 \(\beta\) be a basis for a vector space \(V\).
 \begin{enumerate}
-\item If \(S\) is a proper subset of \(\beta\), then \(\spn{S}\ne V\).
+\item \label{it:span-set-not-smaller-than-basis} If \(S\) is a proper subset of \(\beta\), then \(\spn{S}\ne V\).
 
 \begin{pf}
 Assume that \(S\) is a proper subset of \(\beta\). Then, there exists
@@ -476,7 +483,7 @@ independent also by \labelcref{it:lin-dep-subsets}, contradiction. This means
 This means that there is not ``smaller'' spanning set for \(V\) than the
 ``minimal'' one.
 \end{intuition}
-\item If \(\beta\) is a proper subset of a set \(S\subseteq V\), then \(S\) is
+\item \label{it:span-set-greater-than-basis-ld} If \(\beta\) is a proper subset of a set \(S\subseteq V\), then \(S\) is
 not linearly independent.
 
 \begin{pf}
@@ -542,9 +549,10 @@ vector space.
 \item The main result about \emph{basis} is the following.
 \begin{theorem}
 \label{thm:basis-unique-lin-comb}
-Let \(V\) be a vector space and \(\beta\) be a subset of \(V\). Then, \(\beta\)
-is a basis for \(V\) iff for any vector \(\vect{u}\in V\), \(\vect{u}\) can be
-uniquely written as a linear combination of vectors in \(\beta\), i.e.,
+Let \(V\) be a nonzero vector space and \(\beta\) be a subset of \(V\). Then,
+\(\beta\) is a basis for \(V\) iff for any vector \(\vect{u}\in V\),
+\(\vect{u}\) can be uniquely written as a linear combination of vectors in
+\(\beta\), i.e.,
 \[
 \vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
 \]
@@ -597,4 +605,303 @@ c_1\vect{v}_1+\dotsb+c_n\vect{v}_n=\vect{0}=0\vect{v}_1+\dotsb+0\vect{v}_n.
 By the uniqueness, we must have \(c_1=\dotsb=c_n=0\), as desired.
 \end{pf}
 \end{enumerate}
+\subsection{Dimensions}
+\label{subsect:dim}
+\begin{enumerate}
+\item From now on, we shall focus on vector spaces with \emph{finite} bases
+unless otherwise specified. Vector spaces with \emph{infinite} bases are
+studied in \emph{functional analysis}, which is a much more advanced topic.
+(See MATH4404 for more details.)
 
+\item In \Cref{subsect:dim}, we shall discuss a ``famous'' concept:
+\emph{dimension}. Most of us should have some intuitive idea about it, but here
+we will try to formalize this notion mathematically (in the context of linear
+algebra).
+
+\item Before discussing the concept of dimension, we shall first consider
+several preliminary results.
+
+\begin{proposition}
+\label{prp:li-num-leq-dim}
+Let \(\beta\) be a basis for a vector space \(V\). If \(\beta'\) is a
+linearly independent subset of \(V\), then \(|\beta'|\le |\beta|\). (Here
+\(|\cdot|\) denotes cardinality.)
+\end{proposition}
+\begin{pf}
+Firstly, if \(V\) is the zero vector space \(\{\vect{0}\}\), this result is
+trivial since the only linearly independent subset of \(V\) is the empty set
+\(\varnothing\). Thus, henceforth we suppose that \(V\) is a nonzero vector
+space.
+
+Let \(m=|\beta|\) and \(n=|\beta'|\). Then, we write
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\) and
+\(\beta'=\{\vect{u}_1,\dotsc,\vect{u}_n\}\).
+
+Since \(\beta\) spans \(V\) and \(\beta'\) is a subset of \(V\), for any
+\(j=1,\dotsc,n\), we can write
+\[
+\vect{u}_j=a_{1j}\vect{v}_1+\dotsb+a_{mj}\vect{v}_m
+\]
+for some scalars \(a_{1j},\dotsc,a_{mj}\).
+
+Now, we set
+\[
+x_1\vect{u}_1+\dotsb+x_n\vect{u}_n=0,
+\]
+which can be rewritten as
+\[
+\sum_{i=1}^{m}(a_{i1}x_1+\dotsb+a_{in}x_n)\vect{v}_i=0.
+\]
+By linear independence of \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\), we
+obtain the following homogeneous system of linear equations
+\[
+\begin{cases}
+a_{11}x_{1}+\dotsb+a_{1n}x_{n}=0\\
+a_{21}x_{1}+\dotsb+a_{2n}x_{n}=0\\
+\hspace{2cm}\vdots\\
+a_{m1}x_1+\dotsb+a_{mn}x_n=0.
+\end{cases}
+\]
+Now, assume to the contrary that \(n>m\). In such case, by
+\Cref{prp:homo-var-more-than-eqs-inf}, this system would have a non-trivial
+solution, contradicting to the linear independence of
+\(\beta'=\{\vect{u}_1,\dotsc,\vect{u}_n\}\).
+\end{pf}
+
+\item
+Using \Cref{prp:li-num-leq-dim}, we can show the following relationship between
+any two bases for a vector space \(V\).
+
+\begin{corollary}
+\label{cor:two-bases-same-num}
+Let \(\beta_1\) and \(\beta_2\) be any two bases of a vector space \(V\). Then,
+\(\beta_1\) and \(\beta_2\) contain the same number of vectors.
+\end{corollary}
+
+\begin{pf}
+Setting \(\beta=\beta_1\) and \(\beta'=\beta_2\) in \Cref{prp:li-num-leq-dim}
+gives \(|\beta_2|\le|\beta_1|\). On the other hand, setting \(\beta=\beta_2\)
+and \(\beta'=\beta_1\) in \Cref{prp:li-num-leq-dim} gives
+\(|\beta_1|\le|\beta_2|\). Hence, we have \(|\beta_1|=|\beta_2|\).
+\end{pf}
+
+\item From \Cref{cor:two-bases-same-num}, we see that the \emph{cardinality of
+basis} is independent from the choice of basis. It only depends on the
+underlying vector space. This suggests the notion of \emph{dimension}. The
+number of vectors in a basis for a vector space \(V\) is called the
+\defn{dimension} of \(V\), denoted by \(\dim(V)\).
+
+\begin{note}
+Roughly speaking, dimension may be seen as the number of ``degrees of
+freedom'' or ``independent parameters''.
+\end{note}
+
+Example: The dimension of \(\R^n\) is \(n\) (as expected) since the standard
+basis \(\{\vect{e}_1,\dotsc,\vect{e}_n\}\) of \(\R^n\) has \(n\) vectors.
+
+\item To close \Cref{subsect:dim}, we give some results regarding dimension.
+\begin{enumerate}
+\item \label{it:dim-span} Let \(S\) be a finite linearly independent subset of
+a vector space \(V\). Then, \(\dim(\spn{S})=|S|\).
+
+\begin{pf}
+Since \(S\) is a spanning set of \(\spn{S}\) (where \(\spn{S}\) is considered
+as a vector space) and \(S\) is linearly independent, \(S\) serves as a basis
+for \(\spn{S}\). Thus, its dimension is \(\dim(\spn{S})=|S|\).
+\end{pf}
+\item \label{it:dim-subspace} Let \(W\) be a vector subspace of a vector space
+\(V\). Then, \(\dim(W)\le \dim(V)\).
+
+\begin{pf}
+Let \(\beta_W\) and \(\beta_V\) be bases of \(W\) and \(V\) respectively. Then
+\(\beta_W\) is a linearly independent subset of \(W\). Since \(W\subseteq V\),
+\(\beta_W\) is also a linearly independent subset of \(V\). Hence, by
+\Cref{prp:li-num-leq-dim}, we have \(|\beta_W|\le |\beta_V|\). Thus,
+\(\dim(W)\le \dim(V)\).
+\end{pf}
+\end{enumerate}
+\end{enumerate}
+\subsection{Constructing Bases}
+\label{subsect:construct-bases}
+\begin{enumerate}
+\item So far we have seen some examples of bases, but we do not yet have a
+systematic method for obtaining bases. Thus we will introduce two important
+approaches for constructing bases in \Cref{subsect:construct-bases}, namely
+\emph{extension} and \emph{reduction}.
+
+\item The intuitive idea behind \emph{extension} and \emph{reduction} is
+related to \labelcref{it:span-set-not-smaller-than-basis} and
+\labelcref{it:span-set-greater-than-basis-ld}:
+\begin{itemize}
+\item \emph{Extension:} From \labelcref{it:span-set-not-smaller-than-basis} we
+know that if the cardinality of a subset \(S\) of \(V\) is less than
+\(\dim(V)\), then \(\spn{S}\ne V\). The idea is thus as follows:
+\begin{enumerate}
+\item Start with a certain linearly independent subset \(S\) of \(V\) (which
+may not span \(V\)).
+\item  Keep adding vectors to \(S\) to form larger and larger \emph{linearly
+independent} sets, until its cardinality reaches \(\dim(V)\)
+\faIcon{arrow-right} ``extending'' the set \(S\).
+\end{enumerate}
+\item \emph{Reduction:} From \labelcref{it:span-set-greater-than-basis-ld} we
+know that if the cardinality of a subset \(S\) of \(V\) is greater than
+\(\dim(V)\), then \(S\) must not be linearly independent. The idea is thus as follows:
+\begin{enumerate}
+\item Start with a spanning set \(S\) of \(V\) (which may not be linearly
+independent).
+\item Keep removing vectors from \(S\) while ensuring it still spans \(V\),
+until its cardinality reaches \(\dim(V)\) \faIcon{arrow-right} ``reducing'' the
+set \(S\)
+\end{enumerate}
+\end{itemize}
+
+\item To justify these two approaches mathematically, we shall utilize some
+theorems below.
+
+\begin{theorem}
+\label{thm:add-vec-not-in-spn}
+Let \(S\) be a linearly independent subset of a vector space \(V\), and let
+\(\vect{v}\in V\). If \(\vect{v}\notin\spn{S}\), then \(S\cup\{\vect{v}\}\) is
+also linearly independent.
+\end{theorem}
+\begin{pf}
+The result is vacuously true if \(V=\{\vect{0}\}\), since the only linear
+independent subset of \(V\) is \(\varnothing\), and
+\(\vect{0}\in\spn{\varnothing}=\{\vect{0}\}\) always. Thus we never have
+\(\vect{v}\notin\spn{S}\) in this case.
+
+Now, assume that \(V\) is a nonzero vector space. Write
+\(S=\{\vect{v}_1,\dotsc,\vect{v}_m\}\). Then, consider the equation
+\begin{equation}
+\label{eq:extend-li}
+x_1\vect{v}_1+\dotsb+x_m\vect{v}_m+x_{m+1}\vect{v}=0.
+\end{equation}
+\underline{Case 1}: \(x_{m+1}\ne 0\).
+
+In such case, we can rewrite \Cref{eq:extend-li} as
+\[
+\vect{v}=-\frac{x_1}{x_{m+1}}\vect{v}_1-\dotsb-\frac{x_m}{x_{m+1}}\vect{v}_m,
+\]
+meaning that \(\vect{v}\) is a linear combination of vectors in \(S\), thus
+\(\vect{v}\in\spn{S}\), contradiction. So case 1 cannot happen.
+
+\underline{Case 2}: \(x_{m+1}=0\).
+
+In this case, we can simplify \Cref{eq:extend-li} as
+\[
+x_1\vect{v}_1+\dotsb+x_m\vect{v}_m=0,
+\]
+which implies \(x_1=\dotsb=x_m=0\) by the linear independence of \(S\).
+Thus, the only solution to \Cref{eq:extend-li} is
+\[
+x_1=\dotsb=x_m=x_{m+1}=0,
+\]
+which means that \(S\cup\{\vect{v}\}\) is linearly independent.
+\end{pf}
+\item \Cref{thm:add-vec-not-in-spn} suggests how we can add vectors to a
+linearly independent set while preserving its linear independence. But only
+this is not enough for fully justifying the extension approach. We also need
+the following result which guarantees that a basis must be obtained when the
+cardinality of set reaches the dimension during the extension process.
+
+\begin{theorem}
+\label{thm:card-dim-li-basis}
+Let \(m\) be the dimension of a vector space \(V\). If \(S\) is a linearly
+independent subset of \(V\) with \(m\) vectors, then \(S\) is a basis for
+\(V\).
+\end{theorem}
+\begin{pf}
+Assume to the contrary that \(\spn{S}\ne V\). Then there exists \(\vect{v}\in
+V\) such that \(\vect{v}\notin\spn{S}\). Next, using
+\Cref{thm:add-vec-not-in-spn}, the set \(S\cup\{\vect{v}\}\) is linearly
+independent. This contradicts \Cref{prp:li-num-leq-dim} since its cardinality is
+\(|S\cup\{\vect{v}\}|=m+1>m=\dim(V)\)\footnote{When \(\vect{v}\notin\spn{S}\), it
+implies in particular that \(\vect{v}\notin S\). Thus, \(|S\cup\{\vect{v}\}|\)
+is indeed \(m+1\).}.
+\end{pf}
+
+\item Next, we consider theorems that justify \emph{reduction}. Likewise two
+theorems are needed for fully justifying the reduction approach.
+
+\begin{theorem}
+\label{thm:remove-vec-still-spn}
+Let \(S\) be a spanning set of a vector space \(V\). If \(S\) is linearly
+\emph{dependent}, then there exists \(\vect{v}\in S\) such that
+\(\spn{S\setminus \{\vect{v}\}}=\spn{S}=V\).
+\end{theorem}
+\begin{pf}
+When \(V=\{\vect{0}\}\), this result again holds vacuously since the only
+spanning set for \(V\) is the empty set \(\varnothing\), which must be linearly
+independent.
+
+Now assume that \(V\) is nonzero. Write \(S=\{\vect{v}_1,\dotsc,\vect{v}_m\}\).
+Since \(S\) is linearly dependent, there exist scalars \(a_1,\dotsc,a_m\), not
+all zero, such that
+\[
+a_1\vect{v}_1+\dotsb+a_m\vect{v}_m=0.
+\]
+Choose an \(i\in\{1,\dotsc,n\}\) with \(a_i\ne 0\). Then rewrite the equation as
+\[
+\vect{v}_i=-\frac{a_1}{a_i}\vect{v}_1-\dotsb-\frac{a_{i-1}}{a_i}\vect{v}_{i-1}
+-\frac{a_{i+1}}{a_i}\vect{v}_{i+1}-\dotsb-\frac{a_m}{a_i}\vect{v}_m.
+\]
+Thus, \(\vect{v}_i\in\spn{S\setminus \{\vect{v}_i\}}\), and so
+\[
+\spn{S\setminus \{\vect{v}_i\}}=\spn{S}=V.
+\]
+\end{pf}
+
+\begin{note}
+The proof implicitly suggests that how we can find such vector \(\vect{v}\) to
+be removed from the linearly dependent set \(S\). We just pick a vector in
+\(S\) that is a linear combination of the other vectors in \(S\), which is
+guaranteed to exist by \Cref{thm:remove-vec-still-spn}.
+\end{note}
+\item Next, we have a result that is analogous to \Cref{thm:card-dim-li-basis}.
+But before proving it, we need the following lemma.
+\begin{lemma}
+\label{lma:basis-subset}
+Let \(S\) be a finite subset of a vector space \(V\) with \(m\in\N_0\)
+(distinct) nonzero vectors.  Then there exists a subset \(\beta\) of \(S\) such
+that \(\beta\) is a basis for \(\spn{S}\).
+\end{lemma}
+\begin{pf}
+We will prove by induction on the cardinality of \(S\): \(m\).
+
+Firstly, the case \(m=0\) trivially holds since in such case we have
+\(\spn{S}=\spn{\varnothing}=\{\vect{0}\}\), and thus we can just choose
+\(\beta=S=\varnothing\) to be a basis for the zero vector space.
+
+Assume for induction that the case \(m=k\) holds for a \(k\in\N_0\). Now,
+consider any finite subset \(S\) of \(V\) with \(k+1\) nonzero vectors.
+
+\underline{Case 1}: \(S\) is linearly independent.
+
+Then we can simply choose \(\beta=S\) to be a basis for \(\spn{S}\).
+
+\underline{Case 2}: \(S\) is linearly dependent.
+
+Since \(S\) is a spanning set for \(\spn{S}\), by
+\Cref{thm:remove-vec-still-spn}, there exists \(\vect{v}\in S\) such that
+\(\spn{S\setminus \{\vect{v}\}}=\spn{S}\). Applying the induction hypothesis on
+the set \(S\setminus \{\vect{v}\}\) (with \(k\) nonzero vectors), there exists
+\(\beta\subseteq S\setminus \{\vect{v}\}\subseteq S\) such that \(\beta\) is a
+basis for \(\spn{S\setminus \{\vect{v}\}}=\spn{S}\).
+
+Thus, the case \(m=k+1\) holds, and so the result follows by induction.
+\end{pf}
+
+\item Now, we can prove the desired theorem.
+\begin{theorem}
+\label{thm:card-dim-spn-basis}
+Let \(m\) be the dimension of a vector space \(V\). If \(S\) is a spanning set
+of \(V\) with \(m\) vectors, then \(S\) is a basis for \(V\).
+\end{theorem}
+\begin{pf}
+Assume to the contrary that \(S\) is not a basis for \(V\). Then by
+\Cref{lma:basis-subset}, there exists a subset \(\beta\) of \(S\) such that
+\(\beta\) is a basis for \(\spn{S}=V\). Since \(S\) is \emph{not} a basis for
+\(V\), the subset inclusion must be proper and it must be the case that
+\(|\beta|< |S|=m\). This implies that \(\dim(V)=|\beta|<m\), contradiction.
+\end{pf}
+\end{enumerate}
