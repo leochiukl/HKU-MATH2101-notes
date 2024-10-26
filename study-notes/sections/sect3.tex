@@ -905,3 +905,430 @@ Assume to the contrary that \(S\) is not a basis for \(V\). Then by
 \(|\beta|< |S|=m\). This implies that \(\dim(V)=|\beta|<m\), contradiction.
 \end{pf}
 \end{enumerate}
+\subsection{Column Spaces}
+\begin{enumerate}
+\item Let \(A\) be an \(m\times n\) matrix and let
+\(\vect{v}_1,\dotsc,\vect{v}_n\) be the columns of \(A\). Recall that the
+column space of \(A\) is defined as
+\(\col{A}=\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}\). By
+\labelcref{it:col-space-expr}, we can write
+\[
+\col{A}=\{A\vect{x}\in\R^n:\vect{x}\in\R^m\}.
+\]
+\item Considering the columns of an \(n\times n\) matrix \(A\), we can obtain
+some more criteria for matrix invertibility. The criteria are collected below.
+
+\begin{theorem}
+\label{thm:matx-inv-crit}
+Let \(A\) be an \(n\times  n\) matrix with columns
+\(\vect{v}_1,\dotsc,\vect{v}_n\). Then the following are equivalent.
+\begin{enumerate}
+\item \(A\) is invertible.
+\item \(\det A\ne 0\).
+\item For any \(\vect{b}\in\R^n\), \(A\vect{x}=\vect{b}\) has a unique solution.
+\item \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is a basis for \(\R^n\).
+\item \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is linearly independent.
+\end{enumerate}
+\end{theorem}
+\begin{pf}
+\underline{\(\text{(a)}\iff\text{(b)}\)}: It follows from \Cref{thm:inv-iff-nonzero-det}.
+
+\underline{\(\text{(a)}\iff\text{(c)}\)}: It follows from \Cref{prp:inv-iff-unique-sol}.
+
+\underline{\(\text{(a)}\iff\text{(e)}\)}: Note that
+\begin{align*}
+&\hspace{1cm}\text{\(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is linearly independent}\\
+&\iff \text{the homogeneous system \(A\vect{x}=\vect{0}\) only has the trivial solution} \\
+&\iff \text{\(A\) is invertible\qquad (by \Cref{prp:homo-same-var-eqs-equiv})}.
+\end{align*}
+It then suffices to prove that \(\text{(d)}\iff\text{(e)}\).
+
+\underline{\(\text{(d)}\implies\text{(e)}\)}: Immediate since a basis must be
+linearly independent.
+
+\underline{\(\text{(e)}\implies\text{(d)}\)}: It follows from
+\Cref{thm:card-dim-li-basis} since \(\dim(\R^n)=n\).
+\end{pf}
+\item Next, we would like to find \emph{bases} and \emph{dimensions} of column
+spaces. We start by considering the following result about the preservation of
+linear independence after multiplication by an invertible matrix.
+
+\begin{theorem}
+\label{thm:mult-inv-matx-preserv-li}
+Let \(P\) be an invertible \(n\times n\) matrix. Then
+\(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is linearly independent in \(\R^n\) iff
+\(\{P\vect{v}_1,\dotsc,P\vect{v}_k\}\) is linearly independent in \(\R^n\).
+\end{theorem}
+\begin{note}
+Here we focus on the vector space \(\R^n\) so that \(P\vect{v}_i\) is
+well-defined for every \(i=1,\dotsc,k\).
+\end{note}
+
+\begin{pf}
+``\(\Rightarrow\)'': Assume that \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) are
+linearly independent. Consider
+\[
+x_1(P\vect{v}_1)+\dotsb+x_k(P\vect{v}_k)=0
+\]
+where \(x_1,\dotsc,x_k\in\R\) are unknowns. Since \(P\) is invertible,
+we can multiply both sides by \(P^{-1}\) to get
+\[
+x_1\vect{v}_1+\dotsb+x_k\vect{v}_k=0,
+\]
+which implies that \(x_1=\dotsb=x_k=0\) by the linear independence of
+\(\{\vect{v}_1,\dotsc,\vect{v}_k\}\).
+
+``\(\Leftarrow\)'': Similar to the ``\(\Rightarrow\)'' direction except that we
+multiply both sides of the equation by matrix \(P\) instead of \(P^{-1}\).
+\end{pf}
+
+\item By definition, we have
+\(\col{A}=\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}\), so
+\(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is a spanning set for \(\col{A}\), when
+considered as a vector space. Then, by the \emph{reduction} approach in
+\Cref{subsect:construct-bases}, we know that there is a subset of
+\(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) that forms a basis for \(\col{A}\). Here
+we will provide a systematic method for obtaining such a basis in
+\Cref{thm:find-col-space-basis}. But before that, we need the following
+preparatory result, which suggests the preservation of \emph{dimension} of
+column space after multiplication by an invertible matrix.
+
+\begin{theorem}
+\label{thm:mult-inv-matx-preserv-dim}
+Let \(A\) be an \(m\times n\) matrix and \(P\) be an invertible \(m\times m\)
+matrix. Then, \(\dim(\col{PA})=\dim(\col{A})\).
+\end{theorem}
+\begin{pf}
+Let \(\vect{v}_1,\dotsc,\vect{v}_n\) be the columns of \(A\). We know that a
+subset of \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) forms a basis for \(\col{A}\),
+and we denote it by \(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\). We want to
+show that \(\{P\vect{v}_{i_1},\dotsc,P\vect{v}_{i_k}\}\) (having the same
+cardinality as \(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\)) is a basis for
+\(\col{PA}\), and therefore \(\dim(\col{PA})=\dim(\col{A})\).
+
+Its linear independence follows from \Cref{thm:mult-inv-matx-preserv-li}, so it
+suffices to prove that \(\spn{\{P\vect{v}_{i_1},\dotsc,P\vect{v}_{i_k}\}}=\col{PA}\).
+Firstly, by block multiplication we can write
+\(PA=\mqty[P\vect{v}_1&\cdots&P\vect{v}_n]\), thus
+\[
+\spn{\{P\vect{v}_1,\dotsc,P\vect{v}_n\}}=\col{PA}.
+\]
+Since \(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\) is a basis (and thus a
+spanning set) for \(\col{A}\), for every \(j=1,\dotsc,n\), we can write
+\(\vect{v}_j\) as a linear combination of
+\(\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\), so we can also write \(P\vect{v}_j\)
+as a linear combination of \(P\vect{v}_{i_1},\dotsc,P\vect{v}_{i_k}\). This
+implies that
+\[
+\spn{\{P\vect{v}_{i_1},\dotsc,P\vect{v}_{i_k}\}}
+=\spn{\{P\vect{v}_1,\dotsc,P\vect{v}_n\}}=\col{PA}.
+\]
+\end{pf}
+
+\item If the condition that \(P\) is invertible is dropped in
+\Cref{thm:mult-inv-matx-preserv-dim}, we would only have a weaker result where
+the equality becomes an inequality, as suggested below.
+
+\begin{proposition}
+\label{prp:mult-matx-reduce-col-sp-dim}
+Let \(A\) be an \(m\times n\) matrix and \(P\) be an \(m\times m\) matrix. Then,
+\(\dim(\col{PA})\le\dim(\col{A})\).
+\end{proposition}
+\begin{pf}
+Let \(\vect{v}_1,\dotsc,\vect{v}_n\) be the columns of \(A\), and consider a
+basis \(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\) for \(\col{A}\). Using the
+same argument as the proof for \Cref{thm:mult-inv-matx-preserv-dim}, we can
+show that \(S=\{P\vect{v}_{i_1},\dotsc,P\vect{v}_{i_k}\}\) is a spanning set for
+\(\col{PA}\), when considered as a vector space.
+
+Then, by the \emph{reduction} approach in \Cref{subsect:construct-bases}, a
+basis for \(\col{PA}\) can be obtained by removing vectors in the spanning set
+\(S\), if necessary. This implies that \(\dim(\col{PA})\le |S|=\dim(\col{A})\).
+\end{pf}
+
+\item Now, we give the systematic method for obtaining a basis for column space
+as follows.
+\begin{theorem}
+\label{thm:find-col-space-basis}
+Let \(A\) be an \(m\times n\) matrix and \(R\) be the RREF of \(A\). Then, the
+columns of \(A\) corresponding to the columns containing the leading ones in
+\(R\) form a basis for \(\col{A}\).
+\end{theorem}
+\begin{pf}
+Let \(\vect{v}_1,\dotsc,\vect{v}_n\) be the columns of \(A\). By Gaussian
+elimination, \(R=E_r\dotsb E_1A\) for some elementary matrices
+\(E_1,\dotsc,E_r\). Let \(E=E_r\dotsb E_1\). Then we can write
+\[
+R=EA=\mqty[E\vect{v}_1&\cdots E\vect{v}_n]
+\]
+by block multiplication.
+
+Denote the columns in \(R\) with leading ones by
+\(E\vect{v}_{i_1},\dotsc,E\vect{v}_{i_k}\). It is not hard to see that the
+homogeneous system
+\[
+\mqty[E\vect{v}_{i_1}&\cdots&E\vect{v}_{i_k}]\vect{x}=\vect{0}
+\]
+has only the trivial solution, by considering the definition of RREF.  So,
+\(\{E\vect{v}_{i_1},\dotsc,E\vect{v}_{i_k}\}\) is linearly independent.
+
+By the definition of RREF, all entries in the rows of \(R\) without leading
+ones are zero. Thus, every column of \(R\) that does not contain any leading
+one in \(R\) can be expressed as a linear combination of
+\(E\vect{v}_{i_1},\dotsc,E\vect{v}_{i_n}\). Consequently,
+\[
+\col{R}=\spn{\{E\vect{v}_{i_1},\dotsc,E\vect{v}_{i_k}\}}.
+\]
+So, we know that \(\{E\vect{v}_{i_1},\dotsc,E\vect{v}_{i_k}\}\) is a basis for
+\(\col{R}\), thus \(\dim(\col{R})=k\).
+
+Since \(E\) is invertible, we know that
+\(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\) is linearly independent by
+\Cref{thm:mult-inv-matx-preserv-li}, and
+\(\dim(\col{A})=\dim(\col{EA})=\dim(\col{R})=k\) by
+\Cref{thm:mult-inv-matx-preserv-dim}. Thus,
+\(\{\vect{v}_{i_1},\dotsc,\vect{v}_{i_k}\}\) is a basis for \(\col{A}\) by
+\Cref{thm:card-dim-li-basis}.
+\end{pf}
+
+\begin{corollary}
+\label{cor:dim-col-space-num-lead-ones}
+Let \(A\) be an \(m\times n\) matrix. Then \(\dim(\col{A})\) is the number of
+leading ones in the RREF of \(A\).
+\end{corollary}
+\begin{pf}
+It follows from \Cref{thm:find-col-space-basis}, by noting the number of
+columns of \(A\) corresponding to the leading ones in \(R\) is just the number
+of leading ones in \(R\), where \(R\) is the RREF of \(A\).
+\end{pf}
+\end{enumerate}
+\subsection{Row Spaces}
+\begin{enumerate}
+\item After discussing column space, we will discuss \emph{row space}. Let
+\(A\) be an \(m\times n\) matrix with \emph{rows}
+\(\vect{u}_1,\dotsc,\vect{u}_m\) (as row vectors). The \defn{row space} of
+\(A\) is defined as \(\row{A}=\spn{\{\vect{u}_1,\dotsc,\vect{u}_m\}}\).
+Likewise, we would like to find bases and dimensions of row spaces.
+
+\item The first result suggests that multiplication of an invertible matrix
+preserves the whole row space (not just the dimension!).
+
+\begin{theorem}
+\label{thm:mult-inv-matx-preserv-row-space}
+Let \(A\) be an \(m\times n\) matrix and \(P\) be an invertible \(m\times m\)
+matrix. Then, \(\row{PA}=\row{A}\).
+\end{theorem}
+\begin{pf}
+Let \(\vect{u}_1,\dotsc,\vect{u}_m\) be the rows of \(A\), and
+\(\vect{w}_1,\dotsc,\vect{w}_m\) be the rows of \(PA\). Write \(P=[p_{ij}]\).
+Then, by block multiplication, we have
+\[
+PA=\mqty[p_{11}&\cdots&p_{1m}\\ \vdots&\ddots&\vdots\\ p_{m1}&\cdots&p_{mm}]
+\mqty[\vect{u}_1\\ \vdots\\ \vect{u}_m]
+=\mqty[
+p_{11}\vect{u}_1+\dotsb+p_{1m}\vect{u}_m\\
+\vdots\\
+p_{m1}\vect{u}_1+\dotsb+p_{mm}\vect{u}_m
+]
+\]
+This shows that for every row \(w_i\) of \(PA\) is a linear combination of
+\(\vect{u}_1,\dotsc,\vect{u}_m\). Hence every linear combination of
+\(\vect{w}_1,\dotsc,\vect{w}_m\) is also a linear combination of
+\(\vect{u}_1,\dotsc,\vect{u}_m\). It follows that
+\[
+\row{PA}=\spn{\{\vect{w}_1,\dotsc,\vect{w}_m\}}\subseteq
+\spn{\{\vect{u}_1,\dotsc,\vect{u}_m\}}=\row{A}.
+\]
+
+So now we have proved that \(\row{QB}\subseteq\row{B}\) for any \(m\times n\)
+matrix \(B\) and \(m\times m\) (invertible) matrix \(Q\). By setting \(B=PA\)
+and \(Q=P^{-1}\), we get
+\[
+\row{A}=\row{P^{-1}(\vc{PA})}\subseteq \row{\vc{PA}},
+\]
+so the result follows.
+\end{pf}
+
+\item If the condition that \(P\) is invertible is dropped in
+\Cref{thm:mult-inv-matx-preserv-row-space}, we would only have a weaker result
+about \emph{inequality} of \emph{dimensions}, as suggested below.
+
+\begin{proposition}
+\label{prp:mult-matx-reduce-row-sp-dim}
+Let \(A\) be an \(m\times n\) matrix and \(P\) be an \(m\times m\) matrix. Then,
+\(\dim(\row{PA})\le\dim(\row{A})\).
+\end{proposition}
+\begin{pf}
+Using the same argument as the first part of the proof for
+\Cref{thm:mult-inv-matx-preserv-row-space}, we can show that
+\(\row{PA}\subseteq \row{A}\), thus \(\row{PA}\) is a vector subspace of
+\(\row{A}\), even without the assumption that \(P\) is invertible. Then, by
+\labelcref{it:dim-subspace}, we have \(\dim(\row{PA})\le\dim(\row{A})\).
+\end{pf}
+
+\item The next result suggests how we can find a basis for row space.
+\begin{theorem}
+\label{thm:nonzero-rows-basis-row-sp}
+Let \(A\) be an \(m\times n\) matrix and \(R\) be the RREF of \(A\). Let
+\(\vect{w}_1,\dotsc,\vect{w}_k\) be the non-zero rows in the RREF of \(A\).
+Then, \(\{\vect{w}_1,\dotsc,\vect{w}_k\}\) is a basis for \(\row{A}\).
+\end{theorem}
+\begin{pf}
+First of all, by Gaussian elimination, we can write \(R=E_r\dotsb E_1A\) for
+some elementary matrices \(E_1,\dotsc,E_r\). Write \(E=E_r\dotsb E_1\) and note
+that it is invertible. Thus, by \Cref{thm:mult-inv-matx-preserv-row-space},
+\(\row{R}=\row{EA}=\row{A}\), so it suffices to show that
+\(\{\vect{w}_1,\dotsc,\vect{w}_k\}\) is a basis for \(\row{R}\).
+
+Since adding zero (row) vectors into the set
+\(\{\vect{w}_1,\dotsc,\vect{w}_k\}\) does not change its span, we see that\\
+\(\spn{\{\vect{w}_1,\dotsc,\vect{w}_k\}}=\row{R}\). Also, by the definition of
+RREF, the nonzero rows contain the leading ones at different positions. From
+this we can observe that \(\{\vect{w}_1,\dotsc,\vect{w}_k\}\) is linearly
+independent. Thus, \(\{\vect{w}_1,\dotsc,\vect{w}_k\}\) is a basis for
+\(\row{R}\), as desired.
+\end{pf}
+\begin{corollary}
+\label{cor:dim-row-space-num-lead-ones}
+Let \(A\) be an \(m\times n\) matrix. Then \(\dim(\row{A})\) is the number of
+leading ones in the RREF of \(A\).
+\end{corollary}
+\begin{pf}
+It follows from \Cref{thm:nonzero-rows-basis-row-sp}, by noting the number of
+nonzero rows in \(R\) is just the number of leading ones in \(R\), where \(R\)
+is the RREF of \(A\).
+\end{pf}
+\end{enumerate}
+\subsection{Matrix Rank}
+\begin{enumerate}
+\item A fundamental result in linear algebra that connects row and column
+spaces is the following. It suggests that row and column spaces of the same
+matrix must always have the same dimension.
+\begin{theorem}
+\label{thm:row-col-same-dim}
+Let \(A\) be an \(m\times n\) matrix. Then \(\dim(\row{A})=\dim(\col{A})\).
+\end{theorem}
+\begin{pf}
+Let \(R\) be the RREF of \(A\). Then, we can write \(R=E_r\dotsb E_1A\) for
+some elementary matrices \(E_1,\dotsc,E_r\). Let \(E=E_r\dotsb E_1\), and note
+that \(E\) is invertible. Thus, by
+\Cref{thm:mult-inv-matx-preserv-dim,thm:mult-inv-matx-preserv-row-space}, we
+have
+\[
+\dim(\col{A})=\dim(\col{R})
+\]
+and
+\[
+\dim(\row{A})=\dim(\row{R})
+\]
+By \Cref{cor:dim-col-space-num-lead-ones,cor:dim-row-space-num-lead-ones}, we
+then have
+\[
+\dim(\col{R})=\dim(\row{R})=\text{number of leading ones in \(R\)},
+\]
+which implies that \(\dim(\row{A})=\dim(\col{A})\).
+\end{pf}
+\item The common value of the dimensions of row and column spaces of a matrix
+is said to be the rank of that matrix. Symbolically, the \defn{rank} of an
+\(m\times n\) matrix \(A\) is \(\rk{A}=\dim(\col{A})\;(=\dim(\row{A}))\).
+
+\item Intuitively, rank measures the ``magnitude'' of non-invertibility of a
+matrix. The \emph{lower} the rank of a matrix is, the ``\emph{more}
+non-invertible'' the matrix is. Examples:
+\begin{itemize}
+\item The rank of every zero matrix is \(0\) (the lowest possible rank), so
+zero matrix is ``very non-invertible''.
+\item The rank of every invertible \(n\times n\) matrix is \(n\) (the highest
+possible rank for an \(n\times n\) matrix).
+
+\begin{pf}
+Let \(A\) be any invertible matrix. By \Cref{prp:inv-iff-rref-identity}, the
+RREF of \(A\) is \(I_n\), so there exist elementary matrices \(E_1,\dotsc,E_r\)
+such that \(I_n=E_r\dotsb E_1 A\). Let \(E=E_r\dotsb E_1\), which is
+invertible. Then, we have
+\[
+\rk{A}=\dim(\col{A})
+=\dim(\col{EA})
+=\dim(\col{I_n})
+=\dim(\R^n)
+=n.
+\]
+\end{pf}
+
+Hence, as expected, an \emph{invertible} matrix has no degree of
+non-invertibility.
+\item The \(3\times 3\) matrix \(\mqty[1&0&1\\ 0&1&1\\ 0&1&1]\) has rank \(2\)
+since its RREF is \(\mqty[1&0&1\\ 0&1&1\\ 0&0&0]\), which has two nonzero rows.
+Since its rank is not \(3\), we know that it is non-invertible. But its rank
+suggests that its ``degree of non-invertibility'' is not very high.
+\end{itemize}
+\end{enumerate}
+\subsection{Null Spaces}
+\begin{enumerate}
+\item So far we have introduced two kinds of spaces that are related to a
+matrix: column and row spaces. We will introduce the third kind here, which is
+about the concept of the system of linear equations.
+
+\item Let \(A\) be an \(m\times n\) matrix. Then the \defn{null space} of \(A\)
+is given by \(\nul{A}=\{\vect{x}\in\R^n:A\vect{x}=\vect{0}\}\), i.e., the
+solution set of the homogeneous system \(A\vect{x}=\vect{0}\).
+
+\item The following result suggests that null space is indeed a vector
+subspace of \(\R^n\).
+
+\begin{theorem}
+\label{thm:null-sp-vec-subsp}
+Let \(A\) be an \(m\times n\) matrix. Then, the null space \(\nul{A}\) is a
+vector subspace of \(\R^n\).
+\end{theorem}
+\begin{pf}
+Fix any \(\vect{u},\vect{v}\in \nul{A}\). Then, \(A\vect{u}=A\vect{v}=\vect{0}\).
+
+\underline{Closed under addition}: We have
+\(A(\vect{u}+\vect{v})=A\vect{u}+A\vect{v}=\vect{0}+\vect{0}=\vect{0},\) thus
+\(\vect{u}+\vect{v}\in\nul{A}\).
+
+\underline{Closed under scalar multiplication}: For any \(a\in\R\),
+\(A(a\vect{v})=aA\vect{v}=a\vect{0}=\vect{0},\) thus \(a\vect{v}\in\nul{A}\).
+\end{pf}
+
+\item Like column and row spaces, we would like to find dimensions and bases of
+null spaces. They can be found as suggested by the following result.
+
+\begin{theorem}
+\label{thm:null-sp-dim-basis}
+Let \(A\) be an \(m\times n\) matrix and \(R\) be the RREF of \(A\).
+\begin{enumerate}
+\item The dimension \(\dim(\nul{A})\) equals the number of free variables in
+the augmented matrix \([R|\vect{0}]\).
+
+\item Let \(s_1,\dotsc,s_r\) be the parameters assigned to the free variables.
+Express the null space of \(A\), i.e., the solution set of the homogeneous
+system \(A\vect{x}=\vect{0}\), as
+\(\{s_1\vect{v}_1+\dotsb+s_r\vect{v}_r:s_1,\dotsc,s_r\in\R\}\), where
+\(\vect{v}_1,\dotsc,\vect{v}_r\in\R^n\).\footnote{This is always possible for a
+\emph{homogeneous} system. Each solution in the general solution is a vector
+involving free variables \(s_1,\dotsc,s_r\) \emph{without} constant term due to
+the homogeneity. Then, each general solution can be ``split'' into
+\(s_1\vect{v}_1,\dotsc,s_r\vect{v}_r\).} Then, the set
+\(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) is a basis for \(\nul{A}\).
+\end{enumerate}
+\end{theorem}
+\begin{pf}
+Note that (b) implies (a) by the definition of dimension. So it suffices to
+prove (b).
+
+Firstly, we observe from the above expression of null space that
+\[
+\nul{A}=\{s_1\vect{v}_1+\dotsb+s_r\vect{v}_r:s_1,\dotsc,s_r\in\R\}
+=\spn{\{\vect{v}_1,\dotsc,\vect{v}_r\}}.
+\]
+This shows \(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) spans \(\nul{A}\).
+
+Next, note that for every \(i=1,\dotsc,r\), the vector \(\vect{v}_i\) has (i) a
+nonzero entry at the position for the corresponding free variable in each
+solution from the solution set, and (ii) zero entries at the positions for the
+rest of the free variables. Thus, \(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) is
+linearly independent.
+\end{pf}
+\end{enumerate}
