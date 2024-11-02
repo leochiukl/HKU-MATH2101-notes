@@ -83,7 +83,7 @@ a\vect{0}=a(0\vect{0})=(a0)\vect{0}=0\vect{0}=\vect{0}.
 multiplication are naturally defined in the usual way for the following):
 \begin{enumerate}
 \item The set of \(\R^n\) of column vectors.
-\item The set of \(m\times n\) matrices, denoted by \defn{\(M_{m\times n}(\R)\)}.
+\item The set of \(m\times n\) matrices, denoted by \(M_{m\times n}(\R)\).
 \begin{note}
 The zero vector in this vector space is the \emph{zero matrix} \(O_{m\times n}\).
 \end{note}
@@ -546,6 +546,10 @@ must be a spanning set of \(\spn{S}\), where \(\spn{S}\) is considered as a
 vector space.
 \end{pf}
 
+As a special case, if \(V=\{\vect{0}\}\), then the only linearly
+independent subset of \(V\) is \(\varnothing\), so the empty set
+\(\beta=\varnothing\) is a basis for \(\spn{\varnothing}=\{\vect{0}\}=V\).
+
 \item The main result about \emph{basis} is the following.
 \begin{theorem}
 \label{thm:basis-unique-lin-comb}
@@ -696,8 +700,16 @@ Roughly speaking, dimension may be seen as the number of ``degrees of
 freedom'' or ``independent parameters''.
 \end{note}
 
-Example: The dimension of \(\R^n\) is \(n\) (as expected) since the standard
-basis \(\{\vect{e}_1,\dotsc,\vect{e}_n\}\) of \(\R^n\) has \(n\) vectors.
+Examples:
+\begin{itemize}
+\item The dimension of \(\R^n\) is \(n\) (as expected) since the
+standard basis \(\{\vect{e}_1,\dotsc,\vect{e}_n\}\) of \(\R^n\) has
+\(n\) vectors.
+\item The dimension of the zero vector space \(V=\{\vect{0}\}\) is 0
+since a basis (in fact, the only basis) for \(V\) is \(\varnothing\).
+Indeed, the zero vector space is the only vector space with zero
+dimension.
+\end{itemize}
 
 \item To close \Cref{subsect:dim}, we give some results regarding dimension.
 \begin{enumerate}
@@ -906,6 +918,7 @@ Assume to the contrary that \(S\) is not a basis for \(V\). Then by
 \end{pf}
 \end{enumerate}
 \subsection{Column Spaces}
+\label{subsect:col-sp}
 \begin{enumerate}
 \item Let \(A\) be an \(m\times n\) matrix and let
 \(\vect{v}_1,\dotsc,\vect{v}_n\) be the columns of \(A\). Recall that the
@@ -1264,6 +1277,7 @@ suggests that its ``degree of non-invertibility'' is not very high.
 \end{itemize}
 \end{enumerate}
 \subsection{Null Spaces}
+\label{subsect:null-sp}
 \begin{enumerate}
 \item So far we have introduced two kinds of spaces that are related to a
 matrix: column and row spaces. We will introduce the third kind here, which is
@@ -1299,8 +1313,9 @@ null spaces. They can be found as suggested by the following result.
 \label{thm:null-sp-dim-basis}
 Let \(A\) be an \(m\times n\) matrix and \(R\) be the RREF of \(A\).
 \begin{enumerate}
-\item The dimension \(\dim(\nul{A})\) equals the number of free variables in
-the augmented matrix \([R|\vect{0}]\).
+\item The dimension \(\dim(\nul{A})\), called the \defn{nullity} of
+\(A\) and denoted by \(\nulty{A}\), equals the number of free variables
+in the augmented matrix \([R|\vect{0}]\).
 
 \item Let \(s_1,\dotsc,s_r\) be the parameters assigned to the free variables.
 Express the null space of \(A\), i.e., the solution set of the homogeneous

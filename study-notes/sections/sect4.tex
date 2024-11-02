@@ -1,2 +1,632 @@
 \section{Linear Transformations}
 \label{sect:linear-transformations}
+\begin{enumerate}
+\item We have mentioned in
+\Cref{subsect:matrix-vec-product,subsect:matrix-mult} that matrix-vector
+product and matrix multiplication are actually related to the concept of
+\emph{linear transformation}. As we have mentioned at the very beginning of
+this notes, linear transformation is another central concept in linear algebra,
+apart from vector space. So we will investigate linear transformations in
+\Cref{sect:linear-transformations}.
+\end{enumerate}
+\subsection{Linear Transformations}
+\begin{enumerate}
+\item Given two vector spaces, we can define many functions by treating one of
+them as domain as another as codomain. However, not all such functions are said
+to be \emph{linear transformations}. To qualify as a linear transformation, we
+impose an additional constraint: The operations on vector spaces, namely vector
+addition and scalar multiplication, should be preserved.
+
+\item Let \(V\) and \(W\) be vector spaces. A function \(T:V\to W\) is a
+\defn{linear transformation} from \(V\) to \(W\) if for any
+\(\vect{u},\vect{v}\in V\) and any scalar \(c\in\R\),
+\begin{enumerate}
+\item (preserving vector addition) \(T(\vect{u}+\vect{v})=T(\vect{u})+T(\vect{v})\);
+\item (preserving scalar multiplication) \(T(c\vect{v})=cT(\vect{v})\).
+\end{enumerate}
+Examples:
+\begin{itemize}
+\item A function \(T:\R^2\to\R^2\) defined by \(T\qty(\mqty[x\\ y])=3\mqty[x\\ y]\)
+is a linear transformation.
+
+\begin{pf}
+Exercise.
+\end{pf}
+\item A function \(T:\R^n\to\R\) defined by \(T\qty(\mqty[x_1\\ \vdots\\ x_n])=x_1+\dotsb+x_n\)
+is a linear transformation.
+
+\begin{pf}
+Exercise.
+\end{pf}
+\item A function \(T:\R^3\to\R^2\) defined by \(T\qty(\mqty[x_1\\ x_2\\ x_3])=\mqty[x_1+x_2\\ x_2-2x_3]\)
+is a linear transformation.
+
+\begin{pf}
+Fix any \(\vect{u}=\mqty[x_1\\ x_2\\ x_3]\) and \(\vect{v}=\mqty[y_1\\ y_2\\
+y_3]\) in \(\R^3\). Then,
+\begin{align*}
+T(\vect{u}+\vect{v})
+&=T\qty(\mqty[\blc{x_1+y_1}\\ \gc{x_2+y_2}\\ \orc{x_3+y_3}]) \\
+&=\mqty[\blc{x_1+y_1}+\gc{x_2+y_2}\\ \gc{x_2+y_2}-2(\orc{x_3+y_3})] \\
+&=\mqty[x_1+x_2\\ x_2-2x_3]+\mqty[y_1+y_2\\ y_2-2y_3] \\
+&=T\qty(\mqty[x_1\\ x_2\\ x_3])+T\qty(\mqty[y_1\\ y_2\\ y_3]) \\
+&=T(\vect{u})+T(\vect{v}).
+\end{align*}
+Next, for any \(c\in\R\), we have
+\[
+T(c\vect{v})
+=T\qty(c\mqty[x_1\\ x_2\\ x_3])
+=T\qty(\mqty[cx_1\\ cx_2\\ cx_3])
+=\mqty[cx_1+cx_2\\ cx_2-2cx_3]
+=c\mqty[x_1+x_2\\ x_2-2x_3]
+=cT\qty(\mqty[x_1\\ x_2\\ x_3])
+=cT(\vect{v}).
+\]
+\end{pf}
+\end{itemize}
+\item \label{it:matx-mult-lt} To connect the concepts of matrix-vector product and linear
+transformation, consider the following. Let \(A\) be an \(m\times n\) matrix,
+and \(L_A:\R^n\to\R^m\) be defined by \(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\).
+Then \(L_A\) is a linear transformation.
+
+\begin{pf}
+Fix any \(\vect{u},\vect{v}\in\R^n\). Firstly, we have
+\(L_A(\vect{u}+\vect{v})=A(\vect{u}+\vect{v})=A\vect{u}+A\vect{v}=L_A(\vect{u})+L_A(\vect{v})\).
+Next, for any \(c\in\R\), we have
+\(L_A(c\vect{v})=A(c\vect{v})=c(A\vect{v})=cL_A(\vect{v})\).
+\end{pf}
+
+\item Two special kinds of linear transformations are as follows. Let \(V\) and
+\(W\) be vector spaces.
+\begin{itemize}
+\item The identity function \(\id_{V}:V\to V\), defined by
+\(\id_{V}(\vect{v})=\vect{v}\) for any \(\vect{v}\in V\), is a linear
+transformation. It is called the \defn{identity transformation}.
+
+\begin{pf}
+To prove that it is a linear transformation, first fix any
+\(\vect{u},\vect{v}\in V\). Then,
+\[
+\id_{V}(\vect{u}+\vect{v})=\vect{u}+\vect{v}=\id_{V}(\vect{u})+\id_{V}(\vect{v})
+\]
+and for any \(c\in\R\), we have
+\[
+\id_{V}(c\vect{v})=c\vect{v}=c\id_{V}(\vect{v}).
+\]
+\end{pf}
+
+\item The zero function \(T_0:V\to W\), defined by
+\(T_0(\vect{v})=\vect{0}\)\footnote{Note that \(\vect{0}\) is the zero vector
+\underline{in \(W\)}.} for any \(\vect{v}\in V\), is a linear
+transformation. It is called the \defn{zero transformation}.
+
+\begin{pf}
+Again first fix any \(\vect{u},\vect{v}\in V\). Then,
+\[
+T_0(\vect{u}+\vect{v})=\vect{0}=\vect{0}+\vect{0}=T_0(\vect{u})+T_0(\vect{v})
+\]
+and for any \(c\in\R\), we have
+\[
+T_0(c\vect{v})=\vect{0}=c\vect{0}=cT_0(\vect{v}).
+\]
+\end{pf}
+\end{itemize}
+For the identity transformation, if \(V=\R^n\), then it is indeed a special
+case of the linear transformation in \labelcref{it:matx-mult-lt} with \(A=I_n\).
+For the zero transformation, if \(V=\R^n\) and \(W=\R^m\), then it is a special
+case of the linear transformation in \labelcref{it:matx-mult-lt} with
+\(A=O_{m\times n}\). Note however that the identity and zero transformations
+can be defined for arbitrary vector spaces, not limited to \(\R^n\).
+
+\item The following result suggests that linear transformation also preserves
+\emph{zero} and \emph{linear combinations}.
+\begin{proposition}
+\label{prp:lt-zero-to-zero-preserv-lincomb}
+Let \(T:V\to W\) be a linear transformation. Then:
+\begin{enumerate}
+\item \(T(\vect{0})=\vect{0}\).
+\begin{note}
+The \(\vect{0}\) in the LHS denotes the zero vector \underline{in \(V\)}, while
+the \(\vect{0}\) in the RHS denotes the zero vector \underline{in \(W\)}.
+\end{note}
+\item Let \(n\) be any positive integer. For any \(a_1,\dotsc,a_n\in\R\) and
+any \(\vect{v}_1,\dotsc,\vect{v}_n\in V\),
+\[
+T(a_1\vect{v}_1+\dotsb+a_n\vect{v}_n)=a_1T(\vect{v}_1)+\dotsb+a_nT(\vect{v}_n).
+\]
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+\begin{enumerate}
+\item Fix any \(\vect{v}\in V\) and note that
+\[
+T(\vect{0})=T(0\vect{v})=0T(\vect{v})=\vect{0},
+\]
+by \Cref{prp:vector-space-prop}.
+
+\item We prove by induction. The case \(n=1\) follows immediately from the
+definition of linear transformation (preservation of scalar multiplication).
+Now assume that the case \(n=k\) for a \(k\in\N\), i.e.,
+\[
+T(a_1\vect{v}_1+\dotsb+a_k\vect{v}_k)=a_1T(\vect{v}_1)+\dotsb+a_kT(\vect{v}_k).
+\]
+Consider
+\begin{align*}
+T(\blc{a_1\vect{v}_1+\dotsb+a_k\vect{v}_k}+a_{k+1}\vect{v}_{k+1})
+&=T(\blc{a_1\vect{v}_1+\dotsb+a_k\vect{v}_k})+T(a_{k+1}\vect{v}_{k+1}) \\
+&=a_1T(\vect{v}_1)+\dotsb+a_kT(\vect{v}_k)+T(a_{k+1}\vect{v}_{k+1}) \\
+&=a_1T(\vect{v}_1)+\dotsb+a_kT(\vect{v}_k)+a_{k+1}T(\vect{v}_{k+1}),
+\end{align*}
+so the case \(n=k+1\) holds, hence the result follows by induction.
+\end{enumerate}
+\end{pf}
+
+\item More advanced examples of linear transformations:
+\begin{itemize}
+\item Let \(V\) be the vector space of differentiable functions from \(\R\) to
+\(\R\). (It can be proved that \(V\) is a vector subspace of the vector space
+of all functions from \(\R\) to \(\R\).) Define a function \(T:V\to V\) by \(T(f)=f'\)
+for any \(f\in V\). Then \(T\) is a linear transformation.
+
+\begin{pf}
+Fix any \(f_1,f_2\in V\). Firstly, we have
+\[
+T(f_1+f_2)=(f_1+f_2)'=f_1'+f_2'=T(f_1)+T(f_2).
+\]
+Next, for any \(c\in\R\), we have
+\[
+T(cf_1)=(cf_1)'=cf_1'=cT(f_1).
+\]
+\end{pf}
+\item Let \(V\) be the vector space of all \(m\times n\) matrices, \(P\) be an
+\(m\times m\) matrix, and \(Q\) be an \(n\times n\) matrix. Define a function
+\(T:V\to V\) by \(T(A)=PAQ\) for any \(A\in V\). Then \(T\) is a linear
+transformation.
+
+\begin{pf}
+Fix any \(A,B\in V\). Firstly, we have
+\[
+T(A+B)=P(A+B)Q=P(AQ+BQ)=PAQ+PBQ=T(A)+T(B).
+\]
+Next, for any \(c\in\R\), we have
+\[
+T(cA)+P(cA)Q=cPAQ=cT(A).
+\]
+\end{pf}
+\end{itemize}
+\item The following is a \underline{non}-example of linear transformation. Let
+\(V\) be the vector space of \(n\times n\) matrices. Define \(T:V\to V\) by
+\(T(A)=A^{2}\). Then \(T\) is \emph{not} a linear transformation since
+\(T(2I_n)=(2I_n)^{2}=4I_n^{2}=4T(I_n)\ne 2T(I_n)\).
+
+\item To obtain more examples of linear transformations, we can utilize the
+following result to construct linear transformations from \emph{bases}.
+
+\begin{theorem}
+\label{thm:construct-lt-from-basis}
+Let \(V\) and \(W\) be vector spaces. Let \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\)
+be a basis for \(V\) and let \(\vect{w}_1,\dotsc,\vect{w}_n\in W\). Then there
+exists a unique linear transformation \(T:V\to W\) such that
+\(T(\vect{v}_i)=\vect{w}_i\) for every \(i=1,\dotsc,n\).
+\end{theorem}
+\begin{note}
+This result does \underline{not} say that \(\{\vect{w}_1,\dotsc,\vect{w}_n\}\)
+is a basis.
+\end{note}
+
+\begin{pf}
+\underline{Existence}: Fix any \(\vect{v}\in V\). By
+\Cref{thm:basis-unique-lin-comb}, the vector \(\vect{v}\) can be written as
+\(\vc{a_1}\vect{v}_1+\dotsb+\vc{a_n}\vect{v}_n\) for some unique scalars
+\(\vc{a_1,\dotsc,a_n}\in\R\). Then define \(T:V\to W\) by
+\[
+T(\vect{v})=\vc{a_1}\vect{w}_1+\dotsb+\vc{a_n}\vect{w}_n.
+\]
+Note that for every \(i=1,\dotsc,n\), we have \(T(\vect{v}_i)=\vect{w}_i\)
+since the corresponding unique scalars are \(a_i=1\) and \(a_j=0\) for any
+\(j\ne i\). We also claim that \(T\) is a linear transformation.
+
+\begin{pf}
+\underline{Addition}: Fix any \(\vect{v},\vect{v}'\in V\). By
+\Cref{thm:basis-unique-lin-comb}, we can write
+\[
+\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
+\qqtext{and}
+\vect{v}'=a_1'\vect{v}_1+\dotsb+a_n'\vect{v}_n
+\]
+for some unique scalars \(a_1,\dotsc,a_n,a_1',\dotsc,a_n'\in\R\). Note that
+\[
+\vect{v}+\vect{v}'=\vc{(a_1+a_1')}\vect{v}_1+\dotsb+\vc{(a_n+a_n')}\vect{v}_n,
+\]
+thus
+\[
+T(\vect{v}+\vect{v}')=\vc{(a_1+a_1')}\vect{w}_1+\dotsb+\vc{(a_n+a_n')}\vect{w}_n
+=(a_1\vect{w}_1+\dotsb+a_n\vect{w}_n)+(a_1'\vect{w}_1+\dotsb+a_n'\vect{w}_n)
+=T(\vect{v})+T(\vect{v}').
+\]
+
+\underline{Scalar multiplication}: Fix any \(\vect{v}\in V\) and \(c\in\R\). By 
+\Cref{thm:basis-unique-lin-comb}, write
+\(\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n\) for some unique scalars
+\(a_1,\dotsc,a_n\in\R\). Then we have
+\(c\vect{v}=(ca_1)\vect{v}_1+\dotsb+(ca_n)\vect{v}_n\), thus
+\[
+T(c\vect{v})=(ca_1)\vect{w}_1+\dotsb+(ca_n)\vect{w}_n
+=c(a_1\vect{w}_1+\dotsb+a_n\vect{w}_n)
+=cT(\vect{v}).
+\]
+\end{pf}
+
+\underline{Uniqueness}: Let \(T':V\to W\) be another linear transformation
+satisfying \(T'(\vect{v}_i)=\vect{w}_i\) for every \(i=1,\dotsc,n\). Fix any
+\(\vect{v}\in V\). Then there are unique scalars \(a_1,\dotsc,a_n\) such that
+\(\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n\). Hence,
+\begin{align*}
+T'(\vect{v})
+&=T'(a_1\vect{v}_1+\dotsb+a_n\vect{v}_n) \\
+&=a_1T'(\vect{v}_1)+\dotsb+a_nT'(\vect{v}_n) \\
+&=a_1\vect{w}_1+\dotsb+a_n\vect{w}_n \\
+&=a_1T(\vect{v}_1)+\dotsb+a_nT(\vect{v}_n) \\
+&=T(a_1\vect{v}_1+\dotsb+a_n\vect{v}_n) \\
+&=T(\vect{v}).
+\end{align*}
+Since this holds for arbitrary \(\vect{v}\in V\), we conclude that \(T'=T\).
+\end{pf}
+\end{enumerate}
+\subsection{Null Spaces and Ranges}
+\begin{enumerate}
+\item Given an \(m\times n\) matrix, we can obtain its corresponding null space
+and column space, as suggested in \Cref{subsect:col-sp,subsect:null-sp}. We
+can do similar things for a linear transformation, and consider its \emph{null
+space} and \emph{range}.
+
+\item Let \(T:V\to W\) be a linear transformation. The \defn{null space} of
+\(T\), denoted by \(\nul{T}\), is given by \(\{\vect{v}\in V:T(\vect{v})=\vect{0}\}\).
+\begin{note}
+Here \(\vect{0}\) denotes the zero vector in \(W\).
+\end{note}
+
+The \defn{range} of \(T\), denoted by \(\ran T\), is given by
+\(\ran{T}=\{T(\vect{v})\in W:\vect{v}\in V\}\). \begin{note} This coincides
+with the usual definition of range for a function.
+\end{note}
+
+\item Examples:
+\begin{itemize}
+\item Consider the zero transformation \(T_0:V\to W\), defined by
+\(T_0(\vect{v})=\vect{0}\) for any \(\vect{v}\in V\). Then, \(\nul{T}=V\) and
+\(\ran{T}=\{\vect{0}\}\).
+\item Consider the identity transformation \(\id_{V}:V\to V\), defined by
+\(\id_{V}(\vect{v})=\vect{v}\) for any \(\vect{v}\in V\). Then,
+\(\nul{\id_{V}}=\{\vect{0}\}\) and \(\ran{\id_{V}}=V\).
+\item Let \(T:\R^{2n}\to\R^n\) be defined by
+\[
+T(\vect{v})=\mqty[I_n&O_{n\times n}\\ O_{n\times n}&O_{n\times n}]\vect{v}
+\]
+for any \(\vect{v}\in\R^{2n}\). Then,
+\[
+\nul{T}=\qty{\mqty[0\\ \vdots\\0\\ x_{n+1}\\ \vdots\\ x_{2n}]:x_{n+1},\dotsc,x_{2n}\in\R}
+\]
+and
+\[
+\ran{T}=\qty{\mqty[x_1\\ \vdots\\x_n\\ 0\\ \vdots\\ 0]:x_{1},\dotsc,x_{n}\in\R}.
+\]
+\end{itemize}
+\item \label{it:null-ran-relate-matx-sp}
+Let \(A\) be an \(m\times n\) matrix and let \(L_A:\R^{n}\to\R^{m}\) be the
+associated linear transformation, i.e., the one defined by
+\(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\).
+
+The null space of \(L_A\) is
+\[
+\nul{L_A}=\{\vect{v}\in \R^n:L_A(\vect{v})=\vect{0}\}
+=\{\vect{v}\in\R^n: A\vect{v}=\vect{0}\}
+=\nul{A}
+\]
+as expected. On the other hand, the range of \(L_A\) is
+\[
+\ran{L_A}=\{L_A(\vect{v})\in\R^m:\vect{v}\in\R^n\}
+=\{A\vect{v}\in\R^m:\vect{v}\in\R^n\}
+=\col{A}.
+\]
+From this, we can see that the notions of null space and range of a linear
+transformation can be seen as generalizations to the concepts of null space and
+column space for a matrix, respectively.
+
+\item Like the null space and column space of a matrix, the null space and
+range of a linear transformation are vector subspaces.
+
+\begin{proposition}
+\label{prp:null-ran-subspaces}
+Let \(T:V\to W\) be a linear transformation. Then \(\nul{T}\) and \(\ran{T}\)
+are vector subspaces of \(V\) and \(W\) respectively.
+\end{proposition}
+\begin{pf}
+First consider \(\nul{T}\).
+\underline{Closed under addition}: For any \(\vect{v},\vect{w}\in\nul{T}\), we have
+\(T(\vect{v})=T(\vect{w})=\vect{0}\), thus
+\(T(\vect{v}+\vect{w})=T(\vect{v})+T(\vect{w})=\vect{0}\). Hence,
+\(\vect{v}+\vect{w}\in\nul{T}\).
+
+\underline{Closed under scalar multiplication}: For any \(c\in\R\) and any
+\(\vect{v}\in V\), we have \(T(c\vect{v})=cT(\vect{v})=\vect{0}\), thus
+\(c\vect{v}\in\nul{T}\).
+
+Next consider \(\ran{T}\).
+\underline{Closed under addition}: For any \(\vect{v}',\vect{w}'\in\ran{T}\),
+\(v'=T(\vect{v})\) and \(\vect{w}'=T(\vect{w})\) for some
+\(\vect{v},\vect{w}\in V\). Thus,
+\(\vect{v}'+\vect{w}'=T(\vect{v})+T(\vect{w})=T(\vect{v}+\vect{w})\in\ran{T}\).
+
+\underline{Closed under scalar multiplication}: For any \(c\in\R\) and any
+\(v'\in\ran{T}\), we have \(v'=T(\vect{v})\) for some \(\vect{v}\in V\). Hence,
+\(c\vect{v}'=cT(\vect{v})=T(c\vect{v})\in\ran{T}\).
+\end{pf}
+
+\item To find the range of a linear transformation, the following result can be
+of use.
+
+\begin{proposition}
+\label{prp:ran-spanning-set}
+Let \(T:V\to W\) be a linear transformation and
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be a basis for \(V\). Then
+\[
+\ran{T}=\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_n)\}}.
+\]
+\end{proposition}
+\begin{pf}
+``\(\supseteq\)'': For any
+\(\vect{w}\in\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_n)\}}\), we have for some
+\(a_1,\dotsc,a_n\in\R\),
+\[
+\vect{w}=a_1T(\vect{v}_1)+\dotsb+a_nT(\vect{v}_n)
+=T(a_1\vect{v}_1+\dotsb+a_n\vect{v}_n)\in\ran{T}.
+\]
+
+``\(\subseteq\)'': For any \(\vect{w}\in\ran{T}\), we know
+\(\vect{w}=T(\vect{v})\) for some \(\vect{v}\in V\). By the spanning property
+of basis, \(\vect{v}=b_1\vect{v}_1+\dotsb+b_n\vect{v}_n\) for some
+\(b_1,\dotsc,b_m\in\R\). Thus
+\[
+\vect{w}=T(b_1\vect{v}_1+\dotsb+b_n\vect{v}_n)=b_1T(\vect{v}_1)+\dotsb+b_nT(\vect{v}_n)
+\in\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_n)\}}.
+\]
+\end{pf}
+
+This result tells us that we can obtain the range of a linear transformation by
+first finding a basis for the domain \(V\). Then, after applying the linear
+transformation on each vector in the basis, the range would just be the span of
+those transformed vectors.
+
+\item Example: Let \(T:\R^3\to\R^2\) be defined by \(T\qty(\mqty[x\\ y\\
+z])=\mqty[x-y\\ y-z]\). Then, the null space and the range of \(T\) are given
+by:
+\begin{itemize}
+\item \emph{null space:} We first solve the system of linear equations
+\[
+\systeme{x-y=0, y-z=0}.
+\]
+The null space \(\nul{T}\) is just the solution set
+\(\{(t,t,t)\in\R^3:t\in\R\}\).
+
+\item \emph{range:} Consider the standard basis
+\(\{\vect{e}_1,\vect{e}_2,\vect{e}_3\}\) for \(\R^3\). Then, by
+\Cref{prp:ran-spanning-set},
+\[
+\ran{T}=\spn{\{T(\vect{e}_1),T(\vect{e}_2),T(\vect{e}_3)\}}
+=\spn{\qty{\mqty[1\\ 0], \mqty[-1\\ 1], \mqty[0\\ 1]}}
+=\R^2,
+\]
+where we get the last equality from the observation that \(\mqty[1\\ 0]\) and
+\(\mqty[0\\ 1]\) already span \(\R^2\).
+\end{itemize}
+
+%\item The range of a linear transformation, as a vector subspace of the
+%codomain, has a dimension bounded by the dimension of the codomain. But we can
+%actually say even more.
+%
+%\begin{proposition}
+%\label{prp:range-dim-bdd-dom-dim}
+%Let \(T:V\to W\) be a linear transformation. Then \(\dim(\ran{T})\le\dim(V)\).
+%\end{proposition}
+%\begin{pf}
+%Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be a basis for \(V\). By
+%\Cref{prp:ran-spanning-set},
+%\(\ran{T}=\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_n)\}}\). By the reduction
+%approach in \Cref{subsect:construct-bases}, there is a linearly independent
+%subset of \(\{T(\vect{v}_1),\dotsc,T(\vect{v}_n)\}\) that spans \(\ran{T}\),
+%with cardinality less than or equal to \(\dim(V)\).  Thus
+%\(\dim(\ran{T})\le\dim(V)\).
+%\end{pf}
+
+\item The concepts of null space and range of a linear transformation can be
+neatly related by an important result called \emph{dimension formula}. Before
+stating that, we first introduce some preliminary notions. Let \(T:V\to W\) be
+a linear transformation.
+\begin{itemize}
+\item The \defn{nullity} of \(T\), denoted by \(\nulty{T}\), is the dimension
+of \(\nul{T}\).
+\item The \defn{rank} of \(T\), denoted by \(\rk{T}\), is the dimension of
+\(\ran{T}\).
+\end{itemize}
+By \labelcref{it:null-ran-relate-matx-sp}, given an \(m\times n\) matrix \(A\)
+and letting \(L_A:\R^n\to\R^m\) be defined by \(L_A(\vect{v})=A\vect{v}\) for
+any \(\vect{v}\in\R^m\), we know that
+\begin{itemize}
+\item \(\nulty{L_A}=\dim(\nul{A})=\nulty{A}\).
+\item \(\rk{L_A}=\dim(\col{A})=\rk{A}\).
+\end{itemize}
+
+\item The dimension formula is as follows.
+
+\begin{theorem}[Dimension formula]
+\label{thm:dim-fmla}
+Let \(T:V\to W\) be a linear transformation. Then
+\[
+\nulty{T}+\rk{T}=\dim(V).
+\]
+\end{theorem}
+\begin{pf}
+Let \(k=\nulty{T}\) and \(m=\dim(V)\). Let \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\)
+be a basis for \(\nul{T}\), which is linearly independent in \(V\). By the
+extension approach in \Cref{subsect:construct-bases}, we can find vectors
+\(\vect{u}_1,\dotsc,\vect{u}_{m-k}\) such that
+\(\{\vect{v}_1,\dotsc,\vect{v}_k,\vect{u}_1,\dotsc,\vect{u}_{m-k}\}\) is a
+basis for \(V\).
+
+By \Cref{prp:ran-spanning-set},
+\begin{align*}
+\ran{T}&=\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_k),T(\vect{u}_1),\dotsc,T(\vect{u}_{m-k})\}} \\
+&=\spn{\{\vect{0},\dotsc,\vect{0},T(\vect{u}_1),\dotsc,T(\vect{u}_{m-k})\}} \\
+&=\spn{\{T(\vect{u}_1),\dotsc,T(\vect{u}_{m-k})\}}.
+\end{align*}
+Next, we shall show that \(\{T(\vect{u}_1),\dotsc,T(\vect{u}_{m-k})\}\) is
+linearly independent as well, thus forming a basis for \(\ran{T}\). Consider
+\[
+a_1T(\vect{u}_1)+\dotsb+a_{m-k}T(\vect{u}_{m-k})=\vect{0},
+\]
+which implies \(T(a_1\vect{u}_1+\dotsb+a_{m-k}\vect{u}_{m-k})=\vect{0}\), thus
+\(\vc{a_1\vect{u}_1+\dotsb+a_{m-k}\vect{u}_{m-k}}\in\nul{T}\). Then, by the spanning
+property of the basis \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) for \(\nul{T}\), we
+know
+\[
+\vc{a_1\vect{u}_1+\dotsb+a_{m-k}\vect{u}_{m-k}}=b_1\vect{v}_1+\dotsb+b_k\vect{v}_k
+\]
+for some \(b_1,\dotsc,b_k\in\R\). Rearranging it gives
+\[
+\vc{a_1\vect{u}_1+\dotsb+a_{m-k}\vect{u}_{m-k}}-b_1\vect{v}_1-\dotsb-b_k\vect{v}_k=\vect{0}.
+\]
+
+Since \(\{\vect{v}_1,\dotsc,\vect{v}_k,\vect{u}_1,\dotsc,\vect{u}_{m-k}\}\) is
+a basis for \(V\) and hence linearly independent, we have
+\[
+a_1=\dotsb=a_{m-k}=-b_1=\dotsb=-b_k=0,
+\]
+which in particular implies \(a_1=\dotsb=a_{m-k}=0\). So
+\(\{T(\vect{u}_1),\dotsc,T(\vect{u}_{m-k})\}\) is linearly independent, and
+thus is a basis for \(\ran{T}\). This shows
+\(\rk{T}=\dim(\ran{T})=m-k=\dim(V)-\nulty{T}\), as desired.
+\end{pf}
+
+By setting \(T\) to be \(L_A:\R^n\to\R^m\) defined by
+\(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\) where \(A\) is an
+\(m\times n\) matrix, the equality in the dimension formula reduces to
+\[
+\nulty{A}+\rk{A}=\dim(\R^n)=n=\text{number of columns of \(A\)}.
+\]
+This special case is known as the \emph{rank-nullity theorem}.
+\end{enumerate}
+\subsection{Injectivity and Surjectivity}
+\begin{enumerate}
+\item Next, we will consider the injectivity and surjectivity of a linear
+transformation, which turn out to be related to the concepts of null space and
+range.
+
+\item A criterion for injectivity based on null space is as follows.
+
+\begin{proposition}
+\label{prp:inj-iff-null-sp-only-zero}
+Let \(T:V\to W\) be a linear transformation. Then \(T\) is injective iff
+\(\nul{T}=\{\vect{0}\}\).
+\end{proposition}
+\begin{pf}
+``\(\Rightarrow\)'': Assume \(T\) is injective. Fix any \(\vect{v}\in\nul{T}\)
+and we have \(T(\vect{v})=\vect{0}=T(\vect{0})\), where the last equality is a
+property of linear transformation. By the injectivity of \(T\), it follows that
+\(\vect{v}=\vect{0}\). This shows \(\nul{T}\subseteq \{\vect{0}\}\). But
+another subset inclusion is immediate as \(T(\vect{0})=\vect{0}\) always, thus
+\(\vect{0}\in\nul{T}\).
+
+``\(\Leftarrow\)'': Assume \(\nul{T}=\{\vect{0}\}\). Fix any
+\(\vect{v}_1,\vect{v}_2\in V\) with \(T(\vect{v}_1)=T(\vect{v}_2)\). Then,
+\begin{align*}
+T(\vect{v}_1)-T(\vect{v}_2)&=\vect{0} \\
+\implies T(\vect{v}_1-\vect{v}_2)&=\vect{0} \\
+\implies \vect{v}_1-\vect{v}_2&=\vect{0} &\text{(since \(\nul{T}=\{\vect{0}\}\))}\\
+\implies \vect{v}_1&=\vect{v}_2.
+\end{align*}
+This shows \(T\) is injective.
+\end{pf}
+
+\item We can extend \Cref{prp:inj-iff-null-sp-only-zero} by utilizing the
+dimension formula (\Cref{thm:dim-fmla}).
+
+\begin{theorem}
+\label{thm:lin-tran-inj-crit}
+Let \(T:V\to W\) be a linear transformation. Then the following are equivalent.
+\begin{enumerate}
+\item \(T\) is injective.
+\item \(\nul{T}=\{\vect{0}\}\).
+\item \(\rk{T}=\dim(V)\).
+\end{enumerate}
+\end{theorem}
+\begin{pf}
+\(\text{(a)}\iff \text{(b)}\) follows from
+\Cref{prp:inj-iff-null-sp-only-zero}. So it suffices to show that
+\(\text{(b)}\iff\text{(c)}\).
+
+\underline{\(\text{(b)}\implies \text{(c)}\)}: Assume \(\nul{T}=\{\vect{0}\}\).
+Then, we have \(\nulty{T}=0\) and by \Cref{thm:dim-fmla},
+\(\rk{T}=\dim(V)-0=\dim(V)\).
+
+\underline{\(\text{(c)}\implies \text{(b)}\)}: Assume \(\rk{T}=\dim(V)\). By
+\Cref{thm:dim-fmla}, \(\nulty{T}=\dim(V)-\rk{T}=\dim(V)-\dim(V)=0\). This means
+\(\dim(\nul{T})=0\). But the only vector space with zero dimension is the zero
+vector space \(\{\vect{0}\}\). Hence \(\nul{T}=\{\vect{0}\}\).
+\end{pf}
+\item To show that a linear transformation is \emph{not} injective, the
+following result provides a convenient tool.
+
+\begin{proposition}
+\label{prp:suff-not-inj}
+Let \(T:V\to W\) be a linear transformation. If \(\dim(V)>\dim(W)\), then \(T\)
+is not injective.
+\end{proposition}
+\begin{pf}
+We prove by contrapositive. Suppose \(T\) is injective. Then by
+\Cref{thm:lin-tran-inj-crit}, \(\rk{T}=\dim(\ran{T})=\dim(V)\). But on the
+other hand, as \(\ran{T}\) is a subspace of \(W\), we have
+\(\rk{T}=\dim(\ran{T})\le\dim(W)\). This shows \(\dim(V)\le\dim(W)\).
+\end{pf}
+
+\item After discussing injectivity, we shall also discuss surjectivity in the
+following result. It gives us a criterion for the bijectivity (i.e., both
+injectivity and surjectivity) of a linear transformation.
+
+\begin{theorem}
+\label{thm:lin-tran-bij-crit}
+Let \(T:V\to W\) be a linear transformation. Then \(T\) is bijective iff
+\(\nul{T}=\{\vect{0}\}\) and \(\dim(V)=\dim(W)\).
+\end{theorem}
+\begin{note}
+A bijective linear transformation is said to be an \defn{isomorphism}.
+\end{note}
+
+\begin{pf}
+``\(\Rightarrow\)'': Assume \(T\) is bijective. Then by the injectivity of
+\(T\), we have \(\null{T}=\{\vect{0}\}\), thus \(\nulty{T}=0\). On the other
+hand, by the surjectivity of \(T\), we have by definition \(\ran{T}=W\), so
+\(\rk{T}=\dim(W)\). Finally, by \Cref{thm:dim-fmla}, we have
+\(\dim(V)=\rk{T}+\nulty{T}=\rk{T}=\dim(W)\).
+
+
+``\(\Leftarrow\)'' Assume \(\nul{T}=\{\vect{0}\}\) and \(\dim(V)=\dim(W)\). The
+first condition implies that \(T\) is injective and \(\nulty{T}=0\). Next, by
+\Cref{thm:dim-fmla}, \(\dim(W)=\dim(V)=\rk{T}+\nulty{T}=\rk{T}=\dim(\ran{T})\).
+We claim that \(\ran{T}=W\).
+
+\begin{pf}
+First note that \(\ran{T}\subseteq W\). Assume to the contrary that \(\ran{T}\)
+is a proper subset of \(W\). Then there exists \(\vect{w}\in
+W\setminus\ran{T}\).  Let \(\beta\) be a basis for \(\ran{T}\) (which is
+linearly independent in \(W\)). We know that \(|\beta|=\dim(\ran{T})=\dim(W)\)
+and \(\spn{\beta}=\ran{T}\). Since \(\vect{w}\notin\ran{T}=\spn{\beta}\), by
+\Cref{thm:add-vec-not-in-spn}, the union \(\beta\cup\{\vect{w}\}\) is linearly
+independent in \(W\). But then this contradicts \Cref{prp:li-num-leq-dim} as
+\(|\beta\cup\{\vect{w}\}|>\dim(W)\).
+\end{pf}
+
+Thus, \(T\) is surjective. Together with the injectivity of \(T\) shown
+before, we conclude that \(T\) is bijective.
+\end{pf}
+\end{enumerate}
