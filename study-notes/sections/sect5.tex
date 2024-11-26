@@ -1,2 +1,688 @@
 \section{Diagonalization}
 \label{sect:diagonalization}
+\begin{enumerate}
+\item \Cref{sect:diagonalization} is related to the concept of matrix
+similarity. Given an \(n\times n\) matrix \(A\), we are trying to find a
+\emph{diagonal} matrix \(D\) that is similar to \(A\), just as suggested by the
+name ``diagonalization''. A reason for doing so is that diagonal matrices
+satisfy some nice properties and it is often convenient to work with them. With
+the matrix similarity, we can deduce some properties of \(A\) based on the
+properties of \(D\).
+\end{enumerate}
+\subsection{Diagonalizability}
+\begin{enumerate}
+\item An \(n\times n\) matrix \(A\) is \defn{diagonalizable} if there exists an
+invertible \(n\times n\) matrix \(Q\) such that \(Q^{-1}AQ\) is a diagonal
+matrix, i.e., \(A\) is similar to some diagonal matrix.
+
+Given an \(n\times n\) matrix \(A\), the process of finding such matrix \(Q\)
+and the corresponding diagonal matrix is referred as the \defn{diagonalization}
+of the matrix \(A\).
+
+\item Examples:
+\begin{itemize}
+\item \(A=\mqty[-4&-2\\ 28&11]\) is diagonalizable since
+\[
+A=Q^{-1}\mqty[\dmat[0]{3,4}]Q
+\]
+where \(Q=\mqty[2&-1\\ -7&4]\) is invertible. \begin{note}
+This choice of \(Q\) and the diagonal matrix seems to be coming
+from nowhere, but as we will see, there is actually a
+systematic way to find such matrices.
+\end{note}
+\item Any diagonal matrix \(D\) is diagonalizable since
+\(D=I_n^{-1}DI_n\).
+\end{itemize}
+
+\item \label{it:inv-diag} Let \(A\) be an invertible \(n\times n\)
+matrix. Then, \(A\) is diagonalizable iff \(A^{-1}\) is diagonalizable.
+
+\begin{pf}
+``\(\Rightarrow\)'': Suppose \(A\) is diagonalizable. Then
+there exists an invertible \(n\times n\) matrix \(Q\) such
+that \(Q^{-1}AQ=D\) for some diagonal matrix \(D\). Note that \(D\) must be invertible as \(\det D=\det Q^{-1}\det A\det Q=(\det Q)^{-1}\det A(\det Q)=\det A\ne 0\). Hence, we have
+\[
+Q^{-1}A^{-1}Q=(Q^{-1}AQ)^{-1}=D^{-1}
+\]
+where \(D^{-1}\) is still a diagonal matrix \footnote{It can be obtained
+by taking the reciprocal of every diagonal entry of \(D\). Note that every
+diagonal entry of \(D\) must be nonzero since \(\det D\ne 0\).}. Thus
+\(A^{-1}\) is diagonalizable.
+
+``\(\Leftarrow\)'': Interchange \(A\) and \(A^{-1}\) in the proof for ``\(\Rightarrow\)''.
+\end{pf}
+
+\item Now we will introduce a systematic way to (i) determine if a matrix is
+diagonalizable and (ii) diagonalize a matrix (if possible). It utilizes the
+concepts of \emph{eigenvalues} and \emph{eigenvectors}.
+
+\item Let \(A\) be an \(n\times n\) matrix. A scalar \(\lambda\in\R\) is an
+\defn{eigenvalue} of \(A\) if there is a \emph{nonzero} vector
+\(\vect{v}\in\R^n\) such that \(A\vect{v}=\lambda\vect{v}\). In such case,
+\(\vect{v}\) is called a \defn{\(\lambda\)-eigenvector} of \(A\). A nonzero
+vector \(\vect{v}\) is called an \defn{eigenvector} of \(A\) if it is a
+\(\lambda\)-eigenvector of \(A\) for some \(\lambda\in\R\).
+
+\begin{remark}
+\item We consider only nonzero vector since we always have
+\(A\vect{0}=\lambda\vect{0}\) for any \(\lambda\in\R\), so it is not
+interesting to consider zero vector. On the other hand, the \(\lambda\) in the
+definition can be zero.
+\item Note that if \(\vect{v}\) is a \(\lambda\)-eigenvector of \(A\), the
+vector \(c\vect{v}\) is a \(\lambda\)-eigenvector of \(A\) as well, for any
+\(c\ne 0\). Thus, given an eigenvalue \(\lambda\) of \(A\), there are indeed
+infinitely many \(\lambda\)-eigenvectors of \(A\).
+\end{remark}
+
+Geometrically, given an eigenvector \(\vect{v}\) of \(A\), the vectors
+\(A\vect{v}\) and \(\vect{v}\) are parallel. More specifically, \(A\vect{v}\)
+is obtained by \(\vect{v}\) through \emph{scaling}.
+
+\item In the special case where \(A\) is diagonal, we can easily obtain
+eigenvalues and eigenvectors.
+
+\begin{proposition}
+\label{prp:eigen-diagonal}
+Let \(D=\diag{a_1,\dotsc,a_n}\) (i.e., the diagonal matrix with diagonal
+entries \(D_{11}=a_1,\dotsc,D_{nn}=a_n\)). Then, \(a_1,\dotsc,a_n\) are
+eigenvalues of \(A\), and an \(a_i\)-eigenvector of \(A\) is \(\vect{e}_i\) for
+any \(i=1,\dotsc,n\).
+\end{proposition}
+\begin{pf}
+Observe that \(D\vect{e}_i=a_i\vect{e}_i\) for any \(i=1,\dotsc,n\).
+\end{pf}
+
+\item \label{it:inv-eigen} Let \(A\) be an invertible \(n\times n\) matrix.
+Then,
+\begin{enumerate}
+\item any eigenvalue of \(A\) is nonzero.
+\item \(\vect{v}\) is an eigenvector of \(A\) iff \(\vect{v}\) is also an
+eigenvector of \(A^{-1}\).
+\item \(\lambda\) is an eigenvalue of \(A\) iff \(\lambda^{-1}\) is an
+eigenvalue of \(A^{-1}\).
+\end{enumerate}
+
+\begin{pf}
+\begin{enumerate}
+\item Assume to the contrary that \(A\vect{v}=0\vect{v}=\vect{0}\) for some
+nonzero \(\vect{v}\). This means the homogeneous system \(A\vect{x}=\vect{0}\)
+has a non-trivial solution, thus \(A\) is not invertible by
+\Cref{prp:homo-same-var-eqs-equiv}.
+
+\item ``\(\Rightarrow\)'': Suppose \(\vect{v}\) is an eigenvector of \(A\).
+Then \(A\vect{v}=\lambda\vect{v}\) for some \(\lambda\ne 0\) (by (a)). Hence,
+\(\vect{v}=A^{-1}\lambda\vect{v}=\lambda(A^{-1}\vect{v})\). Dividing both sides
+by \(\lambda\) gives \(A^{-1}\vect{v}=\lambda^{-1}\vect{v}\).
+
+``\(\Leftarrow\)'': Interchange \(A\) and \(A^{-1}\) in the proof for
+``\(\Rightarrow\)''.
+
+\item Similar to (b).
+\end{enumerate}
+\end{pf}
+\item We will introduce a systematic approach for finding eigenvalues and
+eigenvectors of a general \(n\times n\) matrix in \Cref{subsect:find-eigen}.
+Before that, let us first investigate how eigenvalues and eigenvectors can help
+us diagonalize a matrix.
+
+\begin{theorem}
+\label{thm:eigen-diag}
+Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be the set of all eigenvectors
+of an \(n\times n\) matrix \(A\). Let \(Q=\mqty[\vect{v}_1&\cdots&\vect{v}_n]\)
+be an \(n\times n\) matrix. If \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is a basis,
+then \(Q^{-1}AQ\) is a diagonal matrix with the diagonal entries being the
+eigenvalues of \(\vect{v}_1,\dotsc,\vect{v}_n\) respectively.
+\end{theorem}
+\begin{pf}
+We identify \(\beta\) as an ordered basis. Let \(\lambda_i\) be the
+corresponding eigenvalue of the eigenvector \(\vect{v}_i\), for any
+\(i=1,\dotsc,n\). Let \(\beta'\) be the standard ordered basis for \(\R^n\).
+
+Then, note that
+\(Q=[\id_{\R^n}]_{\beta}^{\beta'}=\mqty[[\vect{v}_1]_{\beta'}&\cdots&[\vect{v}_n]_{\beta'}]\),
+the change of coordinates matrix from \(\beta\) to \(\beta'\). By
+\Cref{thm:change-coord-matx-prop}, \(\vect{v}_i=Q\vect{e}_i\) and
+\(\vect{e}_i=Q^{-1}\vect{v}_i\), for any \(i=1,\dotsc,n\).
+
+Hence, for any \(i=1,\dotsc,n\),
+\[
+(Q^{-1}AQ)\vect{e}_i=Q^{-1}A(Q\vect{e}_i)
+=Q^{-1}A\vect{v}_i
+=Q^{-1}\lambda_i\vect{v}_i
+=\lambda_iQ^{-1}\vect{v}_i
+=\lambda_i\vect{e}_i.
+\]
+This implies that \(Q^{-1}AQ\) is a diagonal matrix with diagonal entries
+being \(\lambda_1,\dotsc,\lambda_n\).
+\end{pf}
+
+\item Furthermore, eigenvalues and eigenvectors can help us determine the
+diagonalizability. The following gives a diagonalizability criterion based on
+eigenvectors.
+
+\begin{theorem}
+\label{thm:diag-crit}
+Let \(A\) be an \(n\times n\) matrix. Then \(A\) is diagonalizable iff there
+exists a basis \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) of \(\R^n\) such that
+\(\vect{v}_1,\dotsc,\vect{v}_n\) are also eigenvectors of \(A\).
+\end{theorem}
+\begin{pf}
+``\(\Leftarrow\)'': It follows from \Cref{thm:eigen-diag}.
+
+``\(\Rightarrow\)'': Suppose \(A\) is diagonalizable. Then \(D=Q^{-1}AQ\), or
+\(A=QDQ^{-1}\), for some invertible matrix \(Q\) and diagonal matrix
+\(D=\diag{\lambda_1,\dotsc,\lambda_n}\).
+
+Then, construct eigenvectors by considering for each \(i=1,\dotsc,n\),
+\[
+A(\vc{Q\vect{e}_i})=QDQ^{-1}Q\vect{e}_i=Q(D\vect{e}_i)=Q(\lambda_i\vect{e}_i)=\lambda_i\vc{Q\vect{e}_i}.
+\]
+Since \(Q\vect{e}_i\ne\vect{0}\) for any \(i=1,\dotsc,n\),
+\(Q\vect{e}_1,\dotsc,Q\vect{e}_n\) are eigenvectors of \(A\).
+
+Since \(\{\vect{e}_1,\dotsc,\vect{e}_n\}\) is linearly independent in \(\R^n\),
+\(\{Q\vect{e}_1,\dotsc,Q\vect{e}_n\}\) is linearly independent in \(\R^n\)
+also, by \Cref{thm:mult-inv-matx-preserv-li}. By \Cref{thm:card-dim-li-basis},
+it is a basis for \(\R^n\) as well.
+\end{pf}
+
+\item Example: Let \(A=\mqty[2&3\\ 1&4]\). It can be shown that \(\mqty[-3\\
+1]\) and \(\mqty[1\\ 1]\) are \(\mgc{1}\)-eigenvector and
+\(\vc{5}\)-eigenvector of \(A\) respectively. Thus, by \Cref{thm:eigen-diag},
+letting \(Q=\mqty[-3&1\\ 1&1]\), we have
+\[
+Q^{-1}AQ=\mqty[\mgc{1}&0\\ 0&\vc{5}].
+\]
+(Verify this by carrying out the matrix multiplications directly.)
+
+\item \label{it:one-eigenval-identity} In the special case where the matrix
+\(A\) has only one eigenvalue, we can say even more.
+
+Let \(A\) be an \(n\times n\) matrix with only one eigenvalue \(\lambda\). Then
+\(A\) is diagonalizable iff \(A=\lambda I_n\).
+
+\begin{pf}
+``\(\Leftarrow\)'': Since \(\lambda I_n=\vect{v}=\lambda\vect{v}\) for any
+nonzero \(\vect{v}\in\R^n\), \(\lambda I_n\) has only one eigenvalue
+\(\lambda\). (So it makes sense for \(A=\lambda I_n\).) Furthermore, \(\lambda
+I_n\), as a diagonal matrix itself, is diagonalizable.
+
+``\(\Rightarrow\)'': Suppose \(A\) is diagonalizable. Then \(Q^{-1}AQ=D\) for
+some invertible matrix \(Q\) and diagonal matrix \(D\). By
+\Cref{thm:diag-crit}, there exists a basis
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) of \(\R^n\) whose elements are
+eigenvectors of \(A\).
+
+Since the eigenvalues of \(\vect{v}_1,\dotsc,\vect{v}_n\) must all be
+\(\lambda\) by assumption, by \Cref{thm:eigen-diag}, \(D=Q^{-1}AQ\) is a
+diagonal matrix with all diagonal entries being \(\lambda\). So,
+\(Q^{-1}AQ=\lambda I_n\), which implies
+\[
+A=Q\lambda I_nQ^{-1}
+=\lambda QQ^{-1}
+=\lambda I_n.
+\]
+\end{pf}
+\end{enumerate}
+\subsection{Finding Eigenvalues and Eigenvectors}
+\label{subsect:find-eigen}
+\begin{enumerate}
+\item Now we introduce a systematic approach to find eigenvalues and
+eigenvectors of a given matrix. A key concept that is involved is the
+\emph{characteristic polynomial}.
+
+\item Let \(A\) be an \(n\times n\) matrix. The polynomial \(\det (A-t I_n)\)
+in \(t\) is the \defn{characteristic polynomial} of \(A\).
+
+Examples:
+\begin{itemize}
+\item The characteristic polynomial of \(A=\mqty[2&1\\ 0&1]\) is
+\[
+\det(A-tI_2)=\det\mqty[2-t& 1\\ 0&1-t]=(2-t)(1-t)=t^2-3t+2.
+\]
+\item The characteristic polynomial of the diagonal matrix
+\(A=\diag{a_1,\dotsc,a_n}\) is
+\[
+\det(A-tI_n)=(a_1-t)\dotsb(a_n-t).
+\]
+\end{itemize}
+
+\item It turns out similar matrices share the same characteristic polynomial.
+Let \(A\) and \(B\) be two similar \(n\times n\) matrices. Then the
+characteristic polynomials of \(A\) and \(B\) are the same.
+
+\begin{pf}
+By definition, we can write \(B=Q^{-1}AQ\) for some invertible matrix \(Q\).
+Then, note that
+\begin{align*}
+\det(B-tI_n)&=\det(Q^{-1}AQ-Q^{-1}(tI_n)Q) \\
+&=\det(Q^{-1}(A-tI_n)Q) \\
+&=\det(Q^{-1})\det(A-tI_n)\det Q \\
+&=(\det Q)^{-1}\det(A-tI_n)\det Q \\
+&=\det(A-tI_n).
+\end{align*}
+\end{pf}
+
+\item The characteristic polynomial can be used to find eigenvalues of a
+matrix, as suggested by the following result.
+
+\begin{theorem}
+\label{thm:eigenval-char-poly-roots}
+Let \(A\) be an \(n\times n\) matrix. Then a scalar \(\lambda\in\R\) is an
+eigenvalue of \(A\) iff \(\det(A-\lambda I_n)=0\).
+\end{theorem}
+\begin{pf}
+``\(\Rightarrow\)'': Suppose \(\lambda\) is an eigenvalue of \(A\). Then there
+exists a nonzero \(\vect{v}\in\R^n\) such that \(A\vect{v}=\lambda\vect{v}\),
+or \((A-\lambda I_n)\vect{v}=\vect{0}\). Hence, there is a non-trivial solution
+for the homogeneous system \((A-\lambda I_n)\vect{x}=\vect{0}\), thus
+\(A-\lambda I_n\) is not invertible by \Cref{prp:homo-same-var-eqs-equiv}, so
+\(\det(A-\lambda I_n)=0\).
+
+``\(\Leftarrow\)'': Assume \(\det(A-\lambda I_n)=0\). Then, \(A-\lambda I_n\)
+is not invertible, so by \Cref{prp:homo-same-var-eqs-equiv}, there is a
+non-trivial solution for the homogeneous system \((A-\lambda
+I_n)\vect{x}=\vect{0}\). Calling that solution \(\vect{v}\), we have
+\[
+(A-\lambda I_n)\vect{v}=0\implies A\vect{v}=\lambda\vect{v},
+\]
+thus \(\lambda\) is an eigenvalue of \(A\).
+\end{pf}
+
+\item In view of \Cref{thm:eigenval-char-poly-roots}, practically speaking, we
+can find all eigenvalues of a matrix by finding all the roots of its
+characteristic polynomial. Note however that the roots may not be real in
+general. \emph{Fundamental theorem of algebra} tells us that some of the roots
+can be complex in general. For example, consider the matrix \(A=\mqty[0&-1\\
+1&0]\). Its characteristic polynomial is \(\det(A-tI_2)=t^2+1\), and the roots
+of this polynomial are \(i\) and \(-i\), meaning that the eigenvalues of \(A\)
+are non-real complex numbers.
+
+In such case, we can use matrices with \emph{complex} entries to diagonalize
+\(A\). However, in MATH2101 we shall focus on matrices with \emph{real} entries
+only. So, by restricting our attention to these matrices, \(A\) is \emph{not}
+diagonalizable. To distinguish between two kinds of diagonalizability, we say
+that \(A\) is not \defn{diagonalizable over \(\R\)} but \defn{diagonalizable
+over \(\C\)}. Nonetheless, here we shall not focus too much on this kind of
+cases.
+
+\item Due to \Cref{thm:eigenval-char-poly-roots}, we can deduce some properties
+about the number of eigenvalues of a matrix based on its characteristic
+polynomial.
+
+\begin{proposition}
+\label{prp:at-most-n-eigenval}
+An \(n\times n\) matrix \(A\) has at most \(n\) distinct eigenvalues.
+\end{proposition}
+\begin{pf}
+Write \(A=[a_{ij}]\) and consider the characteristic polynomial of \(A\):
+\(\det(A-tI_n)\). Note that the diagonal entries of \(A-tI_n\) are
+\(a_{11}-t,\dotsc,a_{nn}-t\). By cofactor expansion, the determinant would
+(at least) include the term \((a_{11}-t)\dotsb (a_{nn}-t)\), which in turn
+includes the term \((-1)^{n}t^{n}\). We also observe that there would not be
+any term involving \(t\) raised to a power higher than \(n\) from the cofactor
+expansion.
+
+It follows that the characteristic polynomial is of degree \(n\), hence has at
+most \(n\) distinct roots. This then means \(A\) has at most \(n\) distinct
+eigenvalues, by \Cref{thm:eigenval-char-poly-roots}.
+\end{pf}
+\end{enumerate}
+\subsection{Linear Independence of Eigenvectors}
+\begin{enumerate}
+\item After discussing how to find eigenvalues and eigenvectors in
+\Cref{subsect:find-eigen}, we will discuss the relationship between different
+eigenvectors. More specifically, we consider the linear independence of
+eigenvectors.
+
+\begin{theorem}
+\label{thm:diff-eigenval-eigenvec-li}
+Let \(A\) be an \(n\times n\) matrix with \(m\) distinct eigenvalues
+\(\lambda_1,\dotsc,\lambda_m\). Let \(\vect{v}_1,\dotsc,\vect{v}_m\) be
+\(\lambda_1\)-,...,\(\lambda_m\)-eigenvectors of \(A\) respectively. Then,
+\(\{\vect{v}_1,\dotsc,\vect{v}_m\}\) is linearly independent.
+\end{theorem}
+\begin{pf}
+We shall prove this inductively. Firstly, consider the \(m=1\) case. Since
+\(\vect{v}_1\) is \(\lambda_1\)-eigenvector of \(A\), it must be nonzero.  The
+linear independence of \(\{\vect{v}_1\}\) is then immediate.
+
+Now assume that the case \(m=k\) holds, i.e.,
+\(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is linearly independent, for some
+\(k\in\{1,\dotsc,n-1\}\). We want to prove that the case \(m=k+1\) holds.
+Consider:
+\begin{align}
+\label{eq:li-kp1} a_{1}\vect{v}_1+\dotsb+a_{k+1}\vect{v}_{k+1}&=\vect{0} \\
+\implies a_{1}A\vect{v}_1+\dotsb+a_{k+1}A\vect{v}_{k+1}&=\vect{0}\nonumber \\
+\label{eq:li-kp1-lambda}
+\implies a_{1}\lambda_{1}\vect{v}_1+\dotsb+a_{k+1}\lambda_{k+1}\vect{v}_{k+1}&=\vect{0}.
+\end{align}
+Multiplying \Cref{eq:li-kp1} by \(\lambda_{k+1}\) on both sides gives
+\[
+a_1\lambda_{k+1}\vect{v}_1+\dotsb
++a_{k}\lambda_{k}\vect{v}_{k}
++a_{k+1}\lambda_{k+1}\vect{v}_{k+1}.
+\]
+Subtracting this by \Cref{eq:li-kp1-lambda} gives
+\[
+a_1(\lambda_{k+1}-\lambda_1)\vect{v}_1+\dotsb+a_{k}(\lambda_{k+1}-\lambda_k)\vect{v}_{k}.
+\]
+By induction hypothesis (linear independence of
+\(\{\vect{v}_1,\dotsc,\vect{v}_k\}\)), we have
+\[
+a_1(\lambda_{k+1}-\lambda_1)=\dotsb=a_k(\lambda_{k+1}-\lambda_k)=0.
+\]
+But since the eigenvalues \(\lambda_1,\dotsc,\lambda_{k+1}\) are distinct (by
+the setting), we must have \(a_1=\dotsb=a_k=0\).
+
+Putting this to \Cref{eq:li-kp1} gives \(a_{k+1}\vect{v}_{k+1}=\vect{0}\).
+Since \(\vect{v}_{k+1}\) is an eigenvector of \(A\), it must be nonzero. Hence,
+we have \(a_{k+1}=0\) as well. This means that
+\(\{\vect{v}_1,\dotsc,\vect{v}_{k+1}\}\) is linearly independent.
+\end{pf}
+
+\item Based on \Cref{thm:diff-eigenval-eigenvec-li}, we can obtain a sufficient
+condition for diagonalizability.
+
+\begin{corollary}
+\label{cor:n-diff-eigenval-diag}
+Let \(A\) be an \(n\times n\) matrix. If \(A\) has \(n\) distinct eigenvalues,
+then \(A\) is diagonalizable.
+\end{corollary}
+\begin{pf}
+Let \(\lambda_1,\dotsc,\lambda_n\) be the \(n\) distinct eigenvalues of \(A\),
+and \(\vect{v}_1,\dotsc,\vect{v}_n\) be
+\(\lambda_1\)-,...,\(\lambda_n\)-eigenvectors of \(A\) respectively. Then by
+\Cref{thm:diff-eigenval-eigenvec-li}, \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is
+linearly independent. Since \(\dim(\R^n)=n\),
+\(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is indeed a basis for \(\R^n\), by
+\Cref{thm:card-dim-li-basis}. It then follows by \Cref{thm:diag-crit} that
+\(A\) is diagonalizable.
+\end{pf}
+\end{enumerate}
+\subsection{Algebraic and Geometric Multiplicities}
+\begin{enumerate}
+\item In \labelcref{it:one-eigenval-identity} and
+\Cref{cor:n-diff-eigenval-diag}, we have introduced some criterion or
+sufficient condition for diagonalizability under some special cases. We would
+then like to obtain a more general and helpful criterion for diagonalizability,
+and it is related to the concepts of algebraic and geometric multiplicities.
+
+\item We start with algebraic multiplicity. Let \(A\) be an \(n\times n\)
+matrix and \(\lambda\) be an eigenvalue of \(A\). The \defn{algebraic
+multiplicity} (A.M.) of \(\lambda\) is the largest integer \(k\) such that
+\((t-\lambda)^{k}\) divides \(\det(A-tI_n)\), i.e., we can write
+\(\det(A-tI_n)=(t-\lambda)^{k}P(t)\) for some polynomial \(P(t)\).
+
+Example: Consider the matrix
+\[
+A=\mqty[1&2&3&4\\ 0&2&0&3\\ 0&0&1&0\\ 0&0&0&-1].
+\]
+Since the characteristic polynomial of \(A\) is
+\[
+\det(A-tI_4)=\det\mqty[1-t&2&3&4\\ 0&2-t&0&3\\ 0&0&1-t&0\\ 0&0&0&-1-t]
+=(1-t)^2(2-t)(-1-t).
+\]
+(Compute this by starting with cofactor expansion along the last row.)
+From this we know that the eigenvalues of \(A\) are \(1\), \(2\), and \(-1\).
+Their A.M. are as follows:
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Eigenvalue \(\lambda\)&A.M\\
+\midrule
+\(1\)&\(2\)\\
+\(2\)&\(1\)\\
+\(-1\)&\(1\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\item \label{it:char-poly-am}
+Let \(A\) be an \(n\times n\) matrix with eigenvalues
+\(\lambda_1,\dotsc,\lambda_k\), where \(a_1,\dotsc,a_k\) are the respective
+A.M. In general (assuming diagonalizability over \(\R\)), the characteristic
+polynomial can be written as
+\[
+(-1)^{n}(t-\lambda_1)^{a_1}\dotsb(t-\lambda_k)^{a_k}.
+\]
+(To see this, consider cofactor expansion.)
+
+\item \label{it:am-sum2n} Since the characteristic polynomial is of degree
+\(n\), we must have \(a_1+\dotsb+a_k=n\), i.e., the sum of A.M. of all the
+eigenvalues is always \(n\).
+
+\item \label{it:am-bounds} Furthermore, for \(\lambda\) to be an eigenvalue of
+\(A\), the A.M. of \(\lambda\) must be \emph{at least one}, so that
+\(\lambda\) is a root of the characteristic polynomial.
+
+On the other hand, since the sum of the A.M. of all eigenvalues of \(A\) is
+\(n\), the maximum possible A.M. of an eigenvalue is \(n\), which is achieved
+when \(A\) only has one eigenvalue.
+
+\item Next, we consider geometric multiplicity. Let \(A\) be an \(n\times n\)
+matrix and \(\lambda\) be an eigenvalue of \(A\). The set containing all
+\(\lambda\)-eigenvectors of \(A\) and the zero vector, namely
+\(E_{\lambda}=\{\vect{v}\in\R^n:A\vect{v}=\lambda\vect{v}\}\) or the null space
+\(\nul{A-\lambda I_n}\), is said to be the \defn{\(\lambda\)-eigenspace}.
+
+By \Cref{thm:null-sp-vec-subsp}, every eigenspace is a vector subspace since it
+is a null space. So it makes sense to talk about the \emph{dimension} of
+\(E_{\lambda}\). This dimension \(\dim(E_{\lambda})\) is in fact the
+\defn{geometric multiplicity} of \(\lambda\).
+
+\item \label{it:gm-lb} For \(\lambda\) to be an eigenvalue of \(A\), there must
+exist an nonzero vector \(\vect{v}\) such that \(A\vect{v}=\lambda\vect{v}\).
+Thus, the \(\lambda\)-eigenspace must contain some nonzero vector, which means
+that the G.M.\ of \(\lambda\) must be \emph{at least one}.
+
+\item Practically, finding G.M.\ of eigenvalues is a matter of solving systems
+of linear equations. This is because for each eigenvalue \(\lambda\), we are
+essentially finding the dimension of null space, or the nullity of \(A-\lambda
+I_n\), and \Cref{thm:null-sp-dim-basis} tells us that this value is given by
+the number of free variables in the homogeneous system
+\((A-\lambda I_n)\vect{x}=\vect{0}\). In short, the G.M.\ of an eigenvalue
+\(\lambda\) is the number of free variables in the homogeneous system
+\((A-\lambda I_n)\vect{x}=\vect{0}\).
+
+\item After introducing both A.M. and G.M., it is now time to investigate their
+relationship. One remarkable result is as follows.
+
+\begin{theorem}[\(\text{G.M.}\leq\text{A.M.}\)]
+\label{thm:gm-leq-am}
+Let \(A\) be an \(n\times n\) matrix and \(\lambda\) be an eigenvalue of \(A\).
+Then the geometric multiplicity of \(\lambda\) is less than or equal to the
+algebraic multiplicity of \(\lambda\).
+\end{theorem}
+\begin{note}
+Coincidentally, we have another important result in mathematics that also
+states ``\(\text{G.M.}\leq\text{A.M.}\)'', but it is the inequality of
+arithmetic and geometric means, also known as the AM-GM inequality.
+\end{note}
+
+\begin{pf}
+Let \(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) be a basis for the
+\(\lambda\)-eigenspace \(E_{\lambda}\), where \(r\) is the G.M.\ of \(\lambda\).
+
+We then find vectors \(\vect{w}_1,\dotsc,\vect{w}_{n-r}\) such that
+\(\{\vect{v}_1,\dotsc,\vect{v}_r,\vect{w}_1,\dotsc,\vect{w}_{n-r}\}\) is a
+basis for \(\R^n\), denoted by \(\beta\).
+
+Let \(\beta_{\mathrm{st}}\) be the standard basis for \(\R^n\) and
+\(Q=[\id_{\R^n}]_{\beta}^{\beta_{\mathrm{st}}}=\mqty[\vect{v}_1&\cdots&\vect{v}_r&\vect{w}_1&\cdots&\vect{w}_{n-r}]\)
+be the change of coordinates matrix from \(\beta\) to \(\beta_{\mathrm{st}}\).
+By \Cref{thm:change-lt-matx-rep}, we have \(
+[L_A]_{\beta}=Q^{-1}[L_A]_{\beta_{\mathrm{st}}}Q=Q^{-1}AQ\) where
+\(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\). Hence, \(A\) and
+\([L_A]_{\beta}=Q^{-1}AQ\) are similar, thus having the same characteristic
+polynomial.
+
+So, to analyze the A.M.\ of \(\lambda\), we may inspect the characteristic
+polynomial of \(Q^{-1}AQ\). For any \(i=1,\dotsc,r\), the \(i\)th column of
+\(Q^{-1}AQ\) is
+\(Q^{-1}AQ\vect{e}_i=[L_A(\vect{v}_i)]_{\beta}=[A\vect{v}_i]_{\beta}=[\lambda
+\vect{v}_i]_{\beta}=\lambda\vect{e}_i\), so we can express \(Q^{-1}AQ\) as the
+following block form:
+\[
+Q^{-1}AQ=\mqty[\lambda I_r&*\\ O_{(n-r)\times r}&A']
+\]
+for some \((n-r)\times (n-r)\)-matrix \(A'\).
+
+Finally, we will compute the A.M. of \(\lambda\). By cofactor expansions, the
+characteristic polynomial of \(Q^{-1}AQ\) (also of \(A\)) is
+\[
+\det(A-tI_n)=\det(Q^{-1}AQ-tI_n)=(\lambda-t)^{r}\det(A'-tI_{n-1})
+=(-1)^{r}(t-\lambda)^r\det(A'-tI_{n-1}),
+\]
+thus \((t-\lambda)^r\) divides \(\det(A-tI_n)\). It follows that the A.M. of
+\(\lambda\) is at least \(r\), which is the G.M.\ of \(\lambda\).
+\end{pf}
+
+\item Finally, we are going to introduce a general and useful criterion for
+diagonalizability, involving A.M. and G.M.
+
+\begin{theorem}
+\label{thm:am-gm-diag-crit}
+Let \(A\) be an \(n\times n\) matrix. Then \(A\) is diagonalizable iff the A.M.
+of \(\lambda\) equals the G.M.\ of \(\lambda\) for every eigenvalue \(\lambda\)
+of \(A\).
+\end{theorem}
+\begin{pf}
+``\(\Rightarrow\)'': Assume \(A\) is diagonalizable. Then by
+\Cref{thm:diag-crit}, there is a basis \(\beta\) for \(\R^n\) whose elements
+are eigenvectors of \(A\). Let \(\lambda_1,\dotsc,\lambda_k\) be the
+eigenvalues of \(A\). Denote the A.M. and G.M.\ of an eigenvalue \(\lambda\) by
+\(m_{a}(\lambda)\) and \(m_{g}(\lambda)\) respectively. For each
+\(i=1,\dotsc,k\), let \(\beta_i=\beta\cap E_{\lambda_i}\). Note that for each
+\(i=1,\dotsc,k\), \(|\beta_i|\le\dim(E_{\lambda_i})=m_{g}(\lambda_i)\), as
+\(\beta_i\) is a linearly independent subset of \(E_{\lambda_i}\). Applying
+also \Cref{thm:gm-leq-am}, we get
+\[
+n=\sum_{i=1}^{k}|\beta_i|\le\sum_{i=1}^{k}m_{g}(\lambda_i)\le\sum_{i=1}^{k}m_a(\lambda_i)=n,
+\]
+where the first equality holds since there are \(n\) eigenvectors in \(\beta\),
+and the last equality holds by \labelcref{it:am-sum2n}.
+
+This forces \(\sum_{i=1}^{k}m_{g}(\lambda_i)=\sum_{i=1}^{k}m_{a}(\lambda_i)\),
+thus
+\[
+\sum_{i=1}^{k}[m_{a}(\lambda_i)-m_{g}(\lambda_i)]=0.
+\]
+By \Cref{thm:gm-leq-am} again, we have \(m_a(\lambda_i)-m_g(\lambda_i)\ge 0\)
+for each \(i=1,\dotsc,k\). Hence, we must have
+\(m_a(\lambda_i)=m_{g}(\lambda_i)\) for each \(i=1,\dotsc,k\).
+
+``\(\Leftarrow\)'': Assume that the A.M. of \(\lambda\) equals the G.M.\ of
+\(\lambda\) for every eigenvalue \(\lambda\) of \(A\). Note that the sum of all
+the algebraic multiplicities is \(n\). Hence, by assumption, the sum of all the
+geometric multiplicities is also \(n\).
+
+Next, for each eigenvalue \(\lambda\) of \(A\), we find a basis
+\(\beta_{\lambda}\) for the \(\lambda\)-eigenspace \(E_{\lambda}\). The union
+\(\beta\triangleq\bigcup_{\lambda}\beta_{\lambda}\subseteq \R^n\) of all those
+bases has \(n\) vectors as the sum of all the G.M.\ is \(n\). To show that the
+union \(\beta\) is a basis for \(\R^n\), it then suffices to prove that it is
+linearly independent, by \Cref{thm:card-dim-li-basis}.
+
+First write \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) and let
+\(\lambda_1,\dotsc,\lambda_k\) be the eigenvalues of \(A\). Consider
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0}.
+\]
+For the \(n\) terms on the LHS, for each \(i=1,\dotsc,k\), we collect all the
+terms belonging to the eigenspace \(E_{\lambda_{i}}\), and add them up to get a
+vector \(\vect{w}_i\in E_{\lambda_i}\). After that, we can rewrite the equation as
+\[
+\vect{w}_1+\dotsb+\vect{w}_k=\vect{0}.
+\]
+This forces \(\vect{w}_i=\vect{0}\) for every \(i=1,\dotsc,k\) since if not, it
+would imply that those nonzero \(\vect{w}_i\)'s are linearly dependent,
+contradicting the linear independence of those nonzero \(\vect{w}_i\)'s, as
+suggested in \Cref{thm:diff-eigenval-eigenvec-li}.
+
+It then follows that \(a_1=\dotsb=a_n=0\) since
+\(\vect{v}_1,\dotsc,\vect{v}_n\) are all nonzero (as they all originate from
+basis of eigenspace). This shows the linear independence, hence \(\beta\) is a
+basis for \(\R^n\).
+
+Now note that the vectors in \(\beta\) are all eigenvectors of \(A\) by
+construction. It then follows by \Cref{thm:diag-crit} that \(A\) is
+diagonalizable.
+\end{pf}
+
+\item Practically, when we use \Cref{thm:am-gm-diag-crit} to determine
+diagonalizability, it suffices to only compare the A.M. and G.M.\ for
+eigenvalues with A.M. greater than 1. This is because when the A.M. of an
+eigenvalue is 1, then the G.M.\ of that eigenvalue has to be 1 as well since it
+is less than or equal to the A.M., by \Cref{thm:gm-leq-am}, and is also at
+least 1.
+\end{enumerate}
+\subsection{Applications of Diagonalization}
+\begin{enumerate}
+\item Although diagonalization appears to be a rather theoretical thing to do,
+it can be applied to some practical computations. Here we will discuss two
+applications: (i) taking high powers of a matrix, and (ii) computing matrix
+exponentials.
+
+\item First, consider taking high powers of a matrix. Let \(A\) be an \(n\times
+n\) matrix and suppose we would like to compute \(A^k\) where \(k\) is large.
+Although one can compute it by definition of matrix multiplication, it is not
+an efficient approach. When \(A\) is diagonalizable, we have a better approach.
+
+\item \label{it:cpt-high-matx-pow-diag} Suppose that \(A\) is diagonalizable.
+Then we can write \(A=QDQ^{-1}\) for some diagonal matrix \(D\). The matrices
+\(D\) and \(Q\) can be found by some standard diagonalization approach as
+discussed previously. Here, one important observation is that
+\[
+A^k=\underbrace{(QDQ^{-1})(QDQ^{-1})\cdots(QDQ^{-1})}_{\text{\(k\) times}}
+=QD^kQ^{-1},
+\]
+where \(D^k\) can be computed easily as it is just another diagonal matrix
+where each diagonal entry is raised to the power \(k\). So, via this formula,
+we can compute \(A^k\) efficiently.
+
+\item Another application is about matrix exponentials. Let \(A\) be an
+\(n\times n\) matrix. The \defn{exponential of \(A\)} is defined to be
+\[
+e^A=I_n+A+\frac{1}{2!}A^2+\frac{1}{3!}A^3+\dotsb
+\]
+If \(A\) is a \(1\times 1\) matrix, i.e., a scalar, then \(e^A\) reduces to the
+usual exponential function.
+
+\begin{note}
+It can be shown that such infinite series always converges, but we shall omit
+the details here.
+\end{note}
+
+\item \label{it:matx-expo-eg} Examples:
+\begin{itemize}
+\item Let \(A=\mqty[2&0\\ 0&3]\). Then,
+\begin{align*}
+e^A&=\mqty[1&0\\ 0&1]+\mqty[2&0\\ 0&3]+\frac{1}{2!}\mqty[2^2&0\\ 0&3^2]
++\frac{1}{3!}\mqty[2^3&0\\ 0&3^3]+\dotsb \\
+&=\mqty[1+2^1+\frac{2^{2}}{2!}+\frac{2^{3}}{3!}+\dotsb&0\\ 
+0&1+3^1+\frac{3^{2}}{2!}+\frac{3^{3}}{3!}+\dotsb] \\
+&=\mqty[e^{2}&0\\
+0&e^{3}].
+\end{align*}
+\item More generally, let \(A=\diag{a_1,\dotsc,a_n}\). Then,
+\(e^A=\diag{e^{a_1},\dotsc,e^{a_n}}\).
+\end{itemize}
+
+\item When \(A\) is not a diagonal matrix, we do not have a straightforward
+formula to compute \(e^A\) as in \labelcref{it:matx-expo-eg}. If \(A\) is
+diagonalizable, then diagonalization is very helpful for computing \(e^A\).
+
+\item \label{it:cpt-matx-expo-diag} Suppose that \(A\) is diagonalizable. Then,
+we have \(A=QDQ^{-1}\) for some diagonal matrix \(D\). Hence, we have
+\begin{align*}
+e^A&=I_n+A+\frac{1}{2!}A^2+\frac{1}{3!}A^{3}+\dotsb \\
+&=QI_nQ^{-1}+QDQ^{-1}+\frac{1}{2!}QD^2Q^{-1}+\frac{1}{3!}QD^{3}Q^{-1}+\dotsb \\
+&=Q\qty(I_n+D+\frac{1}{2!}D^2+\frac{1}{3!}D^{3}+\dotsb)Q^{-1} \\
+&=Qe^DQ^{-1}.
+\end{align*}
+\begin{note}
+It turns out that the distributive law for matrices still works for
+(convergent) infinite series.
+\end{note}
+\end{enumerate}

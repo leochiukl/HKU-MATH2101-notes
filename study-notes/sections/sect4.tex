@@ -211,7 +211,7 @@ exists a unique linear transformation \(T:V\to W\) such that
 \end{theorem}
 \begin{note}
 This result does \underline{not} say that \(\{\vect{w}_1,\dotsc,\vect{w}_n\}\)
-is a basis.
+is a basis for \(W\).
 \end{note}
 
 \begin{pf}
@@ -294,8 +294,8 @@ with the usual definition of range for a function.
 \item Examples:
 \begin{itemize}
 \item Consider the zero transformation \(T_0:V\to W\), defined by
-\(T_0(\vect{v})=\vect{0}\) for any \(\vect{v}\in V\). Then, \(\nul{T}=V\) and
-\(\ran{T}=\{\vect{0}\}\).
+\(T_0(\vect{v})=\vect{0}\) for any \(\vect{v}\in V\). Then, \(\nul{T_0}=V\) and
+\(\ran{T_0}=\{\vect{0}\}\).
 \item Consider the identity transformation \(\id_{V}:V\to V\), defined by
 \(\id_{V}(\vect{v})=\vect{v}\) for any \(\vect{v}\in V\). Then,
 \(\nul{\id_{V}}=\{\vect{0}\}\) and \(\ran{\id_{V}}=V\).
@@ -508,9 +508,9 @@ thus is a basis for \(\ran{T}\). This shows
 \(\rk{T}=\dim(\ran{T})=m-k=\dim(V)-\nulty{T}\), as desired.
 \end{pf}
 
-By setting \(T\) to be \(L_A:\R^n\to\R^m\) defined by
-\(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\) where \(A\) is an
-\(m\times n\) matrix, the equality in the dimension formula reduces to
+\item \label{it:rank-nullity-thm} By setting \(T\) to be \(L_A:\R^n\to\R^m\)
+defined by \(L_A(\vect{v})=A\vect{v}\) for any \(\vect{v}\in\R^n\) where \(A\)
+is an \(m\times n\) matrix, the equality in the dimension formula reduces to
 \[
 \nulty{A}+\rk{A}=\dim(\R^n)=n=\text{number of columns of \(A\)}.
 \]
@@ -598,9 +598,6 @@ injectivity and surjectivity) of a linear transformation.
 Let \(T:V\to W\) be a linear transformation. Then \(T\) is bijective iff
 \(\nul{T}=\{\vect{0}\}\) and \(\dim(V)=\dim(W)\).
 \end{theorem}
-\begin{note}
-A bijective linear transformation is said to be an \defn{isomorphism}.
-\end{note}
 
 \begin{pf}
 ``\(\Rightarrow\)'': Assume \(T\) is bijective. Then by the injectivity of
@@ -629,4 +626,681 @@ independent in \(W\). But then this contradicts \Cref{prp:li-num-leq-dim} as
 Thus, \(T\) is surjective. Together with the injectivity of \(T\) shown
 before, we conclude that \(T\) is bijective.
 \end{pf}
+
+\item As a corollary, we can obtain several more criteria for bijectivity.
+
+\begin{corollary}
+\label{cor:more-lt-bij-crit}
+Let \(T:V\to W\) be a linear transformation. Then, the following are equivalent.
+\begin{enumerate}
+\item \(T\) is bijective.
+\item \(T\) is injective and \(\dim(V)=\dim(W)\).
+\item \(T\) is surjective and \(\dim(V)=\dim(W)\).
+\end{enumerate}
+\end{corollary}
+\begin{pf}
+\underline{\(\text{(a)}\iff\text{(b)}\)}:
+\begin{align*}
+&\hspace{2cm}\text{\(T\) is bijective} \\
+&\iff\nul{T}=\{\vect{0}\}\text{ and }\dim(V)=\dim(W) &\text{(\Cref{thm:lin-tran-bij-crit})} \\
+&\iff T\text{ is injective and }\dim(V)=\dim(W)&\text{(\Cref{prp:inj-iff-null-sp-only-zero})}.
+\end{align*}
+
+\underline{\(\text{(a)}\implies\text{(c)}\)}: Suppose that \(T\) is bijective. Then
+\(T\) is immediately surjective and it suffices to show that
+\(\dim(V)=\dim(W)\). But this just follows from \Cref{thm:lin-tran-bij-crit}.
+
+\underline{\(\text{(c)}\implies \text{(a)}\)}: Suppose that \(T\) is surjective
+and \(\dim(V)=\dim(W)\). It then suffices to show that \(T\) is injective. Due
+to the surjectivity of \(T\), we have \(\rk{T}=\dim(\ran{T})=\dim(W)=\dim(V)\).
+By dimension formula, we get
+\[
+\nulty{T}=\dim(V)-\rk{T}=0,
+\]
+which forces \(\nul{T}=\{\vect{0}\}\), hence \(T\) is injective.
+\end{pf}
+
+\item A bijective linear transformation is said to be an \defn{isomorphism}.
+Given two vector spaces \(V\) and \(W\), if there exists an isomorphism from
+\(V\) to \(W\), then we say that \(V\) is \defn{isomorphic} to \(W\).
+(Intuitively, this means that \(V\) and \(W\) have the same ``structure'' in a
+certain sense.)
+\end{enumerate}
+\subsection{Matrix Representations of Linear Transformations}
+\label{subsect:lt-matx-rep}
+\begin{enumerate}
+\item From \labelcref{it:matx-mult-lt}, we know that the concepts of matrices
+and linear transformations can be connected, by considering a linear
+transformation \(L_A:\R^{n}\to\R^{m}\) associated to an \(m\times n\) matrix
+\(A\). More generally, we can have a \emph{matrix representation} of any linear
+transformation, which is the main topic to be discussed in
+\Cref{subsect:lt-matx-rep}.
+
+\item An \defn{ordered basis} is a basis equipped with a specific order. For an
+ordered basis \(\beta=\{\vect{v}_1,\vect{v}_2,\dotsc,\vect{v}_n\}\) for a vector space
+\(V\), we can say:
+\begin{itemize}
+\item \(\vect{v}_1\) is the \underline{first} one;
+\item \(\vect{v}_2\) is the \underline{second} one;
+\item ...
+\item \(\vect{v}_n\) is the \underline{last} one.
+\end{itemize}
+Example: Consider two ordered bases \(\beta=\{\vect{e}_1,\vect{e}_2\}\) and
+\(\beta'=\{\vect{e}_2,\vect{e}_1\}\) for \(\R^2\). Note that they are different
+ordered bases.  Although we still use set notation, the order matters!
+
+\item Before discussing matrix representation of a linear transformation, we
+shall first introduce matrix representation of a \emph{vector}, as a
+preliminary notion. Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be an
+ordered basis for a vector space \(V\). By \Cref{thm:basis-unique-lin-comb},
+for any \(\vect{v}\in V\), we have
+\[
+\vect{v}=\vc{a_1}\vect{v}_1+\dotsb+\vc{a_n}\vect{v}_n
+\]
+for some unique scalars \(\vc{a_1,\dotsc,a_n}\in\R\). Using these unique
+scalars, we define the \defn{coordinate vector of \(\vect{v}\) with respect to
+\(\beta\)} by
+\[
+\defn{\([\vect{v}]_{\beta}\)}=\mqty[a_1\\ \vdots\\ a_n].
+\]
+Through this, we represent a vector using an \(n\times 1\) matrix.
+
+In fact, the function \([\cdot]_{\beta}:V\to\R^n\) is a linear transformation.
+
+\begin{pf}
+Fix any \(\vect{u},\vect{v}\in V\). Suppose that we can write
+\(\vect{u}=a_1'\vect{v}_1+\dotsb+a_n'\vect{v}_n\) and
+\(\vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n\).
+
+\underline{Addition}: Note that
+\(\vect{u}+\vect{v}=(a_1'+a_1)\vect{v}_1+\dotsb+(a_n'+a_n)\vect{v}_n\). Thus,
+\[
+[\vect{u}+\vect{v}]_{\beta}
+=\mqty[
+a_1'+a_1\\
+\vdots\\
+a_n'+a_n
+]
+=\mqty[
+a_1'\\ \vdots\\ a_n'
+]
++\mqty[
+a_1\\ \vdots\\ a_n
+]
+=[\vect{u}]_{\beta}+[\vect{v}]_{\beta}.
+\]
+\underline{Scalar multiplication}: For any \(c\in\R\),
+\(c\vect{v}=(ca_1)\vect{v}_1+\dotsb+(ca_n)\vect{v}_n\), thus
+\[
+[c\vect{v}]_{\beta}=\mqty[ca_1\\ \vdots\\ ca_n]=c\mqty[a_1\\ \vdots\\ a_n]=c[\vect{v}]_{\beta}.
+\]
+\end{pf}
+
+Furthermore, \([\cdot]_{\beta}\) is actually an
+\emph{isomorphism}.
+
+\begin{pf}
+We shall use \Cref{thm:lin-tran-bij-crit}. It is immediate that
+\(\dim(V)=\dim(\R^n)=n\), so it suffices to show that \(\nul{T}=\{\vect{0}\}\).
+``\(\supseteq\)'' is immediate, so we only need to show \(\nul{T}\subseteq
+\{\vect{0}\}\). Fix any \(\vect{v}\in\nul{T}\). Then we have
+\([\vect{v}]_{\beta}=\vect{0}\), which implies
+\(\vect{v}=0\vect{v}_1+\dotsb+0\vect{v}_n=\vect{0}\).
+\end{pf}
+
+Consequently, any vector space \(V\) with dimension \(n\) is isomorphic to
+\(\R^n\).
+
+\item Examples:
+\begin{itemize}
+\item Let \(\beta=\qty{\mqty[1\\ 1], \mqty[1\\ -1]}\) be an ordered basis for
+\(\R^2\). Then, since \(\vect{v}=\mqty[2\\4] =3\mqty[1\\ 1]-1\mqty[1\\ -1]\), we have
+\[
+[\vect{v}]_{\beta}=\mqty[3\\ -1].
+\]
+\item Let \(\beta=\{\vect{e}_1,\vect{e}_2\}\) be an ordered basis for
+\(\R^2\). Then, since \(\vect{v}=\mqty[2\\ 4]=2\vect{e}_1+4\vect{e}_2\), we have
+\[
+[\vect{v}]_{\beta}=\mqty[2\\ 4].
+\]
+
+\item Let \(\beta=\{\vect{e}_2,\vect{e}_1\}\) be an ordered basis for
+\(\R^2\). Then, since \(\vect{v}=\mqty[2\\ 4]=4\vect{e}_2+2\vect{e}_1\), we have
+\[
+[\vect{v}]_{\beta}=\mqty[4\\ 2].
+\]
+\item Let \(\mathcal{P}_{3}\) denote the vector space of all polynomials of
+degree at most 3, i.e.,
+\(\mathcal{P}_3=\{a_0+a_1x+a_2x^2+a_3x^3:a_0,a_1,a_2,a_3\in\R\}\). Let
+\(\beta=\{1,1+x,x^2,x^2+x^3\}\) be an ordered basis for \(\mathcal{P}_{3}\).
+Then, since \(\vect{v}=1+x+x^2+x^3=0(1)+1(1+x)+0(x^2)+1(x^2+x^3)\), we have
+\[
+[\vect{v}]_{\beta}=\mqty[0\\ 1\\ 0\\ 1].
+\]
+\end{itemize}
+\item Let us now consider matrix representation of a linear transformation. Let
+\(T:V\to W\) be a linear transformation. Since there are two vector spaces
+involved for a single linear transformation, the definition also involves two
+ordered bases. We let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be an ordered
+basis for \(V\) and \(\gamma=\{\vect{w}_1,\dotsc,\vect{w}_m\}\) be an ordered
+basis for \(W\). For every \(j=1,\dotsc,n\), since \(T(\vect{v}_j)\in W\), by
+\Cref{thm:basis-unique-lin-comb}, we have
+\[
+T(\vect{v}_j)=\vc{a_{1j}}\vect{w}_1+\dotsb+\vc{a_{mj}}\vect{w}_m
+\]
+for some unique scalars \(\vc{a_{1j},\dotsc,a_{mj}}\in\R\). From this we know that
+\[
+[T(\vect{v}_1)]_{\gamma}=\mqty[a_{11}\\ \vdots\\ a_{m1}],\quad
+[T(\vect{v}_2)]_{\gamma}=\mqty[a_{12}\\ \vdots\\ a_{m2}],\qqtext{...},\quad
+[T(\vect{v}_n)]_{\gamma}=\mqty[a_{1n}\\ \vdots\\ a_{mn}].
+\]
+Combining all these column vectors into a matrix gives the matrix
+representation of \(T\). More precisely, the \defn{matrix representation of
+\(T\) relative to \(\beta\) and \(\gamma\)} is the \(m\times n\) matrix
+\[
+\defn{\([T]_{\beta}^{\gamma}\)}
+=\mqty[[T(\vect{v}_1)]_{\gamma}&\cdots&[T(\vect{v}_n)]_{\gamma}]
+=[a_{ij}]=\mqty[a_{11}&\cdots&a_{m1}\\ \vdots&\ddots&\vdots\\
+a_{m1}&\cdots&a_{mn}].
+\]
+\begin{note}
+If \(\beta=\gamma\), we sometimes write \([T]_{\beta}\) instead of
+\([T]_{\beta}^{\gamma}\).
+\end{note}
+
+\item Consider the special case where \(T\) is a linear transformation from
+\(\R^n\) to \(\R^m\) and we use the standard bases in the matrix
+representation. Let \(\beta\) and \(\beta'\) be the (ordered) standard bases
+for \(\R^n\) and \(\R^m\) respectively. Then \([T]_{\beta}^{\beta'}\) is called
+the \defn{standard matrix representation} of \(T\).
+
+Example: Let \(T:\R^4\to\R^3\) be a linear transformation defined by
+\[
+T\qty(\mqty[x_1\\ x_2\\ x_3\\ x_4])=\mqty[x_1+x_3\\ x_2+x_3\\ x_1+x_4].
+\]
+Then the standard matrix representation of \(T\) is
+\[
+[T]_{\beta}^{\beta'}=\mqty[1&0&1&0\\ 0&1&1&0\\ 1&0&0&1],
+\]
+since:
+\begin{itemize}
+\item \(\displaystyle T\qty(\mqty[1\\ 0\\ 0\\ 0])=\mqty[1\\ 0\\
+1]=1\vect{e}_1+0\vect{e}_2+1\vect{e}_3\),
+\item \(\displaystyle T\qty(\mqty[0\\ 1\\ 0\\ 0])=\mqty[0\\ 1\\
+0]=0\vect{e}_1+1\vect{e}_2+0\vect{e}_3\),
+\item \(\displaystyle T\qty(\mqty[0\\ 0\\ 1\\ 0])=\mqty[1\\ 1\\
+0]=1\vect{e}_1+1\vect{e}_2+0\vect{e}_3\),
+\item \(\displaystyle T\qty(\mqty[0\\ 0\\ 0\\ 1])=\mqty[0\\ 0\\
+1]=0\vect{e}_1+0\vect{e}_2+1\vect{e}_3\),
+\end{itemize}
+where \(\{\vect{e}_1,\vect{e}_2,\vect{e}_3\}\) is the standard basis for \(\R^3\).
+
+\item Given a matrix representation of a linear transformation, we can recover
+its explicit form through matrix multiplication.
+\begin{theorem}
+\label{thm:matx-rep-matx-mult}
+Let \(T:V\to W\) be a linear transformation. Let \(\beta\) and \(\gamma\) be
+ordered bases for \(V\) and \(W\) respectively. Then,
+\[
+[T(\vect{v})]_{\gamma}=[T]_{\beta}^{\gamma}[\vect{v}]_{\beta}
+\]
+for any \(\vect{v}\in V\).
+\end{theorem}
+\begin{pf}
+Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\) and
+\(\gamma=\{\vect{w}_1,\dotsc,\vect{w}_n\}\).
+
+We first establish the result for the vectors in \(\beta\). Firstly, note that
+\([T(\vect{v}_i)]_{\gamma}\) is the \(i\)th column of \([T]_{\beta}^{\gamma}\)
+and \([\vect{v}_i]_{\beta}=\vect{e}_i\) in \(\R^m\)\footnote{We can write
+\(\vect{v}_i=0\vect{v}_1+\dotsb+0\vect{v}_{i-1}+1\vect{v}_i+0\vect{v}_{i+1}
++\dotsb+0\vect{v}_m\).}. Then, by definition of matrix multiplication,
+\([T]_{\beta}^{\gamma}\vect{e}_i\) is the \(i\)th column of
+\([T]_{\beta}^{\gamma}\). It follows that
+\([T(\vect{v}_i)]_{\gamma}=[T]_{\beta}^{\gamma}[\vect{v}_i]_{\beta}\).
+
+Next, we will establish the result for general vector in \(V\) to complete the
+proof. For any \(\vect{v}\in V\), we have
+\(\vect{v}=a_1\vect{v}_1+\dotsb+a_m\vect{v}_m\) for some unique scalars
+\(a_1,\dotsc,a_m\). Then,
+\begin{align*}
+[T(\vect{v})]_{\gamma}&=[T(a_1\vect{v}_1+\dotsb+a_m\vect{v}_m)]_{\gamma} \\
+&=[a_1T(\vect{v}_1)+\dotsb+a_mT(\vect{v}_m)]_{\gamma} \\
+&=a_1[T(\vect{v}_1)]_{\gamma}+\dotsb+a_m[T(\vect{v}_m)]_{\gamma} \\
+&=a_1[T]_{\beta}^{\gamma}\vect{e}_1+\dotsb+a_m[T]_{\beta}^{\gamma}\vect{e}_m \\
+&=[T]_{\beta}^{\gamma}(a_1\vect{e}_1+\dotsb+a_m\vect{e}_m) \\
+&=[T]_{\beta}^{\gamma}\mqty[a_1\\ \vdots\\ a_m] \\
+&=[T]_{\beta}^{\gamma}[\vect{v}]_{\beta}.
+\end{align*}
+\end{pf}
+
+\item Through matrix representations, we can establish some relationship
+between operations between linear transformations and the matrix operations.
+First we consider addition of linear transformations.
+
+Let \(T:V\to W\) and \(T':V\to W\) be two linear transformations. Then \(T+T'\)
+is defined to be a function from \(V\) to \(W\) given by
+\((T+T')(\vect{v})=T(\vect{v})+T'(\vect{v})\). Note that
+\(T+T'\) is also a linear transformation from \(V\) to \(W\).
+
+\begin{pf}
+\underline{Addition}: For any \(\vect{u},\vect{v}\in V\),
+\begin{align*}
+(T+T')(\vect{u}+\vect{v})&=T(\vect{u}+\vect{v})+T'(\vect{u}+\vect{v}) \\
+&=T(\vect{u})+T'(\vect{u})+T(\vect{v})+T'(\vect{v}) \\
+&=(T+T')(\vect{u})+(T+T')(\vect{v}).
+\end{align*}
+\underline{Scalar multiplication}: For any \(c\in\R\) and \(\vect{v}\in V\),
+\[
+(T+T')(c\vect{v})=T(c\vect{v})+T'(c\vect{v})
+=c(T(\vect{v})+T'(\vect{v}))
+=c(T+T')(\vect{v}).
+\]
+\end{pf}
+
+\item As one may expect, addition of linear transformations corresponds to
+matrix addition.
+\begin{theorem}
+\label{thm:lt-add-matx-add}
+Let \(T,T':V\to W\) be two linear transformations. Let \(\beta\) and \(\gamma\)
+be ordered bases for \(V\) and \(W\) respectively. Then,
+\[
+[T+T']_{\beta}^{\gamma}=[T]_{\beta}^{\gamma}+[T']_{\beta}^{\gamma}.
+\]
+\end{theorem}
+\begin{pf}
+For any \(\vect{v}\in V\),
+\begin{align*}
+[T+T']_{\beta}^{\gamma}[\vect{v}]_{\beta}&=[(T+T')(\vect{v})]_{\gamma}&\text{(\Cref{thm:matx-rep-matx-mult})} \\
+&=[T(\vect{v})+T'(\vect{v})]_{\gamma} \\
+&=[T(\vect{v})]_{\gamma}+[T'(\vect{v})]_{\gamma} \\
+&=[T]_{\beta}^{\gamma}[\vect{v}]_{\beta}
++[T']_{\beta}^{\gamma}[\vect{v}]_{\beta}&\text{(\Cref{thm:matx-rep-matx-mult})} \\
+&=([T]_{\beta}^{\gamma}+[T']_{\beta}^{\gamma})[\vect{v}]_{\beta}.
+\end{align*}
+As this holds for arbitrary \(\vect{v}\in V\), we conclude that
+\[
+[T+T']_{\beta}^{\gamma}=[T]_{\beta}^{\gamma}+[T']_{\beta}^{\gamma}.
+\]
+\end{pf}
+
+\item Next, we consider composition of linear transformations.
+
+Let \(T:V\to W\) and \(T':W\to X\) be two linear transformations. Then the
+composition of \(T\) and \(T'\) is the function \(T'\circ T:V\to X\) given by
+\[
+(T'\circ T)(\vect{v})=T'(T(\vect{v}))
+\]
+for any \(\vect{v}\in V\). The composition \(T'\circ T\) is a linear
+transformation from \(V\) to \(X\).
+
+\begin{pf}
+\underline{Addition}: For any \(\vect{u},\vect{v}\in V\),
+\[
+(T'\circ T)(\vect{u}+\vect{v})
+=T'(T(\vect{u}+\vect{v}))
+=T'(T(\vect{u})+T(\vect{v}))
+=T'(T(\vect{u}))+T'(T(\vect{v}))
+=(T'\circ T)(\vect{u})+(T'\circ T)(\vect{v}).
+\]
+
+\underline{Scalar multiplication}: For any \(\vect{v}\in V\) and \(c\in\R\),
+\[
+(T'\circ T)(c\vect{v})
+=T'(T(c\vect{v}))
+=T'(cT(\vect{v}))
+=cT'(T(\vect{v}))
+=c(T'\circ T)(\vect{v}).
+\]
+\end{pf}
+
+\item It turns out that composition of linear transformations corresponds to
+matrix multiplication. This explains the seemingly strange definition of matrix
+multiplication.
+
+\begin{theorem}
+\label{thm:lt-compo-matx-mult}
+Let \(T:V\to W\) and \(T':W\to X\) be two linear transformations. Let
+\(\beta\), \(\gamma\), and \(\delta\) be ordered bases for \(V\), \(W\), and
+\(X\) respectively. Then,
+\[
+[T'\circ T]_{\beta}^{\delta}=[T']_{\gamma}^{\delta}[T]_{\beta}^{\gamma}.
+\]
+\end{theorem}
+\begin{pf}
+For any \(\vect{v}\in V\),
+\begin{align*}
+[T'\circ T]_{\beta}^{\delta}[\vect{v}]_{\beta}
+&=[(T'\circ T)(\vect{v})]_{\delta}&\text{(\Cref{thm:matx-rep-matx-mult})} \\
+&=[T'(\vc{T(\vect{v})})]_{\delta} \\
+&=[T']_{\gamma}^{\delta}[\vc{T(\vect{v})}]_{\gamma}&\text{(\Cref{thm:matx-rep-matx-mult})} \\
+&=[T']_{\gamma}^{\delta}[T]_{\beta}^{\gamma}[\vect{v}]_{\beta}&\text{(\Cref{thm:matx-rep-matx-mult})}.
+\end{align*}
+As this holds for arbitrary \(\vect{v}\in V\), we conclude that
+\[
+[T'\circ T]_{\beta}^{\delta}=[T']_{\gamma}^{\delta}[T]_{\beta}^{\gamma}.
+\]
+\end{pf}
+
+\item Apart from operations, there are also some correspondence in the
+properties between linear transformations and their matrix representations. The
+first one is invertibility.
+
+\item Let \(T:V\to W\) be a linear transformation. \(T\) is said to be
+\defn{invertible} if the inverse of \(T\) exists, i.e., there exists a function
+\(T^{-1}:W\to V\) such that \(T^{-1}\circ T=\id_{V}\) and \(T\circ
+T^{-1}=\id_{W}\). \(T^{-1}\) is called the \defn{inverse} of \(T\). From
+MATH2012, we know that \(T\) is invertible iff \(T\) is bijective. So an
+invertible linear transformation is just an isomorphism.
+
+Note that the inverse of \(T\), namely \(T^{-1}\), is still a linear
+transformation.
+
+\begin{pf}
+Fix any \(\vect{w}_1,\vect{w}_2\in W\). By the bijectivity of \(T\), there exist unique
+\(\vect{v}_1,\vect{v}_2\in V\) such that \(T(\vect{v}_1)=\vect{w}_1\) and
+\(T(\vect{v}_2)=\vect{w}_2\). Furthermore, we have
+\(\vect{v}_1=T^{-1}(\vect{w}_1)\) and \(\vect{v}_2=T^{-1}(\vect{w}_2)\).
+
+\underline{Addition}: Consider
+\begin{align*}
+T^{-1}(\vect{w}_1+\vect{w}_2)&=T^{-1}(T(\vect{v}_1)+T(\vect{v}_2)) \\
+&=T^{-1}(T(\vect{v}_1))+T^{-1}(T(\vect{v}_2)) \\
+&=\vect{v}_1+\vect{v}_2 \\
+&=T^{-1}(\vect{w}_1)+T^{-1}(\vect{w}_2).
+\end{align*}
+
+\underline{Scalar multiplication}: For any \(c\in\R\), consider
+\[
+T^{-1}(c\vect{w}_1)
+=T^{-1}(cT(\vect{v}_1)
+=T^{-1}(T(c\vect{v}_1))
+=c\vect{v}_1
+=cT^{-1}(\vect{w}_1).
+\]
+\end{pf}
+\item As one may expect, invertibility of a linear transformation corresponds
+to the invertibility of its matrix representation.
+
+\begin{theorem}
+\label{thm:lt-inv-matx-inv}
+Let \(T:V\to W\) be a linear transformation. Let \(\beta\) and \(\gamma\) be
+ordered bases for \(V\) and \(W\) respectively. Then \(T\) is invertible iff
+\([T]_{\beta}^{\gamma}\) is invertible.
+\end{theorem}
+\begin{pf}
+Let \(m=\dim(V)\).
+
+``\(\Rightarrow\)'': Assume that \(T\) is invertible. Then
+\(\dim(W)=\dim(V)=m\). So both \(\beta\) and \(\gamma\) contain \(m\) vectors.
+Thus, we have \([T^{-1}]_{\gamma}^{\beta}[T]_{\beta}^{\gamma}=[T^{-1}\circ
+T]_{\beta}^{\beta}=[\id_{V}]_{\beta}^{\beta}=I_m\), and similarly,
+\([T]_{\beta}^{\gamma}[T^{-1}]_{\gamma}^{\beta}=[\id_{W}]_{\gamma}^{\gamma}=I_m\).
+This shows that \([T]_{\beta}^{\gamma}\) is invertible (and its inverse is given
+by \([T^{-1}]_{\gamma}^{\beta}\)).
+
+``\(\Leftarrow\)'' Assume that \([T]_{\beta}^{\gamma}\) is invertible. Let
+\(A=[T]_{\beta}^{\gamma}\). Fix any \(\vect{w}\in W\). Write
+\[
+A^{-1}[\vect{w}]_{\gamma}=\mqty[a_1\\ \vdots\\ a_m].
+\]
+Also write the ordered bases as \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\) and
+\(\gamma=\{\vect{w}_1,\dotsc,\vect{w}_m\}\).  To construct the inverse of
+\(T\), we define \(U:W\to V\) by
+\(U(\vect{w})=a_1\vect{v}_1+\dotsb+a_m\vect{v}_m\). Note that by construction,
+\[
+[U(\vect{w})]_{\beta}=\mqty[a_1\\ \vdots\\ a_m]=A^{-1}[\vect{w}]_{\gamma}.
+\]
+We claim that \(U=T^{-1}\). To see this, note first that
+\[
+[U]_{\gamma}^{\beta}
+=\mqty[[U(\vect{w}_1)]_{\beta}&\cdots&[U(\vect{w}_m)]_{\beta}]
+=\mqty[A^{-1}[\vect{w}_1]_{\gamma}&\cdots&A^{-1}[\vect{w}_m]_{\gamma}]
+=\mqty[A^{-1}\vect{e}_1&\cdots&A^{-1}\vect{e}_m]
+=A^{-1}
+\]
+where \(\vect{e}_1,\dotsc,\vect{e}_m\) are standard vectors in \(\R^m\). By
+\Cref{thm:lt-compo-matx-mult},
+\[
+[U\circ T]_{\beta}^{\beta}=\mqty[U]_{\gamma}^{\beta}\mqty[T]_{\beta}^{\gamma}
+=A^{-1}A=I_m.
+\]
+Then by \Cref{thm:matx-rep-matx-mult}, we have for any \(\vect{v}\in V\),
+\[
+[(U\circ T)(\vect{v})]_{\beta}=[U\circ T]_{\beta}^{\beta}[\vect{v}]_{\beta}
+=I_m[\vect{v}]_{\beta}
+=[\vect{v}]_{\beta},
+\]
+implying that \((U\circ T)(\vect{v})=\vect{v}\), i.e., \(U\circ T=\id_{V}\).
+Similarly, we can show that \(T\circ U=\id_{W}\). Hence, \(U=T^{-1}\).
+\end{pf}
+
+\item \label{it:matx-inv-by-inv-lt} As suggested in the proof of
+\Cref{thm:lt-inv-matx-inv}, if \(T\) is invertible, then the inverse of the
+matrix representation \([T]_{\beta}^{\gamma}\) is given by
+\([T^{-1}]_{\gamma}^{\beta}\), namely the matrix representation of \(T^{-1}\).
+This provides us another way to compute matrix inverse.
+
+\item Next, we consider rank and nullity. It turns that a linear transformation
+has the same rank and nullity as its matrix representation. \begin{note}
+The terms ``rank'' and ``nullity'' have different meanings when applied to
+linear transformations and matrices respectively.
+\end{note}
+\begin{theorem}
+\label{thm:lt-matx-rep-same-rank-nul}
+Let \(T\) be a linear transformation from \(V\) to \(W\). Let \(\beta\) and
+\(\gamma\) be ordered bases for \(V\) and \(W\) respectively. Then,
+\[
+\rk{T}=\rk{[T]_{\beta}^{\gamma}}
+\qqtext{and}
+\nulty{T}=\nulty{[T]_{\beta}^{\gamma}}.
+\]
+\end{theorem}
+\begin{pf}
+(Partial) Note that it suffices to prove that
+\(\rk{T}=\rk{[T]_{\beta}^{\gamma}}\), since it implies the latter by dimension
+formula (\Cref{thm:dim-fmla}) and rank-nullity theorem
+(\labelcref{it:rank-nullity-thm}).
+
+Start with a basis \(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) for \(\nul{T}\). By the
+extension approach, we can add some vectors to form a basis
+\(\{\vect{v}_1,\dotsc,\vect{v}_r,\vect{v}_{r+1},\dotsc,\vect{v}_n\}\) for
+\(V\), denoted by \(\beta'\).
+
+By \Cref{prp:ran-spanning-set},
+\begin{align*}
+\ran{T}&=\spn{\{T(\vect{v}_1),\dotsc,T(\vect{v}_r),T(\vect{v}_{r+1}),\dotsc,T(\vect{v}_n)\}} \\
+&=\spn{\{\vect{0},\dotsc,\vect{0},T(\vect{v}_{r+1}),\dotsc,T(\vect{v}_n)\}} \\
+&=\spn{\{T(\vect{v}_{r+1}),\dotsc,T(\vect{v}_n)\}}.
+\end{align*}
+By dimension formula (\Cref{thm:dim-fmla}), \(\dim(\ran{T})=\rk{T}=\dim
+(V)-\nulty{T}=n-r\). Since\\ \(\{T(\vect{v}_{r+1}),\dotsc,T(\vect{v}_n)\}\) is a
+spanning set for \(\ran{T}\) that contains \(n-r\) vectors, it is a basis for
+\(\ran{T}\) by \Cref{thm:card-dim-spn-basis}.
+
+Next, by the extension approach again, we can add some vectors to form a
+basis\\
+\(\{T(\vect{v}_{r+1}),\dotsc,T(\vect{v}_n),\vect{w}_1,\dotsc,\vect{w}_s\}\) for
+\(W\) (with cardinality \(n-r+s\)), denoted by \(\gamma'\).
+
+Note that the matrix representation
+\begin{align*}
+[T]_{\beta'}^{\gamma'}
+&=\mqty[
+[T(\vect{v}_1)]_{\gamma'}&\cdots&[T(\vect{v}_r)]_{\gamma'}
+&[T(\vect{v}_{r+1})]_{\gamma'}&\cdots&[T(\vect{v}_{n})]_{\gamma'}
+] \\
+&=\mqty[
+[\vect{0}]_{\gamma'}&\cdots&[\vect{0}]_{\gamma'}
+&\vect{e}_1&\cdots&\vect{e}_{n-r}
+]
+&\text{(\(\vect{e}_1,\dotsc,\vect{e}_{n-r}\) are standard vectors in \(\R^{n-r+s}\))} \\
+&=\mqty[
+\vect{0}&\cdots&\vect{0}
+&\vect{e}_1&\cdots&\vect{e}_{n-r}
+] \\
+&=\mqty[
+O_{(n-r)\times r}&I_{n-r}\\
+O_{s\times r}&O_{s\times (n-r)}
+].
+\end{align*}
+Note that the rank of the matrix \([T]_{\beta'}^{\gamma'}\) is \(n-r\), since
+\(\mqty[ O_{(n-r)\times r}&I_{n-r}\\ O_{s\times r}&O_{s\times (n-r)} ]\) is in
+RREF and it has \(n-r\) leading ones. This is the same as the rank of \(T\),
+given by \(\rk{T}=\dim(\ran{T})=n-r\) as well.
+
+So far we have established the equality for a \emph{specific} choice of bases
+for the matrix representation, namely \(\beta'\) and \(\gamma'\). To prove the
+general case, we need to utilize the approach of \emph{change of coordinates},
+to be discussed in \Cref{subsect:change-coord}. To be continued at
+\labelcref{it:lt-rank-matx-pf-contd}.
+\end{pf}
+\end{enumerate}
+\subsection{Change of Coordinates Matrix}
+\label{subsect:change-coord}
+\begin{enumerate}
+\item Let \(\beta\) and \(\beta'\) be two ordered bases for a vector space
+\(V\). Then the matrix \([\id_{V}]_{\beta}^{\beta'}\) is called a \defn{change
+of coordinates matrix} from \(\beta\) to \(\beta'\).
+
+Example: With \(\beta=\{\vect{e}_1,\vect{e}_2\}\) and \(\beta'=\qty{\mqty[1\\
+2],\mqty[3\\ 4]}\) being two ordered bases for \(\R^2\), the change of
+coordinates matrix from \(\beta\) to \(\beta'\) is
+\[
+[\id_{\R^2}]_{\beta}^{\beta'}=\mqty[1&3\\ 2&4].
+\]
+
+\item The following result tells us how \([\id_{V}]_{\beta}^{\beta'}\) is
+related to ``change of coordinates''.
+
+\begin{theorem}
+\label{thm:change-coord-matx-prop}
+Let \(\beta\) and \(\beta'\) be two ordered bases for a vector space \(V\). Let
+\(Q=[\id_{V}]_{\beta}^{\beta'}\). Then,
+\begin{enumerate}
+\item \(Q\) is invertible.
+\item (change of coordinates) For any \(\vect{v}\in V\),
+\([\vect{v}]_{\beta'}=Q[\vect{v}]_{\beta}\).
+\end{enumerate}
+\end{theorem}
+\begin{note}
+From the \emph{change of coordinates} property, we see that multiplying the
+change of coordinates matrix \(Q\) does change the coordinate vector from
+\([\vect{v}]_{\beta}\) (with respect to \(\beta\)) to \([\vect{v}]_{\beta'}\)
+(with respect to \(\beta'\)).
+\end{note}
+
+\begin{pf}
+\begin{enumerate}
+\item Note that \(\id_{V}\) is invertible, so by \Cref{thm:lt-inv-matx-inv},
+the matrix representation \(Q=[\id_{V}]_{\beta}^{\beta'}\) is invertible as well.
+\item For any \(\vect{v}\in V\), we have
+\(Q[\vect{v}]_{\beta}=[\id_{V}]_{\beta}^{\beta'}[\vect{v}]_{\beta}
+\overset{\text{thm.\ \labelcref{thm:matx-rep-matx-mult}}}{=}[\id_{V}(\vect{v})]_{\beta'}
+=[\vect{v}]_{\beta'}\).
+\end{enumerate}
+\end{pf}
+
+\item Using change of coordinates matrix, we also change the matrix
+representation of a linear transformation.
+
+\begin{theorem}
+\label{thm:change-lt-matx-rep}
+Let \(\beta\) and \(\beta'\) be two ordered bases for a vector space \(V\). Let
+\(T:V\to V\) be a linear transformation and let
+\(Q=[\id_{V}]_{\beta}^{\beta'}\). Then,
+\[
+[T]_{\beta}^{\beta}=Q^{-1}[T]_{\beta'}^{\beta'}Q.
+\]
+\end{theorem}
+\begin{warning}
+We do \underline{not} have \([T]_{\beta'}^{\beta'}=Q^{-1}[T]_{\beta}^{\beta}Q\)
+with this definition of \(Q\).
+\end{warning}
+
+\begin{pf}
+Note first that
+\(Q^{-1}=\qty([\id_{V}]_{\beta}^{\beta'})^{-1}=[\id_{V}]_{\beta'}^{\beta}\) by
+\labelcref{it:matx-inv-by-inv-lt}. Then, consider:
+\begin{align*}
+Q^{-1}[T]_{\beta'}^{\beta'}Q
+&=[\id_{V}]_{\beta'}^{\beta}[T]_{\beta'}^{\beta'}[\id_{V}]_{\beta}^{\beta'} \\
+&=[\id_{V}]_{\beta'}^{\beta}[T\circ\id_{V}]_{\beta}^{\beta'}&\text{(\Cref{thm:lt-compo-matx-mult})} \\
+&=[\id_{V}]_{\beta'}^{\beta}[T]_{\beta}^{\beta'} \\
+&=[\id_{V}\circ T]_{\beta}^{\beta}&\text{(\Cref{thm:lt-compo-matx-mult})} \\
+&=[T]_{\beta}^{\beta}.
+\end{align*}
+\end{pf}
+
+\item \Cref{thm:change-lt-matx-rep} is somehow related to the following
+definition about \emph{similar} matrices. An \(n\times n\) matrix \(A\) is said
+to be \defn{similar} to an \(n\times n\) matrix \(B\) if there exists an
+invertible matrix \(Q\) such that \(B=Q^{-1}AQ\). In view of
+\Cref{thm:change-lt-matx-rep,thm:change-coord-matx-prop}, we know that the two
+matrix representations \([T]_{\beta'}^{\beta'}\) and \([T]_{\beta}^{\beta}\)
+are similar.
+
+\item \label{it:matx-similar-equiv-relate}
+As one may expect, matrix similarity is an equivalence relation.
+
+\begin{pf}
+Write \(A\sim B\) if \(A\) is similar to \(B\).
+
+\underline{Reflexive}: For any \(n\times n\) matrix \(A\), we can write
+\(A=I_n^{-1}AI_n\), so \(A\sim A\).
+
+\underline{Symmetric}: For any \(n\times n\) matrices \(A\) and \(B\), we have
+\[
+A\sim B
+\implies B=Q^{-1}AQ
+\implies A=QBQ^{-1}=(\vc{Q^{-1}})^{-1}B\vc{Q^{-1}}
+\implies B\sim A
+\]
+where \(Q\) is an invertible matrix.
+
+\underline{Transitive}: For any \(n\times n\) matrices \(A\), \(B\), and \(C\),
+assume \(A\sim B\) and \(B\sim C\). Then, there exist invertible matrices \(P\)
+and \(Q\) such that \(B=P^{-1}AP\) and \(C=Q^{-1}BQ\). Then,
+\[
+C=Q^{-1}(P^{-1}AP)Q=(PQ)^{-1}A(PQ),
+\]
+so \(A\sim C\).
+\end{pf}
+
+\item As suggested by the name, two similar matrices \(A\) and \(B\) indeed
+share a number of common properties:
+\begin{enumerate}
+\item \label{it:sim-matx-same-rk} \emph{same rank:} Note that
+\begin{align*}
+\rk{B}&=\rk{Q^{-1}AQ} \\
+&=\rk{AQ}&\text{(\Cref{thm:mult-inv-matx-preserv-dim})} \\
+&=\rk{Q^{T}A^{T}} \\
+&=\rk{A^{T}}&\text{(\Cref{thm:mult-inv-matx-preserv-dim})} \\
+&=\rk{A}&\text{(\Cref{cor:matx-trans-same-rk})}.
+\end{align*}
+\item \label{it:sim-matx-same-det} \emph{same determinant:} Note that \(\det
+B=\det(Q^{-1}AQ)=\det(Q^{-1})\det A\det Q=(\det Q)^{-1}\det Q\det A=\det A\).
+\end{enumerate}
+
+\item \label{it:lt-rank-matx-pf-contd} Using a similar idea as the proof of
+\Cref{thm:change-lt-matx-rep}, we can complete the rest of the proof for
+\Cref{thm:lt-matx-rep-same-rank-nul}:
+
+\begin{pf}
+(Continued) Given any ordered bases \(\beta\) and \(\gamma\) for \(V\) and
+\(W\) respectively, we have by \Cref{thm:lt-compo-matx-mult},
+\[
+[\id_{W}]_{\gamma}^{\gamma'}[T]_{\beta}^{\gamma}[\id_{V}]_{\beta'}^{\beta}
+=[T]_{\beta'}^{\gamma'}.
+\]
+Since both \([\id_{W}]_{\gamma}^{\gamma'}\) and \([\id_{V}]_{\beta'}^{\beta}\)
+are invertible matrices (as identity transformation is invertible),
+\([T]_{\beta}^{\gamma}\) and \([T]_{\beta'}^{\gamma'}\) are similar. Thus, by
+\labelcref{it:sim-matx-same-rk}, we have
+\[
+\rk{[T]_{\beta}^{\gamma}}=\rk{[T]_{\beta'}^{\gamma'}}.
+\]
+So the general case follows from the proven specific case.
+\end{pf}
+
 \end{enumerate}

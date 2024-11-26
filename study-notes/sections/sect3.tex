@@ -13,7 +13,7 @@ scalars \(a,b\in\R\), (i) the sum \(\vect{u}+\vect{v}\) and the scalar multiple
 \(a\vect{v}\) are unique elements of \(V\), and (ii) the following axioms hold.
 \begin{enumerate}[label={(\arabic*)}]
 \item (commutativity) \(\vect{v}+\vect{u}=\vect{u}+\vect{v}\).
-\item (associativity) \((\vect{v}+\vect{u})+\vect{w}=\vect{u}+(\vect{v}+\vect{w})\).
+\item (associativity) \((\vect{u}+\vect{v})+\vect{w}=\vect{u}+(\vect{v}+\vect{w})\).
 \item (zero vector) There exists an element \(\vect{0}\in V\) such that \(\vect{v}+\vect{0}=\vect{v}\).
 \item (additive inverse) There exists an element \(\vc{-\vect{v}}\in V\) such that
 \(\vect{v}+\vc{(-\vect{v})}=\vect{0}\).
@@ -150,11 +150,11 @@ that
 \begin{enumerate}
 \item A vector space \(V\) is always a vector subspace of itself.
 \item Given any vector space \(V\), the subset of \(V\) containing only the
-zero vector, i.e., \(W=\{\vect{0}\}\) is a vector subspace of \(V\). It is
+zero vector (\(\{\vect{0}\}\)) is a vector subspace of \(V\). It is
 called the \defn{zero subspace} of \(V\).
 \item The set of all diagonal \(n\times n\) matrices is a vector subspace of the
 vector space \(M_{n\times n}(\R)\).
-\item The set of all (real) polynomials is a vector subspace of the vector
+\item The set of all real polynomials is a vector subspace of the vector
 space of all functions from \(\R\) to \(\R\).
 \end{enumerate}
 \end{enumerate}
@@ -205,12 +205,11 @@ combinations of the vectors in \(S\), i.e.,
 \spn{S}=\qty{\sum_{i=1}^{k}a_i\vect{v}_i:a_1,\dotsc,a_k\in\R, \vect{v}_1,\dotsc,\vect{v}_k\in S, k\in\N}
 \]
 Conventionally, we define \(\spn{\varnothing}=\{\vect{0}\}\). \begin{intuition}
-The span of empty set, \(\spn{\varnothing}\) is a set including only an ``empty
-sum'', which should naturally be \(\vect{0}\): The sum of a vector and an
-``empty sum'' should still be that vector.
+The span of empty set is like a set containing an ``empty sum'', which should
+naturally be the zero vector \(\vect{0}\) (representing ``nothing'').
 \end{intuition}
 
-\item It turns out that ``spanning'' always results in a vector subspace.
+\item It turns out that spanning always results in a vector subspace.
 \begin{proposition}
 \label{prp:span-vec-subsp}
 Let \(V\) be a vector space and \(S\) be any subset of \(V\). Then, \(\spn{S}\)
@@ -252,7 +251,7 @@ c\vect{v}=c(b_1\vect{v}_1+\dotsb+b_s\vect{v}_s)
 is a linear combination of vectors in \(S\), hence \(c\vect{v}\in\spn{S}\).
 \end{pf}
 \item A special kind of vector subspace obtained by spanning is the
-\emph{column space}, which is related to spanning the \emph{columns} of a
+\emph{column space}, which can be got by spanning the \emph{columns} of a
 matrix.
 
 Let \(A\) be an \(m\times n\) matrix and let \(\vect{v}_1,\dotsc,\vect{v}_n\)
@@ -260,7 +259,7 @@ be the columns of \(A\). Then,
 \[
 \col{A}=\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}
 \]
-is called the \defn{column space} of \(A\). 
+is called the \defn{column space} of \(A\).
 
 \item\label{it:col-space-expr} By definition of matrix-vector product, we can
 show that
@@ -288,11 +287,11 @@ definition of matrix-vector product again, writing
 which means that \(\vect{u}\in\spn{\{\vect{v}_1,\dotsc,\vect{v}_n\}}\).
 \end{pf}
 \item A subset \(S\) of a vector space \(V\) is said to \defn{span} \(V\), or
-is a \defn{spanning set} of \(V\) if \(\spn{S}=V\).
+is a \defn{spanning set} of \(V\), if \(\spn{S}=V\).
 
-Since every linear combination of vectors in \(S\subseteq V\) lies in \(V\) by
-the definition of vector space, we always have \(\spn{S}\subseteq V\). Hence,
-to show that \(S\) spans \(V\), it actually suffices to show that
+Since every linear combination of vectors in \(S\subseteq V\) belongs to \(V\)
+by the definition of vector space, we always have \(\spn{S}\subseteq V\).
+Hence, to show that \(S\) spans \(V\), it actually suffices to show that
 \(\spn{S}\supseteq V\), i.e., \emph{every vector in \(V\) is a linear
 combination of vectors in \(S\).}
 
@@ -444,9 +443,9 @@ always linearly dependent.
 \end{enumerate}
 \subsection{Basis}
 \begin{enumerate}
-\item The next concept to be discussed is \emph{basis}, which neatly
-``marries'' the concept of \emph{spanning set} and \emph{linear independence}.
-A \defn{basis} for a vector space \(V\) is a \emph{linearly independent} subset
+\item The next concept to be discussed is \emph{basis}, which neatly connects
+the concepts of \emph{spanning set} and \emph{linear independence}.  A
+\defn{basis} for a vector space \(V\) is a \emph{linearly independent} subset
 of \(V\) which also \emph{spans} \(V\).
 
 \begin{intuition}
@@ -454,9 +453,9 @@ A basis can be seen as a ``minimal'' spanning set for \(V\), without
 ``redundancy''.
 \end{intuition}
 
-\item To illustrate why a basis can be seen as
-``minimal'' spanning set for \(V\), consider the following results. Let
-\(\beta\) be a basis for a vector space \(V\).
+\item To illustrate why a basis can be seen as a ``minimal'' spanning set for
+\(V\), consider the following results. Let \(\beta\) be a basis for a vector
+space \(V\).
 \begin{enumerate}
 \item \label{it:span-set-not-smaller-than-basis} If \(S\) is a proper subset of \(\beta\), then \(\spn{S}\ne V\).
 
@@ -733,7 +732,7 @@ Let \(\beta_W\) and \(\beta_V\) be bases of \(W\) and \(V\) respectively. Then
 \end{pf}
 \end{enumerate}
 \end{enumerate}
-\subsection{Constructing Bases}
+\subsection{Constructing Bases: Extension and Reduction}
 \label{subsect:construct-bases}
 \begin{enumerate}
 \item So far we have seen some examples of bases, but we do not yet have a
@@ -1241,9 +1240,21 @@ then have
 \]
 which implies that \(\dim(\row{A})=\dim(\col{A})\).
 \end{pf}
+
 \item The common value of the dimensions of row and column spaces of a matrix
 is said to be the rank of that matrix. Symbolically, the \defn{rank} of an
 \(m\times n\) matrix \(A\) is \(\rk{A}=\dim(\col{A})\;(=\dim(\row{A}))\).
+
+\item Since taking matrix transpose is essentially just interchanging rows and
+columns, it does not change the rank.
+
+\begin{corollary}
+\label{cor:matx-trans-same-rk}
+Let \(A\) be an \(m\times n\) matrix. Then \(\rk{A}=\rk{A^{T}}\).
+\end{corollary}
+\begin{pf}
+Note that \(\rk{A}=\dim(\col{A})=\dim(\row{A^{T}})=\rk{A^{T}}\).
+\end{pf}
 
 \item Intuitively, rank measures the ``magnitude'' of non-invertibility of a
 matrix. The \emph{lower} the rank of a matrix is, the ``\emph{more}
@@ -1315,7 +1326,7 @@ Let \(A\) be an \(m\times n\) matrix and \(R\) be the RREF of \(A\).
 \begin{enumerate}
 \item The dimension \(\dim(\nul{A})\), called the \defn{nullity} of
 \(A\) and denoted by \(\nulty{A}\), equals the number of free variables
-in the augmented matrix \([R|\vect{0}]\).
+in the system \(A\vect{x}=\vect{0}\), or equivalently, \(R\vect{x}=\vect{0}\).
 
 \item Let \(s_1,\dotsc,s_r\) be the parameters assigned to the free variables.
 Express the null space of \(A\), i.e., the solution set of the homogeneous
@@ -1346,4 +1357,13 @@ solution from the solution set, and (ii) zero entries at the positions for the
 rest of the free variables. Thus, \(\{\vect{v}_1,\dotsc,\vect{v}_r\}\) is
 linearly independent.
 \end{pf}
+\item Example: Let \(A=\mqty[1&1&1&1]\). Then the solution set of
+\(A\vect{x}=\vect{0}\) is
+\(\nul{A}=\{(x_1,x_2,x_3,x_4)^{T}:x_1+x_2+x_3+x_4=0\}\). We can write
+\[
+\nul{A}=\qty{\mqty[-s-t-u\\ s\\ t\\ u]\in\R^4:s,t,u\in\R}
+=\qty{s\mqty[-1\\ 1\\ 0\\ 0]+t\mqty[-1\\ 0\\ 1\\ 0]+u\mqty[-1\\ 0\\ 0\\ 1]:s,t,u\in\R},
+\]
+thus a basis for \(\nul{A}\) is \(\qty{\mqty[-1\\ 1\\ 0\\ 0], \mqty[-1\\ 0\\
+1\\ 0], \mqty[-1\\ 0\\ 0\\ 1]}\).
 \end{enumerate}
