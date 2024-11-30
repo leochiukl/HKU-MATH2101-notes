@@ -1,2 +1,835 @@
-\section{Orthogonalization}
-\label{sect:orthogonalization}
+\section{Inner Product Spaces}
+\label{sect:inner-product}
+\subsection{Inner Product Spaces}
+\begin{enumerate}
+\item Given two vectors \(\vect{u}=\mqty[u_1&\cdots&u_n]^{T}\) and
+\(\vect{v}=\mqty[v_1&\cdots&v_n]^{T}\) in \(\R^n\), their \emph{dot product} is
+the sum of the products of the corresponding pairs of entries:
+\[
+\vect{u}\cdot\vect{v}=u_1v_1+\dotsb+u_nv_n.
+\]
+\item Here, we would like to generalize this notion to a general vector space
+\(V\) (not necessarily \(\R^n\)). A difficulty is that vectors in \(V\) may not
+have ``entries'' like the ones in \(\R^n\), so the above ``sum of products''
+definition of dot product may not work anymore. We need an alternative approach.
+
+\item Instead of explicitly defining how to compute the ``generalized dot
+product'' in a vector space, we shall use an axiomatic approach, i.e., specify
+some properties that need to be satisfied to qualify as a ``generalized dot
+product'' (we call it \emph{inner product}). To achieve the ``generalization'',
+those properties should be satisfied by the usual dot product in \(\R^n\).
+
+\item Let \(V\) be a vector space. An \defn{inner product on \(V\)} is a
+function \(\inner{\cdot}{\cdot}:V\times V\to\R\) satisfying the
+following properties:
+\begin{enumerate}[label={(\arabic*)}]
+\item (preserving addition in the first argument) For any \(\vect{u},\vect{v},\vect{w}\in V\),
+\(\inner{\vect{u}+\vect{v}}{\vect{w}}=\inner{\vect{u}}{\vect{w}}+\inner{\vect{v}}{\vect{w}}\).
+\item (preserving scalar multiplication in the first argument) For any
+\(\vect{u},\vect{v}\in V\) and \(c\in\R\),
+\(\inner{c\vect{u}}{\vect{v}}=c\inner{\vect{u}}{\vect{v}}\).
+\item (symmetry) For any \(\vect{u},\vect{v}\in V\),
+\(\inner{\vect{u}}{\vect{v}}=\inner{\vect{v}}{\vect{u}}\).
+\item (positive definiteness) For any \(\vect{v}\in V\),
+\(\inner{\vect{v}}{\vect{v}}>0\) if \(\vect{v}\ne\vect{0}\).
+\end{enumerate}
+A vector space \(V\) equipped with an inner product \(\inner{\cdot}{\cdot}\) on
+\(V\) is said to be an \defn{inner product space}, denoted by
+\((V,\inner{\cdot} {\cdot})\). For convenience, often we just denote such inner
+product space by \(V\) (and we shall use the notation \(\inner{\cdot}{\cdot} \)
+to stand for the equipped inner product by default).
+
+\item Based on these defining properties for inner product, we can readily
+deduce some more extra properties:
+\begin{proposition}
+\label{prp:in-prod-prop}
+Let \(V\) be an inner product space, and \(\vect{u},\vect{v},\vect{w}\) be any
+vectors in \(V\). Then,
+\begin{enumerate}
+\item \(\inner{\vect{w}}{\vect{u}+\vect{v}}=\inner{\vect{w}}{\vect{u}}+\inner{\vect{w}}{\vect{v}}\).
+\item For any \(c\in\R\),
+\(\inner{\vect{u}}{c\vect{v}}=c\inner{\vect{u}}{\vect{v}}\).
+\item \(\inner{\vect{v}}{\vect{0}}=\inner{\vect{0}}{\vect{v}}=0\).
+\item \(\inner{\vect{v}}{\vect{v}}=0\) iff \(\vect{v}=\vect{0}\).
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+\begin{enumerate}
+\item Note that
+\[
+\inner{\vect{w}}{\vect{u}+\vect{v}}
+\overset{\text{(3)}}{=}\inner{\vect{u}+\vect{v}}{\vect{w}}
+\overset{\text{(1)}}{=}\inner{\vect{u}}{\vect{w}}+\inner{\vect{v}}{\vect{w}}
+\overset{\text{(3)}}{=}\inner{\vect{w}}{\vect{u}}+\inner{\vect{w}}{\vect{v}}.
+\]
+\item Note that
+\[
+\inner{\vect{u}}{c\vect{v}}
+\overset{\text{(3)}}{=}\inner{c\vect{v}}{\vect{u}}
+\overset{\text{(2)}}{=}c\inner{\vect{v}}{\vect{u}}
+\overset{\text{(3)}}{=}c\inner{\vect{u}}{\vect{v}}.
+\]
+\item Since \(0\vect{v}=\vect{0}\), we have
+\[
+\inner{\vect{0}}{\vect{v}}
+=\inner{0\vect{v}}{\vect{v}}
+\overset{\text{(3)}}{=}0\inner{\vect{v}}{\vect{v}}
+=0,
+\]
+proving the second equality. The first equality follows from (3).
+
+\item ``\(\Rightarrow\)'': We prove by contrapositive. Suppose
+\(\vect{v}\ne\vect{0}\). Then, by (4), we have
+\(\inner{\vect{v}}{\vect{v}}>0\).
+
+``\(\Leftarrow\)'': Suppose \(\vect{v}=\vect{0}\). Then by (c),
+\(\inner{\vect{v}}{\vect{v}}=0\).
+\end{enumerate}
+\end{pf}
+
+\item Examples of inner product spaces:
+\begin{itemize}
+\item The vector space \(\R^n\) with \(\inner{\vect{u}}{\vect{v}}=u_1v_1+\dotsb+u_nv_n\)
+for any \(\vect{u}=\mqty[u_1&\cdots&u_n]^{T}\) and
+\(\vect{v}=\mqty[v_1&\cdots&v_n]^{T}\) in \(\R^n\) (the usual dot product).
+This inner product is said to be the \defn{standard inner product} on \(\R^n\).
+
+\begin{pf}
+Fix any \(\vect{u}=\mqty[u_1&\cdots&u_n]^{T}\),
+\(\vect{v}=\mqty[v_1&\cdots&v_n]^{T}\), and
+\(\vect{w}=\mqty[w_1&\cdots&w_n]^{T}\) in \(\R^n\), and any \(c\in\R\). Now
+check:
+
+(1):
+\begin{align*}
+\inner{\vect{u}+\vect{v}}{\vect{w}}
+&=(u_1+v_1)w_1+\dotsb+(u_n+v_n)w_n \\
+&=(u_1w_1+\dotsb+u_nw_n)+(v_1w_1+\dotsb+v_nw_n) \\
+&=\inner{\vect{u}}{\vect{w}}+\inner{\vect{v}}{\vect{w}}.
+\end{align*}
+
+(2):
+\begin{align*}
+\inner{c\vect{u}}{\vect{v}}
+&=(cu_1)v_1+\dotsb+(cu_n)v_n \\
+&=c(u_1v_1+\dotsb+u_nv_n) \\
+&=c\inner{\vect{u}}{\vect{v}}.
+\end{align*}
+
+(3):
+
+\begin{align*}
+\inner{\vect{u}}{\vect{v}}
+&=(cu_1)v_1+\dotsb+(cu_n)v_n \\
+&=u_1v_1+\dotsb+u_nv_n \\
+&=v_1u_1+\dotsb+v_nu_n \\
+&=\inner{\vect{v}}{\vect{u}}.
+\end{align*}
+
+(4): When \(\vect{v}\ne\vect{0}\),
+\[
+\inner{\vect{v}}{\vect{v}}=v_1^2+\dotsb+v_n^2>0
+\]
+(since at least one of the \(n\) terms is positive, and all the \(n\) terms are
+nonnegative).
+\end{pf}
+\item Let \((V,\inner{\cdot}{\cdot})\) be an inner product space, and \(r\) be
+any \emph{positive} number. Define \(\inner{\cdot}{\cdot}':V\times V\to\R\) by
+\(\inner{\vect{u}}{\vect{v}}'=r\inner{\vect{u}}{\vect{v}}\) for any
+\(\vect{u},\vect{v}\in V\). Then \(\inner{\cdot}{\cdot}'\) is also an inner product on \(V\).
+
+\begin{pf}
+Fix any \(\vect{u},\vect{v},\vect{w}\in V\), and any \(c\in\R\). Now check:
+
+(1):
+\[
+\inner{\vect{u}+\vect{v}}{\vect{w}}'
+=r\inner{\vect{u}+\vect{v}}{\vect{w}}
+=r(\inner{\vect{u}}{\vect{w}}+\inner{\vect{v}}{\vect{w}})
+=\inner{\vect{u}}{\vect{w}}'+\inner{\vect{v}}{\vect{w}}'.
+\]
+
+(2):
+\[
+\inner{c\vect{u}}{\vect{v}}'
+=r\inner{c\vect{u}}{\vect{v}}
+=cr\inner{\vect{u}}{\vect{v}}
+=c\inner{\vect{u}}{\vect{v}}'.
+\]
+
+(3):
+
+\[
+\inner{\vect{u}}{\vect{v}}'
+=r\inner{\vect{u}}{\vect{v}}
+=r\inner{\vect{v}}{\vect{u}}
+=\inner{\vect{v}}{\vect{u}}'.
+\]
+
+(4): When \(\vect{v}\ne\vect{0}\),
+\[
+\inner{\vect{v}}{\vect{v}}'=r\underbrace{\inner{\vect{v}}{\vect{v}}}_{>0}
+>0.
+\]
+\end{pf}
+
+\begin{note}
+The positivity of \(r\) is only needed for proving (4).
+\end{note}
+
+
+\item Let \(T:V\to W\) be an \emph{injective} linear transformation, and let
+\(\inner{\cdot}{\cdot}_W\) be an inner product on \(W\). For any
+\(\vect{x},\vect{y}\in V\), define
+\(\inner{\vect{x}}{\vect{y}}_V=\inner{T(\vect{x})}{T(\vect{y})}_W\). Then,
+\(\inner{\cdot}{\cdot}_V\) is an inner product on \(V\).
+
+\begin{pf}
+Fix any \(\vect{x},\vect{y},\vect{z}\in V\), and any \(c\in\R\). Now check:
+
+(1):
+\begin{align*}
+\inner{\vect{x}+\vect{y}}{\vect{z}}_{V}
+&=\inner{T(\vect{x}+\vect{y})}{T(\vect{z})}_{W} \\
+&=\inner{T(\vect{x})+T(\vect{y})}{T(\vect{z})}_{W} \\
+&=\inner{T(\vect{x})}{T(\vect{y})}_{W} + \inner{T(\vect{x})}{T(\vect{z})}_{W} \\
+&=\inner{\vect{x}}{\vect{y}}_V+\inner{\vect{x}}{\vect{z}}_{V}.
+\end{align*}
+
+(2):
+\begin{align*}
+\inner{c\vect{x}}{\vect{y}}_{V}
+&=\inner{T(c\vect{x})}{T(\vect{y})}_{W} \\
+&=\inner{cT(\vect{x})}{T(\vect{y})}_{W} \\
+&=c\inner{T(\vect{x})}{T(\vect{y})}_{W}\\
+&=c\inner{\vect{x}}{\vect{y}}_V.
+\end{align*}
+
+(3):
+
+\begin{align*}
+\inner{\vect{x}}{\vect{y}}_{V}
+&=\inner{T(\vect{x})}{T(\vect{y})}_{W}\\
+&=\inner{T(\vect{y})}{T(\vect{x})}_{W}\\
+&=\inner{\vect{y}}{\vect{x}}_{V}.
+\end{align*}
+
+(4): When \(\vect{v}\ne\vect{0}\), since \(T\) is injective, we must have
+\(T(\vect{v})\ne\vect{0}=T(\vect{0})\). Hence,
+\[
+\inner{\vect{v}}{\vect{v}}_{V}=\inner{T(\vect{v})}{T(\vect{v})}{W}
+>0.
+\]
+\end{pf}
+
+\begin{note}
+The injectivity of \(T\) is only needed for proving (4).
+\end{note}
+\end{itemize}
+
+\item \label{it:std-inner-prod-matx-trans}
+Standard inner products naturally induce the occurrence of matrix transposes.
+Let \(A\) be an \(m\times n\) matrix, and \(\vect{u}\in\R^n,\vect{v}\in\R^m\)
+be any column vectors. Then,
+\(\inner{A\vect{u}}{\vect{v}}=\inner{\vect{u}}{A^{T}\vect{v}}\), where
+\(\inner{\cdot}{\cdot}\) is the standard inner product on \(\R^m\).
+
+\begin{pf}
+For the standard inner product \(\inner{\cdot}{\cdot}\), we have
+\(\inner{\vect{u}}{\vect{v}}=\vect{u}^{T}\vect{v}\) for any
+\(\vect{u},\vect{v}\in\R^m\). Hence,
+\[
+\inner{A\vect{u}}{\vect{v}}
+=(A\vect{u})^{T}\vect{v}
+=\vect{u}^{T}A^{T}\vect{v}
+=\vect{u}^{T}(A^{T}\vect{v})
+=\inner{\vect{u}}{A^{T}\vect{v}}.
+\]
+\end{pf}
+
+\item After exploring the theoretical properties of inner products, we turn our
+attention to their geometric interpretation. In fact, apart from being a
+``generalized dot product'', inner product also serves as a generalization to
+the geometric concept of \emph{length}.
+
+\item Let \((V,\inner{\cdot}{\cdot})\) be an inner product space. For
+any \(\vect{v}\in V\), the \defn{length} or \defn{norm} of \(\vect{v}\) is
+\(\norm{\vect{v}}=\sqrt{\inner{\vect{v}}{\vect{v}}}\).
+
+\item Example: Consider \(\R^n\) equipped with the standard inner product.
+Then, the norm of any vector \(\vect{v}=\mqty[v_1&\cdots&v_n]^{T}\in\R^n\) is
+\(\norm{\vect{v}}=\sqrt{v_1^2+\dotsb+v_n^2}\) (familiar?).
+
+\item Next, we consider some properties of norm. The first one suggests that
+norm-preserving linear transformation must be injective.
+
+\begin{proposition}
+\label{prp:lt-pre-norm-inj}
+Let \(V\) be an inner product space and \(T:V\to V\) be a linear
+transformation. Suppose that \(\norm{T(\vect{v})}=\norm{\vect{v}}\) for any
+\(\vect{v}\in V\) (so \(T\) \emph{preserves the norm}). Then, \(T\) is injective.
+\end{proposition}
+\begin{pf}
+By \Cref{prp:inj-iff-null-sp-only-zero}, it suffices to prove that
+\(\nul{T}\subseteq \{\vect{0}\}\). Suppose \(T(\vect{v})=\vect{0}\). Then,
+\(\norm{\vect{v}}=\norm{T(\vect{v})}=\norm{\vect{0}}=0\), which implies that
+\(\inner{\vect{v}}{\vect{v}}=0\), thus \(\vect{v}=\vect{0}\) by
+\Cref{prp:in-prod-prop}.
+\end{pf}
+
+\item The result below gives us more properties about norm.
+
+\begin{proposition}
+\label{prp:norm-prop}
+Let \(V\) be an inner product space. Fix any \(\vect{u},\vect{v}\in V\) and
+\(c\in\R\). Then,
+\begin{enumerate}
+\item (norm after scaling) \(\norm{c\vect{v}}=|c|\norm{\vect{v}}\).
+\item (only zero vector has zero norm) \(\norm{\vect{v}}=0\) iff \(\vect{v}=\vect{0}\).
+\item (Cauchy-Schwartz inequality) \(\inner{\vect{u}}{\vect{v}}\le\norm{\vect{u}}\norm{\vect{v}}\).
+\item (triangle inequality) \(\norm{\vect{u}+\vect{v}}\le\norm{\vect{u}}+\norm{\vect{v}}\).
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+\begin{enumerate}
+\item Note that
+\[
+\|c\vect{v}\|=\sqrt{\inner{c\vect{v}}{c\vect{v}}}
+=\sqrt{c^2\inner{\vect{v}}{\vect{v}}}
+=|c|\sqrt{\inner{\vect{v}}{\vect{v}}}
+=|c|\norm{\vect{v}}.
+\]
+\item Note that
+\[
+\norm{\vect{v}}=0
+\iff \inner{\vect{v}}{\vect{v}}=0
+\overset{\text{\Cref{prp:in-prod-prop}}}{\iff}\vect{v}=\vect{0}.
+\]
+\item For any \(c\in\R\), we have
+\begin{align*}
+0&\le\inner{\vect{u}-c\vect{v}}{\vect{u}-c\vect{v}} \\
+&=\inner{\vect{u}}{\vect{u}-c\vect{v}}
+-c\inner{\vect{v}}{\vect{u}-c\vect{v}}
+ \\
+&=\inner{\vect{u}}{\vect{u}}-c\inner{\vect{u}}{\vect{v}}-c\inner{
+\vect{v}}{\vect{u}}+c^{2}\inner{\vect{v}}{\vect{v}} \\
+&=\inner{\vect{u}}{\vect{u}}-2c\inner{\vect{u}}{\vect{v}}+c^{2}\inner{\vect{v}}{\vect{v}}.
+\end{align*}
+Then, we take \(c=\inner{\vect{u}}{\vect{v}}/\norm{\vect{v}}^{2}\)
+(tricky!), so that the inequality can be simplified to
+\begin{align*}
+0&\le\norm{\vect{u}}^{2}
+-2\frac{\inner{\vect{u}}{\vect{v}}}{\norm{\vect{v}}^{2}}\inner{\vect{u}}{\vect{v}}
++\qty(\frac{\inner{\vect{u}}{\vect{v}}}{\norm{\vect{v}}^{2}})^{2}\norm{\vect{v}}^{2} \\
+&=\norm{\vect{u}}^{2}-\frac{\inner{\vect{u}}{\vect{v}}}{\norm{\vect{v}}^{2}},
+\end{align*}
+which implies that \(\inner{\vect{u}}{\vect{v}}^{2}\le\norm{\vect{u}}^{2}\norm{\vect{v}}^{2}\), hence \(\inner{\vect{u}}{\vect{v}}\le\norm{\vect{u}}\norm{\vect{v}}\).
+\item We have
+\begin{align*}
+\norm{\vect{u}+\vect{v}}^{2}&=\inner{\vect{u}+\vect{v}}{\vect{u}+\vect{v}}\\
+&=\inner{\vect{u}}{\vect{u}}+\inner{\vect{u}}{\vect{v}}
++\inner{\vect{v}}{\vect{u}}+\inner{\vect{v}}{\vect{v}} \\
+&=\inner{\vect{u}}{\vect{u}}+2\inner{\vect{u}}{\vect{v}}
++\inner{\vect{v}}{\vect{v}} \\
+&\le\norm{\vect{u}}^{2}+2\norm{\vect{u}}\norm{\vect{v}}+\norm{\vect{v}}^{2} &\text{(c)}\\
+&=(\norm{\vect{u}}+\norm{\vect{v}})^{2}.
+\end{align*}
+\end{enumerate}
+\end{pf}
+\end{enumerate}
+\subsection{Orthonormal Basis}
+\label{subsect:orthonormal-basis}
+\begin{enumerate}
+\item Consider the inner product space \(\R^n\) equipped with the standard
+inner product, and consider the standard basis
+\(\{\vect{e}_1,\dotsc,\vect{e}_n\}\) for \(\R^n\).
+
+As we have seen previously, it is nice to work with this basis. In fact, this
+basis possesses some special properties that makes it an \emph{orthonormal
+basis}. In \Cref{subsect:orthonormal-basis}, we shall investigate properties
+enjoyed by orthonormal bases, and also discuss how to construct orthonormal
+bases, in a general inner product space.
+
+\item Let \(V\) be an inner product space. For any \(\vect{u},\vect{v}\in V\),
+the vectors \(\vect{u}\) and \(\vect{v}\) are said to be \defn{orthogonal} if
+\(\inner{\vect{u}}{\vect{v}}=0\).
+\begin{note}
+In the case where \(V=\R^2\text{ or }\R^3\) equipped with the standard inner
+product, the geometrical meaning of being orthogonal is just being
+perpendicular (excluding the zero vector in our consideration). So
+orthogonality may be seen as a generalization to perpendicularity.
+\end{note}
+
+Also, we say that a subset \(S\) of \(V\) is \defn{orthogonal} if
+\(\inner{\vect{x}}{\vect{y}}=0\) for any \emph{distinct} \(\vect{x},\vect{y}\in
+S\), i.e., any two \emph{distinct} vectors in \(S\) are orthogonal.
+
+\begin{remark}
+\item We exclude the case where \(\vect{x}=\vect{y}\) since in
+such case we have \(\inner{\vect{x}}{\vect{y}}=0\) iff
+\(\vect{x}=\vect{0}\), by \Cref{prp:in-prod-prop}. So if we
+did not include ``distinct'' in the definition, the only
+orthogonal subset of \(V\) would be \(\{\vect{0}\}\)!
+\item By definition, any singleton subset \(S\) of \(V\) is orthogonal since
+there are not two distinct vectors in \(S\), so the condition is trivially true.
+\end{remark}
+
+\item Next, we will define orthonormality. Firstly, a vector \(\vect{v}\in V\)
+is an \defn{unit vector} if \(\norm{\vect{v}}=1\). Then, a subset \(S\) of
+\(V\) is called \defn{orthonormal} if (i) it is orthogonal and (ii) every
+vector in \(S\) is an unit vector.
+
+Examples and non-examples: (We consider the inner product space \(\R^2\)
+equipped with standard inner product in the following.)
+\begin{itemize}
+\item The standard basis \(\{\vect{e}_1,\vect{e}_2\}\) is an orthonormal basis.
+\item The standard basis \(\{2\vect{e}_1,2\vect{e}_2\}\) is orthogonal, but
+\emph{not} orthonormal.
+\item The basis \(\qty{\mqty[1\\ 1],\mqty[1\\ -1]}\) is orthogonal, but
+\emph{not} orthonormal.
+\item The basis \(\qty{\mqty[1/\sqrt{2}\\ 1/\sqrt{2}],\mqty[1/\sqrt{2}\\
+-1/\sqrt{2}]}\) is an orthonormal basis.
+\end{itemize}
+
+\item Given an orthogonal subset \(S\) of \(V\) containing nonzero vectors, one
+can always obtain an orthonormal subset from it by scaling the vectors inside
+\(S\) such that they become unit vectors, i.e., \defn{normalizing} the vectors.
+More specifically, the subset \(S'=\displaystyle
+\qty{\frac{\vect{v}}{\norm{\vect{v}}}:\vect{v}\in S}\) is orthonormal.
+
+\begin{pf}
+Fix any distinct \(\vect{u}',\vect{v}'\in S'\). Then we have
+\(\vect{u}'=\vect{u}/\norm{\vect{u}}\) and
+\(\vect{v}'=\vect{v}/\norm{\vect{v}}\) where \(\vect{u},\vect{v}\in S\) are
+distinct. Hence, due to the orthogonality of \(S\), we have
+\[
+\inner{\vect{u}'}{\vect{v}'}
+=\frac{1}{\norm{\vect{u}}\norm{\vect{v}}}\inner{\vect{u}}{\vect{v}}
+=\frac{0}{\norm{\vect{u}}\norm{\vect{v}}}
+=0.
+\]
+This proves \(S'\) is orthogonal.
+
+Next, consider any \(\vect{v}'\in S\). By \Cref{prp:norm-prop}, its norm is
+\[
+\norm{\vect{v}'}
+=\qty|\frac{1}{\norm{\vect{v}}}|\norm{\vect{v}}
+=\frac{1}{\norm{\vect{v}}}\norm{\vect{v}}
+=1,
+\]
+hence \(S'\) is orthonormal.
+\end{pf}
+
+\item Now we discuss some properties of orthogonal sets. The first one is about
+linear independence.
+
+\begin{theorem}
+\label{thm:orthog-imp-li}
+Let \(V\) be an inner product space, and \(S\) be an orthogonal set of nonzero
+vectors in \(V\). Then \(S\) is linearly independent.
+\end{theorem}
+\begin{intuition}
+Some intuition can be gained by considering the case where \(V=\R^2\text{ or
+}\R^3\). In such case, orthogonality is about perpendicularity and linear
+independence is like being ``not parallel''. So, intuitively, being
+perpendicular should imply being not parallel (but not converse).
+\end{intuition}
+
+\begin{pf}
+Fix any \(n\in\N\) and any distinct \(\vect{v}_1,\dotsc,\vect{v}_n\in S\).
+Suppose
+\[
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0},
+\]
+where \(a_1,\dotsc,a_n\) are scalars.
+
+Now, fix any \(i=1,\dotsc,n\) and consider
+\[
+\inner{a_1\vect{v}_1+\dotsb+a_n\vect{v}_n}{\vect{v}_i}=a_i\inner{\vect{v}_i}{\vect{v}_i}.
+\]
+(All other terms vanish due to orthogonality of \(S\).)
+
+On the other hand, we have
+\[
+\inner{a_1\vect{v}_1+\dotsb+a_n\vect{v}_n}{\vect{v}_i}
+=\inner{\vect{0}}{\vect{v}_i}
+=\vect{0}
+\]
+by \Cref{prp:in-prod-prop}.
+
+This means that \(a_i\inner{\vect{v}_i}{\vect{v}_i}=\vect{0}\). But as
+\(\vect{v}_i\) is nonzero (since \(S\) only contains nonzero vectors), we must
+have \(\inner{\vect{v}_i}{\vect{v}_i}>0\). It follows that \(a_i=0\).
+
+Applying this argument for every \(i=1,\dotsc,n\), we have
+\(a_1=\dotsb=a_n=0\).
+\end{pf}
+
+The converse of \Cref{thm:orthog-imp-li} is not true. For example, consider the
+inner product space \(\R^2\) equipped with standard inner product, and take
+\(\vect{u}=\mqty[1\\ 1]\) and \(\vect{v}=\mqty[0\\ 1]\). Then
+\(S=\{\vect{u},\vect{v}\}\) is linearly independent but \(S\) is not orthogonal
+(since \(\inner{\vect{u}}{\vect{v}}=1\ne 0\).
+
+\item Let \(V\) be a vector space and \(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be
+a subset of \(V\). Given a vector \(\vect{v}\in \spn{S}\), expressing
+\(\vect{v}\) as a linear combination of the vectors in \(S\) generally requires
+us to solve a system of linear equation or use some other approach, which can
+be cumbersome.
+
+However, when we equip with \(V\) with an inner product, and if \(S\) is
+orthogonal, then we would have a more convenient approach.
+
+\begin{theorem}
+\label{thm:orthog-lin-comb}
+Let \(V\) be an inner product space, and \(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\)
+be an orthogonal subset of \(V\) containing nonzero vectors. Then, for any
+\(\vect{u}\in\spn{S}\), we have
+\[
+\vect{u}=\frac{\inner{\vect{u}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
++\dotsb+\frac{\inner{\vect{u}}{\vect{v}_n}}{\norm{\vect{v}_n}^{2}}\vect{v}_n.
+\]
+\end{theorem}
+\begin{note}
+Given \(\vect{u}\in\spn{S}\), \(\displaystyle
+\frac{\inner{\vect{u}}{\vect{v}_i}}{\norm{\vect{v}_i}^{2}}\) can be found
+directly by straightforward computation, for any \(i=1,\dotsc,n\). So we can
+express \(\vect{u}\) as a linear combination of
+\(\vect{v}_1,\dotsc,\vect{v}_n\) conveniently using this result.
+\end{note}
+
+\begin{pf}
+Fix any \(\vect{u}\in\spn{S}\), and we can write
+\[
+\vect{u}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n
+\]
+for some \(a_1,\dotsc,a_n\in\R\).
+
+Now, fix any \(i=1,\dotsc,n\), and consider
+\[
+\inner{\vect{u}}{\vect{v}_i}=\inner{a_1\vect{v}_1+\dotsb+a_n\vect{v}_n}{\vect{v}_i}
+=a_i\inner{\vect{v}_i}{\vect{v}_i}.
+\]
+(All other terms vanish due to orthogonality of \(S\).) It follows that
+\[
+a_i=\frac{\inner{\vect{u}}{\vect{v}_i}}{\inner{\vect{v}_i}{\vect{v}_i}}
+=\frac{\inner{\vect{u}}{\vect{v}_i}}{\norm{\vect{v}_i}^{2}}.
+\]
+The result then follows by applying this argument for every \(i=1,\dotsc,n\).
+\end{pf}
+
+\item After discussing some properties of orthogonal sets, we will introduce a
+way to systematically construct orthonormal bases, known as \emph{Gram-Schmidt
+process}. Let us start with the following result, which gives us a systematic
+way to construct \emph{orthogonal} bases.
+
+\begin{theorem}
+\label{thm:construct-orthog-basis}
+Let \(V\) be an inner product space and \(S=\{\vect{u}_1,\dotsc,\vect{u}_n\}\)
+be a basis for \(V\). Let \(\vect{v}_1=\vect{u}_1\), and for any
+\(j=2,\dotsc,n\), let
+\[
+\vect{v}_i=\vect{u}_i-\sum_{j=1}^{i-1}\frac{\inner{\vect{u}_i}{\vect{v}_j}}{\norm{\vect{v}_j}^{2}}\vect{v}_j.
+\]
+More explicitly, we let:
+\begin{align*}
+\vect{v}_1&=\vect{u}_1, \\
+\vect{v}_2&=\vect{u}_2-\frac{\inner{\vect{u}_2}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1, \\
+\vect{v}_3&=\vect{u}_3-\frac{\inner{\vect{u}_3}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1 
+-\frac{\inner{\vect{u}_3}{\vect{v}_2}}{\norm{\vect{v}_2}^{2}}\vect{v}_2, \\
+\vdots \\
+\vect{v}_n&=\vect{u}_n-\frac{\inner{\vect{u}_n}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
+-\frac{\inner{\vect{u}_n}{\vect{v}_2}}{\norm{\vect{v}_2}^{2}}\vect{v}_2
+-\dotsb
+-\frac{\inner{\vect{u}_n}{\vect{v}_{n-1}}}{\norm{\vect{v}_{n-1}}^{2}}\vect{v}_{n-1}.
+\end{align*}
+Then, \(S'=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is an orthogonal basis for \(V\).
+\end{theorem}
+\begin{pf}
+It suffices to show that \(S'\) is an orthogonal spanning set of \(V\), since
+orthogonality implies linear independence by \Cref{thm:orthog-imp-li}, and
+\(S'\) contains nonzero vectors as for any \(i=1,\dotsc,n\), \(\displaystyle
+\vect{u}_i\ne\sum_{j=1}^{i-1}\frac{\inner{\vect{u}_i}{\vect{v}_j}}{\norm{\vect{v}_j}^{2}}\vect{v}_j\)
+(since the latter is a linear combination of
+\(\vect{u}_1,\dotsc,\vect{u}_{i-1}\), and if the equality held, it would
+contradict the linear independence of \(S\)).
+
+\underline{Spanning set}: For each \(i=1,\dotsc,n\), we can write
+\begin{equation}
+\label{eq:ui-expr-vi}
+\vect{u}_i=\vc{\vect{v}_i}+\sum_{j=1}^{i-1}\frac{\inner{\vect{u}_i}{\vect{v}_j}}{\norm{\vect{v}_j}^{2}}\vc{\vect{v}_j},
+\end{equation}
+which shows that \(\vect{u}_i\) is a linear combination of
+\(\vect{v}_1,\dotsc,\vect{v}_n\), thus \(\vect{u}_i\in\spn{S'}\).  Since this
+holds for any \(i=1,\dotsc,n\), it follows that
+\(V=\spn{\{\vect{u}_1,\dotsc,\vect{u}_n\}}\subseteq \spn{S'}\). On the other
+hand, we readily have \(\spn{S'}\subseteq V\) since
+\(\vect{v}_1,\dotsc,\vect{v}_n\in V\).
+
+\underline{Orthogonal}: We use an induction argument. First, note that
+\[
+\inner{\vect{v}_2}{\vect{v}_1}
+=\inner{\vect{u}_2-\frac{\inner{\vect{u}_2}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1}{\vect{v}_1}
+=\inner{\vect{u}_2}{\vect{v}_1}-\frac{\inner{\vect{u}_2}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\inner{\vect{v}_1}{\vect{v}_1}
+=0.
+\]
+This shows \(\{\vect{v}_1,\vect{v}_2\}\) is orthogonal.
+
+Now suppose for induction that \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is
+orthogonal for a \(k\in\{2,\dotsc,n-1\}\). Then, fix any
+\(\ell\in\{1,\dotsc,k\}\), and consider
+\begin{align*}
+\inner{\vect{v}_{k+1}}{\vect{v}_{\ell}}
+&=\inner{\vect{u}_{k+1}-\sum_{j=1}^{k}\frac{\inner{\vect{u}_{k+1}}{\vect{v}_j}}{\norm{\vect{v}_j}^{2}}\vect{v}_j}
+{\vect{v}_{\ell}} \\
+&=\inner{\vect{u}_{k+1}}{\vect{v}_{\ell}}
+-\inner{\sum_{j=1}^{k}\frac{\inner{\vect{u}_{k+1}}{\vect{v}_j}}{\norm{\vect{v}_j}^{2}}\vect{v}_j}{\vect{v}_{\ell}} \\
+&=0-\frac{\inner{\vect{u}_{k+1}}{\vect{v}_{\ell}}}{\norm{\vect{v}_{\ell}}^{2}}\inner{\vect{v}_{\ell}}{\vect{v}_{\ell}}&\text{(by induction hypothesis)}\\
+&=-\inner{\vect{u}_{k+1}}{\vect{v}_{\ell}} \\
+&=0&\text{(\(\vect{v}_{\ell}\) is a linear combination of \(\vect{u}_1,\dotsc,\vect{u}_{\ell}\))}.
+\end{align*}
+It follows that \(\{\vect{v}_1,\dotsc,\vect{v}_{k+1}\}\) is orthogonal. Hence
+\(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is orthogonal.
+\end{pf}
+
+\item After obtaining an orthogonal basis for \(V\), we can normalize the
+vectors inside to obtain an orthonormal basis for \(V\):
+
+\begin{corollary}
+\label{cor:exist-orthonormal-basis}
+Let \(V\) be an inner product space where \(\dim(V)\) is finite. Then there
+exists an orthonormal basis for \(V\).
+\end{corollary}
+\begin{pf}
+Firstly, there always exists a basis \(S\) for \(V\) (e.g., constructed by the
+extension approach). Then, by \Cref{thm:construct-orthog-basis}, we can obtain
+an orthogonal basis \(S'\) for \(V\). Then we normalize the vectors in \(S'\)
+to get \(\displaystyle \qty{\frac{\vect{v}}{\norm{\vect{v}}}:\vect{v}\in S}\),
+which is an orthonormal basis for \(V\).
+
+\begin{note}
+Such orthonormal basis is called a \defn{Gram-Schmidt orthonormal basis}, and
+the process of obtaining this orthonormal basis as suggested above is said to
+be the \defn{Gram-Schmidt process}.
+\end{note}
+\end{pf}
+
+\item Example: Let \(S=\{\vect{u}_1,\vect{u}_2\}\) where
+\(\vect{u}_1=\mqty[1&0&-1]^{T}\) and \(\vect{u}_2=\mqty[2&1&-1]^{T}\), and
+consider the inner product space \(V=\spn{S}\) equipped with the standard inner
+product. Note that \(S\) is linearly independent, so \(S\) is a basis for
+\(V\). However, it is not orthogonal as
+\(\inner{\mqty[1&0&-1]^{T}}{\mqty[2&1&-1]^{T}}=3\ne 0\).
+
+To obtain an orthonormal basis for \(V\), we can carry out the Gram-Schmidt
+process:
+\begin{itemize}
+\item \(\displaystyle \vect{v}_1=\vect{u}_1=\mqty[1\\ 0\\ -1].\) 
+\item \(\displaystyle
+\vect{v}_2=\vect{u}_2-\frac{\inner{\vect{\vect{u}_2}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
+=\mqty[2\\ 1\\ -1]-\frac{3}{2}\mqty[1\\ 0\\ -1]
+=\mqty[1/2\\ 1\\ 1/2].
+\)
+ \end{itemize}
+Hence an orthonormal basis for \(V\) is \{\(\vect{v}_1,\vect{v}_2\)\}. We then
+normalize the vectors to get an orthonormal basis for \(V\):
+\[
+\qty{\frac{1}{\sqrt{2}}\mqty[1\\ 0\\ -1],
+\frac{1}{\sqrt{6}/2}\mqty[1/2\\ 1\\ 1/2]
+}.
+\]
+\end{enumerate}
+\subsection{Orthogonal Complements}
+\begin{enumerate}
+\item Next, we will discuss the concept of orthogonal complements, which is
+closely related to the idea of \emph{orthogonal projections}.
+\item Let \(S\) be a nonempty subset of an inner product space \(V\). Then, the
+\defn{orthogonal complement} of \(S\) is
+\[
+S^{\perp}=\{\vect{v}\in V:\inner{\vect{v}}{\vect{s}}\text{ for any }\vect{s}\in S\},
+\]
+i.e., the subset of \(V\) containing vectors orthogonal to \emph{all} vectors
+in \(S\).
+
+Examples:
+\begin{itemize}
+\item \(\{\vect{0}\}^{\perp}=V\) by \Cref{prp:in-prod-prop}.
+\item \(V^{\perp}=\{\vect{0}\}\) since \(\inner{\vect{v}}{\vect{v}}\ne 0\) for
+any \(\vect{v}\ne\vect{0}\), and \(\inner{\vect{0}}{\vect{v}}=0\) for any
+\(\vect{v}\in V\) by \Cref{prp:in-prod-prop}.
+\item Let \(V=\R^3\) equipped with standard inner product, and let
+\(S=\{\vect{e}_2\}\subseteq \R^3\). Then
+\(S^{\perp}=\qty{\mqty[x&0&z]^{T}:x,z\in\R}\).
+
+
+\begin{pf}
+``\(\supseteq\)'': Observe that
+\(\inner{\mqty[x&0&z]^{T}}{\vect{e}_2}=x(0)+0(1)+z(0)=0\) for any \(x,z\in\R\).
+
+``\(\subseteq\)'': For any \(\vect{v}=\mqty[v_1&v_2&v_3]^{T}\in S^{\perp}\), we
+have \(\inner{\vect{v}}{\vect{e}_2}=0\), which implies that \(v_2=0\), thus
+\(\vect{v}\in \qty{\mqty[x&0&z]^{T}:x,z\in\R}\).
+\end{pf}
+\end{itemize}
+\item The following provides some properties about orthogonal complements.
+
+\begin{proposition}
+\label{prp:orthog-comp-prop}
+Let \(V\) be an inner product space and \(S\) be a nonempty subset of \(V\). Then,
+\begin{enumerate}
+\item \(S^{\perp}=\spn{S}^{\perp}\).
+\item \(S^{\perp}\) is a vector subspace of \(V\).
+\item \(S\cap S^{\perp}=\{\vect{0}\}\), under the further assumption that \(S\) is a vector subspace of \(V\).
+\end{enumerate}
+\end{proposition}
+\begin{pf}
+\begin{enumerate}
+\item Recall that
+\[
+\spn{S}=\qty{\sum_{i=1}^{k}a_i\vect{s}_i:a_1,\dotsc,a_k\in\R, \vect{s}_1,\dotsc,\vect{s}_k\in S, k\in\N}.
+\]
+``\(\subseteq\)'': For any \(\vect{v}\in S^{\perp}\), we have
+\(\inner{\vect{v}}{\vect{s}}=0\) for any \(\vect{s}\in S\). Then, for any
+\(k\in\N\), \(\vect{s}_1,\dotsc,\vect{s}_k\in S\), and \(a_1,\dotsc,a_k\in\R\),
+we have
+\[
+\inner{\vect{v}}{\sum_{i=1}^{k}a_i\vect{s}_i}
+=\sum_{i=1}^{k}a_i\inner{\vect{v}}{\vect{s}_i}
+=0,
+\]
+thus \(\vect{v}\in\spn{S}^{\perp}\).
+
+``\(\supseteq\)'': For any \(\vect{v}\in\spn{S}^{\perp}\), we have
+\(\inner{\vect{v}}{\vect{u}}=0\) for any \(\vect{u}\in\spn{S}\). Note that
+\(S\subseteq \spn{S}\), so particularly we have \(\inner{\vect{v}}{\vect{s}}=0\)
+for any \(\vect{s}\in\spn{S}\), thus \(\vect{v}\in S^{\perp}\).
+
+\item Fix any \(\vect{u},\vect{v}\in S^{\perp}\) and \(c\in\R\).
+
+\underline{Addition}: For any \(\vect{s}\in S\),
+\[
+\inner{\vect{u}+\vect{v}}{\vect{s}}
+=\inner{\vect{u}}{\vect{s}}
++\inner{\vect{v}}{\vect{s}}
+=0+0=0,
+\]
+thus \(\vect{u}+\vect{v}\in S^{\perp}\).
+
+\underline{Scalar multiplication}: For any \(\vect{s}\in S\),
+\[
+\inner{c\vect{v}}{\vect{s}}=c\inner{\vect{v}}{\vect{s}}=c(0)=0,
+\]
+thus \(c\vect{v}\in S^{\perp}\).
+
+\item ``\(\subseteq\)'': For any \(\vect{v}\in S\cap S^{\perp}\), we have
+\[
+\inner{\underbrace{\vect{v}}_{\in S^{\perp}}}{\underbrace{\vect{v}}_{\in S}}
+=0,
+\]
+which implies that \(\vect{v}=\vect{0}\).
+
+``\(\supseteq\)'': Note that \(\vect{0}\in S^{\perp}\) always since we must
+have \(\inner{\vect{0}}{\vect{s}}=0\) for any \(\vect{s}\in S\), by
+\Cref{prp:in-prod-prop}. Furthermore, we have \(\vect{0}\in S\) since \(S\) is
+a vector subspace, by \Cref{prp:vec-subsp-contain-zero}.
+\end{enumerate}
+\end{pf}
+\item Using the concept of orthogonal complement, we have the following
+important result about orthogonal projection.
+\begin{theorem}[Orthogonal decomposition theorem]
+\label{thm:orthog-decomp}
+Let \(V\) be an inner product space and \(W\) be a vector subspace of \(V\).
+Then for any \(\vect{v}\in V\), there exist \emph{unique} \(\vect{x}\in W\) and
+\(\vect{y}\in W^{\perp}\) such that \(\vect{v}=\vect{x}+\vect{y}\).
+
+The vector \(\vect{x}\) is called the \defn{orthogonal projection} of
+\(\vect{v}\), and can be obtained by the formula
+\[
+\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k.
+\]
+where \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is an orthonormal basis for \(W\).
+\end{theorem}
+\begin{note}
+The formula for \(\vect{x}\) is ``inspired'' by \Cref{thm:orthog-lin-comb}.
+(Here \(\vect{v}_1,\dotsc,\vect{v}_k\) all have unit norm.)
+\end{note}
+
+\begin{pf}
+\underline{Existence}: Let \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) be an
+orthonormal basis for \(W\). First let
+\[
+\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k,
+\]
+which belongs to \(W\) since \(\vect{v}_1,\dotsc,\vect{v}_k\in W\).
+
+Then, we let \(\vect{y}=\vect{v}-\vect{x}\). For any \(i=1,\dotsc,k\), we have
+\end{pf}
+\begin{align*}
+\inner{\vect{y}}{\vect{v}_i}&=\inner{\vect{v}-\vect{x}}{\vect{v}_i} \\
+&=\inner{\vect{v}}{\vect{v}_i}-\inner{\vect{x}}{\vect{v}_i} \\
+&=\inner{\vect{v}}{\vect{v}_i}-\inner{\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k}{\vect{v}_i} \\
+&=\inner{\vect{v}}{\vect{v}_i}-\inner{\vect{v}}{\vect{v}_i}\underbrace{\inner{\vect{v}_i}{\vect{v}_i}}_{1} &\text{(all other terms vanish due to orthogonality)}\\
+&=0.
+\end{align*}
+
+\underline{Uniqueness}: Suppose we have
+\(\vect{v}=\vect{x}+\vect{y}=\vect{x}'+\vect{y}'\) where
+\(\vect{x},\vect{x}'\in W\) and \(\vect{y},\vect{y}'\in W^{\perp}\). Then,
+\[
+\vect{x}-\vect{x}'=\vect{y}'-\vect{y}.
+\]
+Since \(\vect{x}-\vect{x}'\in W\) and \(\vect{y}'-\vect{y}\in W^{\perp}\), we
+have \(\vect{x}-\vect{x}'=\vect{y}'-\vect{y}\in W\cap W^{\perp}=\{\vect{0}\}\),
+by \Cref{prp:orthog-comp-prop}.
+
+Thus, we have \(\vect{x}-\vect{x}'=\vect{y}'-\vect{y}=\vect{0}\), so
+\(\vect{x}=\vect{x}'\) and \(\vect{y}=\vect{y}'\).
+
+\item Examples: (Here the inner product spaces are equipped with standard inner
+product.)
+\begin{itemize}
+\item Let \(W=\spn{\{\vect{e}_1,\vect{e}_3\}}\subseteq \R^3\). Then, it can be
+checked that \(W^{\perp}=\spn{\vect{e}_2}\). For \(\vect{v}=\mqty[2&3&4]^{T}\),
+we can write
+\[
+\vect{v}=\underbrace{\mqty[2\\ 0\\ 4]}_{\in W}+\underbrace{\mqty[0\\ 3\\ 0]}_{\in W^{\perp}},
+\]
+where \(\mqty[2&0&4]^{T}\) is the orthogonal projection of \(\vect{v}\).
+
+This expression can be obtained by ``inspection'', or alternatively, by using
+the formula
+\[
+\vect{x}=\inner{\vect{v}}{\vect{e}_1}\vect{e}_1+\inner{\vect{v}}{\vect{e}_3}\vect{e}_3
+=\mqty[2\\ 0\\ 4]
+\qqtext{and}
+\vect{y}=\vect{v}-\vect{x}=\mqty[0\\ 3\\0 ]
+\]
+since \(\{\vect{e}_1,\vect{e}_3\}\) is an orthonormal basis for \(W\).
+\item Let \(W=\spn{\qty{\mqty[1&-2]^{T}}}\). Then, it can be checked that
+\(W^{\perp}=\spn{\qty{\mqty[2&1]^{T}}}\). For \(\vect{v}=\mqty[3& 4]^{T}\),
+since \(\displaystyle \{\vect{v}_1\}=\qty{\frac{1}{\sqrt{5}}\mqty[1&-2]^{T}}\) is an orthonormal
+basis for \(W\), we can use the formula
+\[
+\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1
+=\qty(\frac{3}{\sqrt{5}}-\frac{8}{\sqrt{5}})\cdot \frac{1}{\sqrt{5}}\mqty[1\\ -2]
+=\mqty[-1\\ 2]
+\qqtext{and}
+\vect{y}=\vect{v}-\vect{x}=\mqty[4\\ 2]
+\]
+to get the decomposition
+\[
+\vect{v}=\underbrace{\mqty[-1\\ 2]}_{\in W}+\underbrace{\mqty[4\\ 2]}_{\in W^{\perp}}
+\]
+where \(\mqty[-1&2]^{T}\) is the orthogonal projection of \(\vect{v}\).
+\begin{center}
+\begin{tikzpicture}
+\draw[-Latex, magenta, thick] (0,0) -- (-1,2);
+\draw[-Latex, orange, opacity=0.8] (-1,2) -- (3,4);
+\draw[-Latex, blue, thick] (0,0) -- (3,4);
+\node[blue] () at (2,2) {\(\vect{v}\)};
+\node[magenta] () at (-1,1) {\(\vect{x}\)};
+\node[orange] () at (1,3.5) {\(\vect{y}\)};
+\end{tikzpicture}
+\end{center}
+\end{itemize}
+\end{enumerate}
