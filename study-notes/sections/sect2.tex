@@ -452,7 +452,7 @@ By block multiplication, we can write
 \[
 [E_k\dotsb E_1A|E_k\dotsb E_1\vect{b}]=[A'|\vect{b}'],
 \]
-which implies that \(A'=E_{k}\dotsb E_1A\) and \(b'=E_{r}\dotsb E_1b\).
+which implies that \(A'=E_{k}\dotsb E_1A\) and \(\vect{b}'=E_{r}\dotsb E_1\vect{b}\).
 
 To prove that the two systems have the same solution set, it suffices to prove
 the logical equivalence \(A\vect{v}=\vect{b}\iff A'\vect{v}=\vect{b}'\).
@@ -697,9 +697,9 @@ on \(R_1'\). When \(R\) is in RREF, we have the following cases.
 \item Case 1: All the leading ones are \emph{not} at the last column of \(R\).
 
 In this case, removing the last column still retains all leading ones, and
-every zero row (if exists) still remains as a zero row. It is not hard to see
-that the leading ones still satisfy with the requirements imposed by RREF (as
-they are not ``affected'' by the removal).
+every zero row (if exists) still remains as a zero row. The leading ones still
+satisfy with the requirements imposed by RREF as they are not affected by the
+removal.
 
 \item Case 2: The last column of \(R\) contains a leading one.
 
@@ -707,7 +707,7 @@ Since \(R\) is in RREF, every row below the row with leading one at the last
 column (if exists) must be zero row. So, after removing the last column, the
 original row with leading one at the last column becomes a zero row (and of
 course every original zero row, if exists, is still a zero row). Similarly, the
-other leading ones are not ``affected'' by the removal, and so still satisfy
+other leading ones are not affected by the removal, and so still satisfy
 the requirements from RREF.
 \end{itemize}
 \end{pf}
@@ -766,7 +766,7 @@ The solution set obtained is sometimes called the \defn{general solution} of
 the system (especially when some free variables are involved).
 \end{note}
 \end{enumerate}
-\subsection{Number of Solutions for a System of Linear Equations}
+\subsection{Number of Solutions for Systems of Linear Equations}
 \label{subsect:sys-sol-num}
 \begin{enumerate}
 \item In \labelcref{it:solve-sle-algo}, we have assumed the system has a
@@ -923,14 +923,14 @@ solution, then it must have infinitely many solutions.
 \end{proposition}
 \begin{pf}
 Assume that \(A\vect{x}=\vect{b}\) has more than one solution. Let
-\(\vect{x}_1\) and \(\vect{x}_2\) be two such solutions. Then, we have
+\(\vect{x}_1\) and \(\vect{x}_2\) be two different solutions. Then, we have
 \(A\vect{x}_1=\vect{b}\) and \(A\vect{x}_2=\vect{b}\). It follows that
 \(A(\vect{x}_1-\vect{x}_2)=\vect{b}-\vect{b}=\vect{0}\). Thus, \emph{for any}
 \(t\in\R\), we have
 \[
 A[\vect{x}_1+t(\vect{x_1}-\vect{x}_2)]
-=\vect{0}+t\vect{0}
-=\vect{0},
+=\vect{b}+t\vect{0}
+=\vect{b},
 \]
 so \(\vect{x}_1+t(\vect{x}_1-\vect{x}_2)\) is also a solution of the system.
 This then suggests that the system has infinitely many solutions.

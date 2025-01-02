@@ -217,7 +217,7 @@ Fix any \(\vect{x},\vect{y},\vect{z}\in V\), and any \(c\in\R\). Now check:
 (4): When \(\vect{v}\ne\vect{0}\), since \(T\) is injective, we must have
 \(T(\vect{v})\ne\vect{0}=T(\vect{0})\). Hence,
 \[
-\inner{\vect{v}}{\vect{v}}_{V}=\inner{T(\vect{v})}{T(\vect{v})}{W}
+\inner{\vect{v}}{\vect{v}}_{V}=\inner{T(\vect{v})}{T(\vect{v})}_{W}
 >0.
 \]
 \end{pf}
@@ -228,7 +228,7 @@ The injectivity of \(T\) is only needed for proving (4).
 \end{itemize}
 
 \item \label{it:std-inner-prod-matx-trans}
-Standard inner products naturally induce the occurrence of matrix transposes.
+Standard inner products naturally induce the appearance of matrix transposes.
 Let \(A\) be an \(m\times n\) matrix, and \(\vect{u}\in\R^n,\vect{v}\in\R^m\)
 be any column vectors. Then,
 \(\inner{A\vect{u}}{\vect{v}}=\inner{\vect{u}}{A^{T}\vect{v}}\), where
@@ -267,7 +267,7 @@ norm-preserving linear transformation must be injective.
 \label{prp:lt-pre-norm-inj}
 Let \(V\) be an inner product space and \(T:V\to V\) be a linear
 transformation. Suppose that \(\norm{T(\vect{v})}=\norm{\vect{v}}\) for any
-\(\vect{v}\in V\) (so \(T\) \emph{preserves the norm}). Then, \(T\) is injective.
+\(\vect{v}\in V\) (i.e., \(T\) \emph{preserves the norm}). Then, \(T\) is injective.
 \end{proposition}
 \begin{pf}
 By \Cref{prp:inj-iff-null-sp-only-zero}, it suffices to prove that
@@ -337,7 +337,7 @@ which implies that \(\inner{\vect{u}}{\vect{v}}^{2}\le\norm{\vect{u}}^{2}\norm{\
 \end{enumerate}
 \end{pf}
 \end{enumerate}
-\subsection{Orthonormal Basis}
+\subsection{Orthonormal Bases}
 \label{subsect:orthonormal-basis}
 \begin{enumerate}
 \item Consider the inner product space \(\R^n\) equipped with the standard
@@ -468,8 +468,8 @@ Applying this argument for every \(i=1,\dotsc,n\), we have
 The converse of \Cref{thm:orthog-imp-li} is not true. For example, consider the
 inner product space \(\R^2\) equipped with standard inner product, and take
 \(\vect{u}=\mqty[1\\ 1]\) and \(\vect{v}=\mqty[0\\ 1]\). Then
-\(S=\{\vect{u},\vect{v}\}\) is linearly independent but \(S\) is not orthogonal
-(since \(\inner{\vect{u}}{\vect{v}}=1\ne 0\).
+\(S=\{\vect{u},\vect{v}\}\) is linearly independent but \(S\) is not orthogonal,
+since \(\inner{\vect{u}}{\vect{v}}=1\ne 0\).
 
 \item Let \(V\) be a vector space and \(S=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be
 a subset of \(V\). Given a vector \(\vect{v}\in \spn{S}\), expressing
@@ -477,7 +477,7 @@ a subset of \(V\). Given a vector \(\vect{v}\in \spn{S}\), expressing
 us to solve a system of linear equation or use some other approach, which can
 be cumbersome.
 
-However, when we equip with \(V\) with an inner product, and if \(S\) is
+However, when we equip \(V\) with an inner product, and if \(S\) is
 orthogonal, then we would have a more convenient approach.
 
 \begin{theorem}
@@ -597,8 +597,8 @@ vectors inside to obtain an orthonormal basis for \(V\):
 
 \begin{corollary}
 \label{cor:exist-orthonormal-basis}
-Let \(V\) be an inner product space where \(\dim(V)\) is finite. Then there
-exists an orthonormal basis for \(V\).
+Let \(V\) be an inner product space. Then there exists an orthonormal basis for
+\(V\).
 \end{corollary}
 \begin{pf}
 Firstly, there always exists a basis \(S\) for \(V\) (e.g., constructed by the
@@ -643,10 +643,10 @@ normalize the vectors to get an orthonormal basis for \(V\):
 \begin{enumerate}
 \item Next, we will discuss the concept of orthogonal complements, which is
 closely related to the idea of \emph{orthogonal projections}.
-\item Let \(S\) be a nonempty subset of an inner product space \(V\). Then, the
-\defn{orthogonal complement} of \(S\) is
+\item \label{it:orthog-comp-eg} Let \(S\) be a nonempty subset of an inner
+product space \(V\). Then, the \defn{orthogonal complement} of \(S\) is
 \[
-S^{\perp}=\{\vect{v}\in V:\inner{\vect{v}}{\vect{s}}\text{ for any }\vect{s}\in S\},
+S^{\perp}=\{\vect{v}\in V:\inner{\vect{v}}{\vect{s}}=0\text{ for any }\vect{s}\in S\},
 \]
 i.e., the subset of \(V\) containing vectors orthogonal to \emph{all} vectors
 in \(S\).
@@ -680,6 +680,7 @@ Let \(V\) be an inner product space and \(S\) be a nonempty subset of \(V\). The
 \item \(S^{\perp}=\spn{S}^{\perp}\).
 \item \(S^{\perp}\) is a vector subspace of \(V\).
 \item \(S\cap S^{\perp}=\{\vect{0}\}\), under the further assumption that \(S\) is a vector subspace of \(V\).
+\item \(\dim(V)=\dim(S)+\dim(S^{\perp})\) and \((S^{\perp})^{\perp}=S\).
 \end{enumerate}
 \end{proposition}
 \begin{pf}
@@ -732,6 +733,58 @@ which implies that \(\vect{v}=\vect{0}\).
 have \(\inner{\vect{0}}{\vect{s}}=0\) for any \(\vect{s}\in S\), by
 \Cref{prp:in-prod-prop}. Furthermore, we have \(\vect{0}\in S\) since \(S\) is
 a vector subspace, by \Cref{prp:vec-subsp-contain-zero}.
+
+\item If \(S=\{\vect{0}\}\) or \(S=V\), then the result follows by the examples
+in \labelcref{it:orthog-comp-eg}. So, henceforth we assume that \(S\) is
+strictly between \(\{\vect{0}\}\) and \(V\) (i.e., a strict superset of
+\(\{\vect{0}\}\) and a strict subset of \(V\)). Let \(n=\dim(V)\) and
+\(m=\dim(S)\). Then, we have \(0<m<n\) by
+\Cref{lma:subsp-same-dim-as-orig-equal-orig} and the fact that the only vector
+space with zero dimension is \(\{\vect{0}\}\).
+
+Now, by \Cref{cor:exist-orthonormal-basis}, there exists an
+orthonormal basis \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\) for \(S\). Note
+that \(\beta\) is linearly independent in \(V\). Performing extension approach
+followed by the Gram-Schmidt process, we can extend \(\beta\) to an orthonormal
+basis
+\(\beta'=\{\vect{v}_1,\dotsc,\vect{v}_m,\vect{v}_{m+1},\dotsc,\vect{v}_n\}\)
+for \(V\).
+
+Fix any \(\vect{v}\in S^{\perp}\subseteq V\). Since \(\beta'\) is a basis for
+\(V\), we can write
+\[
+\vect{v}=a_1\vect{v}_1+\dotsb+a_m\vect{v}_m+a_{m+1}\vect{v}_{m+1}+\dotsb+a_n\vect{v}_n
+\]
+for some unique \(a_1,\dotsc,a_n\in\R\), by \Cref{thm:basis-unique-lin-comb}.
+For every \(i=1,\dotsc,m\), note that \(\vect{v}_i\in S\) and
+\(\vect{v}_i\ne\vect{0}\). Also, since \(\vect{v}\in S^{\perp}\), we have
+\(\inner{\vect{v}}{\vect{v}_i}=0\). Thus, we can write
+\[
+0=\inner{\vect{v}}{\vect{v}_i}=a_i\underbrace{\inner{\vect{v}_i}{\vect{v}_i}}_{>0},
+\]
+which implies \(a_i=0\). (All other terms vanish due to the orthogonality of
+\(\beta'\).) This means that, for any \(\vect{v}\in S^{\perp}\), we can
+actually write
+\[
+\vect{v}=a_{m+1}\vect{v}_{m+1}+\dotsb+a_n\vect{v}_n
+\]
+for some unique \(a_{m+1},\dotsc,a_n\in\R\). Hence, by
+\Cref{thm:basis-unique-lin-comb} again,
+\(\beta^*=\{\vect{v}_{m+1},\dotsc,\vect{v}_n\}\) is an orthonormal basis for
+\(S^{\perp}\). This shows \(\dim(V)=\dim(S)+\dim(S^{\perp})\) in particular.
+
+Knowing that \(\vect{v}_{m+1},\dotsc,\vect{v}_n\in S^{\perp}\), we can use a
+similar argument as above to deduce that for any \(\vect{u}\in
+(S^{\perp})^{\perp}\), we can write
+\[
+\vect{u}=b_1\vect{v}_1+\dotsb+b_m\vect{v}_m
+\]
+for some unique \(b_1,\dotsc,b_m\in\R\). This means
+\(\beta=\{\vect{v}_1,\dotsc,\vect{v}_m\}\) is an orthonormal basis for
+\((S^{\perp})^{\perp}\). Particularly, it implies that
+\[
+(S^{\perp})^{\perp}=\spn{\beta}=S.
+\]
 \end{enumerate}
 \end{pf}
 \item Using the concept of orthogonal complement, we have the following
@@ -742,23 +795,24 @@ Let \(V\) be an inner product space and \(W\) be a vector subspace of \(V\).
 Then for any \(\vect{v}\in V\), there exist \emph{unique} \(\vect{x}\in W\) and
 \(\vect{y}\in W^{\perp}\) such that \(\vect{v}=\vect{x}+\vect{y}\).
 
-The vector \(\vect{x}\) is called the \defn{orthogonal projection} of
-\(\vect{v}\), and can be obtained by the formula
+The vector \(\vect{x}\) is called the \defn{orthogonal projection of
+\(\vect{v}\) onto \(W\)}, and can be obtained by the formula
 \[
-\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k.
+\vect{x}=\frac{\inner{\vect{v}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
++\dotsb+\frac{\inner{\vect{v}}{\vect{v}_k}}{\norm{\vect{v}_k}^{2}}\vect{v}_k.
 \]
-where \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is an orthonormal basis for \(W\).
+where \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) is an orthogonal basis for \(W\).
 \end{theorem}
 \begin{note}
 The formula for \(\vect{x}\) is ``inspired'' by \Cref{thm:orthog-lin-comb}.
-(Here \(\vect{v}_1,\dotsc,\vect{v}_k\) all have unit norm.)
 \end{note}
 
 \begin{pf}
 \underline{Existence}: Let \(\{\vect{v}_1,\dotsc,\vect{v}_k\}\) be an
-orthonormal basis for \(W\). First let
+orthogonal basis for \(W\). First let
 \[
-\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k,
+\vect{x}=\frac{\inner{\vect{v}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
++\dotsb+\frac{\inner{\vect{v}}{\vect{v}_k}}{\norm{\vect{v}_k}^{2}}\vect{v}_k.
 \]
 which belongs to \(W\) since \(\vect{v}_1,\dotsc,\vect{v}_k\in W\).
 
@@ -767,8 +821,9 @@ Then, we let \(\vect{y}=\vect{v}-\vect{x}\). For any \(i=1,\dotsc,k\), we have
 \begin{align*}
 \inner{\vect{y}}{\vect{v}_i}&=\inner{\vect{v}-\vect{x}}{\vect{v}_i} \\
 &=\inner{\vect{v}}{\vect{v}_i}-\inner{\vect{x}}{\vect{v}_i} \\
-&=\inner{\vect{v}}{\vect{v}_i}-\inner{\inner{\vect{v}}{\vect{v}_1}\vect{v}_1+\dotsb+\inner{\vect{v}}{\vect{v}_k}\vect{v}_k}{\vect{v}_i} \\
-&=\inner{\vect{v}}{\vect{v}_i}-\inner{\vect{v}}{\vect{v}_i}\underbrace{\inner{\vect{v}_i}{\vect{v}_i}}_{1} &\text{(all other terms vanish due to orthogonality)}\\
+&=\inner{\vect{v}}{\vect{v}_i}-\inner{\frac{\inner{\vect{v}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
++\dotsb+\frac{\inner{\vect{v}}{\vect{v}_k}}{\norm{\vect{v}_k}^{2}}\vect{v}_k}{\vect{v}_i} \\
+&=\inner{\vect{v}}{\vect{v}_i}-\frac{\inner{\vect{v}}{\vect{v}_i}}{\norm{\vect{v}_i}^{2}}\inner{\vect{v}_i}{\vect{v}_i} &\text{(all other terms vanish due to orthogonality)}\\
 &=0.
 \end{align*}
 
@@ -794,7 +849,7 @@ we can write
 \[
 \vect{v}=\underbrace{\mqty[2\\ 0\\ 4]}_{\in W}+\underbrace{\mqty[0\\ 3\\ 0]}_{\in W^{\perp}},
 \]
-where \(\mqty[2&0&4]^{T}\) is the orthogonal projection of \(\vect{v}\).
+where \(\mqty[2&0&4]^{T}\) is the orthogonal projection of \(\vect{v}\) onto \(W\).
 
 This expression can be obtained by ``inspection'', or alternatively, by using
 the formula
@@ -807,11 +862,11 @@ the formula
 since \(\{\vect{e}_1,\vect{e}_3\}\) is an orthonormal basis for \(W\).
 \item Let \(W=\spn{\qty{\mqty[1&-2]^{T}}}\). Then, it can be checked that
 \(W^{\perp}=\spn{\qty{\mqty[2&1]^{T}}}\). For \(\vect{v}=\mqty[3& 4]^{T}\),
-since \(\displaystyle \{\vect{v}_1\}=\qty{\frac{1}{\sqrt{5}}\mqty[1&-2]^{T}}\) is an orthonormal
-basis for \(W\), we can use the formula
+since \(\{\vect{v}_1\}\) is an orthogonal basis for \(W\), we can use the
+formula
 \[
-\vect{x}=\inner{\vect{v}}{\vect{v}_1}\vect{v}_1
-=\qty(\frac{3}{\sqrt{5}}-\frac{8}{\sqrt{5}})\cdot \frac{1}{\sqrt{5}}\mqty[1\\ -2]
+\vect{x}=\frac{\inner{\vect{v}}{\vect{v}_1}}{\norm{\vect{v}_1}^{2}}\vect{v}_1
+=\frac{3-8}{5}\mqty[1\\ -2]
 =\mqty[-1\\ 2]
 \qqtext{and}
 \vect{y}=\vect{v}-\vect{x}=\mqty[4\\ 2]
@@ -820,7 +875,7 @@ to get the decomposition
 \[
 \vect{v}=\underbrace{\mqty[-1\\ 2]}_{\in W}+\underbrace{\mqty[4\\ 2]}_{\in W^{\perp}}
 \]
-where \(\mqty[-1&2]^{T}\) is the orthogonal projection of \(\vect{v}\).
+where \(\mqty[-1&2]^{T}\) is the orthogonal projection of \(\vect{v}\) onto \(W\).
 \begin{center}
 \begin{tikzpicture}
 \draw[-Latex, magenta, thick] (0,0) -- (-1,2);

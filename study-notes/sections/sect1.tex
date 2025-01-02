@@ -337,8 +337,8 @@ vector}:
 \end{itemize}
 Unless otherwise specified, a vector would refer to a \emph{column} vector
 (since it is more commonly used, as we will see later). To denote a vector, we
-usually use a bold (and italic) small letter like \(\vect{v}\). In written
-form, we usually use notations like \(\underline{v}\) or \(\vec{v}\) instead.
+usually use a bold small letter like \(\vect{v}\). In written form, we usually
+use notations like \(\underline{v}\) or \(\vec{v}\) instead.
 
 \item Some terminologies:
 \begin{itemize}
@@ -1235,7 +1235,7 @@ Then, we have the following terminologies:
 \begin{itemize}
 \item The \defn{\((i,j)\)-minor} of \(A\) is \(\det \widetilde{A}_{ij}\).
 \item The \defn{\((i,j)\)-cofactor} of \(A\) is \(C_{ij}=(-1)^{i+j}\det \widetilde{A}_{ij}\).
-\item The \defn{cofactor matrix} of \(A\) is an \(n\times n\) matrix \([C_{ij}]\).
+\item The \defn{cofactor matrix} of \(A\) is the \(n\times n\) matrix \([C_{ij}]\).
 \end{itemize}
 
 \begin{note}
@@ -1250,7 +1250,7 @@ cases, which are of ``chessboard pattern'':
 \]
 \end{note}
 
-The \defn{determinant} of \(A\) is then (recursively) defined as
+The \defn{determinant} of \(A\) is then recursively defined as
 \[
 \det A=a_{11}C_{11}+a_{12}C_{12}+\dotsb+a_{1n}C_{1n}.
 \]
@@ -1281,7 +1281,7 @@ determinant of a matrix with size larger than \(3\times 3\). Examples:
 Firstly, we have \(\det I_1=1\). Then, assume for induction that \(\det I_k=1\)
 for a certain \(k\in\N\). Then,
 \[
-\det I_{k+1}=1\cdot \det I_k+\underbrace{0+\dotsb+0}_{\text{\(k-1\) times}}
+\det I_{k+1}=1\cdot \det I_k+\underbrace{0+\dotsb+0}_{\text{\(k\) times}}
 =\det I_k=1.
 \]
 Thus, the result follows by induction.
@@ -1711,8 +1711,8 @@ i\). Let \(c\in\R\). Then,
 \end{align*}
 For convenience, we denote this subtraction by \(-c\vect{r}_{j}+\vect{r}_{i}\to
 \vect{r}_{i}\) (``adding \(-c\) times the \(j\)th row to the \(i\)th row, and
-putting the result in the \(i\)th row'').  This will be helpful in \Cref{sect:sle}
-later.
+putting the result in the \(i\)th row''). This kind of notation will be useful
+in \Cref{sect:sle}.
 
 \begin{remark}
 \item This ``rule'' is usually used to create many zeros in a column, so that

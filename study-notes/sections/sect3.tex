@@ -97,13 +97,17 @@ function \(f:\R \to\R\) defined by \(f(x)=0\) for any \(x\in\R\).
 \emph{subspaces}. The idea is that we want to extract a ``part'' of a vector
 space such that the part is still a valid vector space on its own.
 
-\item Let \(V\) be a vector space. A nonempty subset \(W\) of \(V\) is a
+\item Let \(V\) be a vector space. A \emph{nonempty} subset \(W\) of \(V\) is a
 \defn{vector subspace} (or simply \defn{subspace}) of \(V\) if for any
 \(\vect{u},\vect{v}\in W\) and any scalar \(a\in\R\),
 \begin{enumerate}
 \item (closed under addition) \(\vect{u}+\vect{v}\in W\).
 \item (closed under scalar multiplication) \(a\vect{v}\in W\).
 \end{enumerate}
+\begin{warning}
+Do not forget the condition that the set needs to be nonempty! In practice,
+this can be verified conveniently by showing that \(\vect{0}\in W\).
+\end{warning}
 \item The following property is useful for showing that a given set is
 \emph{not} a vector subspace.
 \begin{proposition}
@@ -174,14 +178,14 @@ defined in \labelcref{it:lin-comb} in the context of vector space \(\R^n\).
 Here, we will define it more generally as follows.
 
 Let \(S\) be a nonempty subset of \(V\). A vector \(\vect{v}\in V\) is a
-\defn{linear combination} of vectors in \(S\) if there exist a \emph{finite}
+\defn{linear combination of vectors in \(S\)} if there exist a \emph{finite}
 number of vectors \(\vect{v}_1,\dotsc,\vect{v}_{n}\in S\) and scalars
 \(a_1,\dotsc,a_n\in\R\) such that
 \[
 \vect{v}=a_1\vect{v}_1+\dotsb+a_n\vect{v}_n.
 \]
-In such case, we call \(\vect{v}\) as a \defn{linear combination} of vectors
-\(\vect{v}_1,\dotsc,\vect{v}_n\).
+In such case, we call \(\vect{v}\) as a \defn{linear combination of vectors
+\(\vect{v}_1,\dotsc,\vect{v}_n\)}.
 
 \item Some examples of linear combination:
 \begin{enumerate}
@@ -337,11 +341,11 @@ to a system.
 
 \item A subset \(S\) of a vector space \(V\) is called \defn{linearly
 dependent} if there exist distinct vectors \(\vect{v}_1,\dotsc,\vect{v}_n\in
-S\), and scalars \(a_1,\dotsc,a_n\in\R\) which are \emph{not all zero} (for
-some \(n\in\N\)) such that
+S\), and scalars \(a_1,\dotsc,a_n\in\R\) which are \emph{not all zero} such that
 \[
-a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0}.
+a_1\vect{v}_1+\dotsb+a_n\vect{v}_n=\vect{0},
 \]
+for some \(n\in\N\).
 \begin{intuition}
 This means that we can express a vector in \(S\) as a linear combination of
 some other vectors in the same set \(S\), so some vectors in \(S\) are
@@ -441,7 +445,7 @@ independent.'' Take any \(S_1\subseteq V\) which is linearly independent and
 take \(S_2=S_1\cup\{\vect{0}\}\).  Then, \(S_2\supseteq S_1\) but \(S_2\) is
 always linearly dependent.
 \end{enumerate}
-\subsection{Basis}
+\subsection{Bases}
 \begin{enumerate}
 \item The next concept to be discussed is \emph{basis}, which neatly connects
 the concepts of \emph{spanning set} and \emph{linear independence}.  A
@@ -1283,8 +1287,8 @@ Hence, as expected, an \emph{invertible} matrix has no degree of
 non-invertibility.
 \item The \(3\times 3\) matrix \(\mqty[1&0&1\\ 0&1&1\\ 0&1&1]\) has rank \(2\)
 since its RREF is \(\mqty[1&0&1\\ 0&1&1\\ 0&0&0]\), which has two nonzero rows.
-Since its rank is not \(3\), we know that it is non-invertible. But its rank
-suggests that its ``degree of non-invertibility'' is not very high.
+While this matrix is not invertible, its rank suggests that its ``degree of
+non-invertibility'' is not very high.
 \end{itemize}
 \end{enumerate}
 \subsection{Null Spaces}

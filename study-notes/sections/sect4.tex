@@ -597,7 +597,24 @@ other hand, as \(\ran{T}\) is a subspace of \(W\), we have
 
 \item After discussing injectivity, we shall also discuss surjectivity in the
 following result. It gives us a criterion for the bijectivity (i.e., both
-injectivity and surjectivity) of a linear transformation.
+injectivity and surjectivity) of a linear transformation. Before proving it, we
+consider the following lemma.
+
+\begin{lemma}
+\label{lma:subsp-same-dim-as-orig-equal-orig}
+Let \(V\) be a vector space. If \(W\) is a subspace of \(V\) with
+\(\dim(W)=\dim(V)\), then \(W=V\).
+\end{lemma}
+
+\begin{pf}
+Assume to the contrary that \(W\) is a proper subset of \(V\) while
+\(\dim(W)=\dim(V)\). Then there exists \(\vect{w}\in V\setminus W\).  Let
+\(\beta\) be a basis for \(W\). We know that \(|\beta|=\dim(W)=\dim(V)\) and
+\(\spn{\beta}=W\). Since \(\vect{w}\notin W=\spn{\beta}\) and \(\beta\) is
+linearly independent in \(V\), by \Cref{thm:add-vec-not-in-spn}, the union
+\(\beta\cup\{\vect{w}\}\) is linearly independent in \(V\). But then this
+contradicts \Cref{prp:li-num-leq-dim} as \(|\beta\cup\{\vect{w}\}|>\dim(V)\).
+\end{pf}
 
 \begin{theorem}
 \label{thm:lin-tran-bij-crit}
@@ -616,18 +633,8 @@ hand, by the surjectivity of \(T\), we have by definition \(\ran{T}=W\), so
 ``\(\Leftarrow\)'' Assume \(\nul{T}=\{\vect{0}\}\) and \(\dim(V)=\dim(W)\). The
 first condition implies that \(T\) is injective and \(\nulty{T}=0\). Next, by
 \Cref{thm:dim-fmla}, \(\dim(W)=\dim(V)=\rk{T}+\nulty{T}=\rk{T}=\dim(\ran{T})\).
-We claim that \(\ran{T}=W\).
-
-\begin{pf}
-First note that \(\ran{T}\subseteq W\). Assume to the contrary that \(\ran{T}\)
-is a proper subset of \(W\). Then there exists \(\vect{w}\in
-W\setminus\ran{T}\).  Let \(\beta\) be a basis for \(\ran{T}\) (which is
-linearly independent in \(W\)). We know that \(|\beta|=\dim(\ran{T})=\dim(W)\)
-and \(\spn{\beta}=\ran{T}\). Since \(\vect{w}\notin\ran{T}=\spn{\beta}\), by
-\Cref{thm:add-vec-not-in-spn}, the union \(\beta\cup\{\vect{w}\}\) is linearly
-independent in \(W\). But then this contradicts \Cref{prp:li-num-leq-dim} as
-\(|\beta\cup\{\vect{w}\}|>\dim(W)\).
-\end{pf}
+Since \(\ran{T}\) is a subspace of \(W\), we have \(\ran{T}=W\) by
+\Cref{lma:subsp-same-dim-as-orig-equal-orig}.
 
 Thus, \(T\) is surjective. Together with the injectivity of \(T\) shown
 before, we conclude that \(T\) is bijective.
@@ -806,12 +813,12 @@ representation of \(T\). More precisely, the \defn{matrix representation of
 \[
 \defn{\([T]_{\beta}^{\gamma}\)}
 =\mqty[[T(\vect{v}_1)]_{\gamma}&\cdots&[T(\vect{v}_n)]_{\gamma}]
-=[a_{ij}]=\mqty[a_{11}&\cdots&a_{m1}\\ \vdots&\ddots&\vdots\\
+=[a_{ij}]=\mqty[a_{11}&\cdots&a_{1n}\\ \vdots&\ddots&\vdots\\
 a_{m1}&\cdots&a_{mn}].
 \]
 \begin{note}
 If \(\beta=\gamma\), we sometimes write \([T]_{\beta}\) instead of
-\([T]_{\beta}^{\gamma}\).
+\([T]_{\beta}^{\beta}\).
 \end{note}
 
 \item Consider the special case where \(T\) is a linear transformation from
@@ -997,7 +1004,7 @@ first one is invertibility.
 \(T^{-1}:W\to V\) such that \(T^{-1}\circ T=\id_{V}\) and \(T\circ
 T^{-1}=\id_{W}\). \(T^{-1}\) is called the \defn{inverse} of \(T\). From
 MATH2012, we know that \(T\) is invertible iff \(T\) is bijective. So an
-invertible linear transformation is just an isomorphism.
+invertible linear transformation is just the same as an isomorphism.
 
 Note that the inverse of \(T\), namely \(T^{-1}\), is still a linear
 transformation.
@@ -1158,8 +1165,8 @@ given by \(\rk{T}=\dim(\ran{T})=n-r\) as well.
 So far we have established the equality for a \emph{specific} choice of bases
 for the matrix representation, namely \(\beta'\) and \(\gamma'\). To prove the
 general case, we need to utilize the approach of \emph{change of coordinates},
-to be discussed in \Cref{subsect:change-coord}. To be continued at
-\labelcref{it:lt-rank-matx-pf-contd}.
+to be discussed in \Cref{subsect:change-coord}. So the proof is to be continued
+at \labelcref{it:lt-rank-matx-pf-contd}.
 \end{pf}
 \end{enumerate}
 \subsection{Change of Coordinates Matrix}

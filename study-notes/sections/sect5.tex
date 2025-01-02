@@ -23,7 +23,7 @@ of the matrix \(A\).
 \begin{itemize}
 \item \(A=\mqty[-4&-2\\ 28&11]\) is diagonalizable since
 \[
-A=Q^{-1}\mqty[\dmat[0]{3,4}]Q
+Q^{-1}AQ=\mqty[\dmat[0]{3,4}]
 \]
 where \(Q=\mqty[2&-1\\ -7&4]\) is invertible. \begin{note}
 This choice of \(Q\) and the diagonal matrix seems to be coming
@@ -96,7 +96,7 @@ Observe that \(D\vect{e}_i=a_i\vect{e}_i\) for any \(i=1,\dotsc,n\).
 Then,
 \begin{enumerate}
 \item any eigenvalue of \(A\) is nonzero.
-\item \(\vect{v}\) is an eigenvector of \(A\) iff \(\vect{v}\) is also an
+\item \(\vect{v}\) is an eigenvector of \(A\) iff \(\vect{v}\) is an
 eigenvector of \(A^{-1}\).
 \item \(\lambda\) is an eigenvalue of \(A\) iff \(\lambda^{-1}\) is an
 eigenvalue of \(A^{-1}\).
@@ -127,11 +127,11 @@ us diagonalize a matrix.
 
 \begin{theorem}
 \label{thm:eigen-diag}
-Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be the set of all eigenvectors
-of an \(n\times n\) matrix \(A\). Let \(Q=\mqty[\vect{v}_1&\cdots&\vect{v}_n]\)
-be an \(n\times n\) matrix. If \(\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is a basis,
-then \(Q^{-1}AQ\) is a diagonal matrix with the diagonal entries being the
-eigenvalues of \(\vect{v}_1,\dotsc,\vect{v}_n\) respectively.
+Let \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) be a set of eigenvectors of an
+\(n\times n\) matrix \(A\). Let \(Q=\mqty[\vect{v}_1&\cdots&\vect{v}_n]\) be an
+\(n\times n\) matrix. If \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) is a basis for
+\(\R^n\), then \(Q^{-1}AQ\) is a diagonal matrix with the diagonal entries
+being the eigenvalues of \(\vect{v}_1,\dotsc,\vect{v}_n\) respectively.
 \end{theorem}
 \begin{pf}
 We identify \(\beta\) as an ordered basis. Let \(\lambda_i\) be the
@@ -163,8 +163,8 @@ eigenvectors.
 \begin{theorem}
 \label{thm:diag-crit}
 Let \(A\) be an \(n\times n\) matrix. Then \(A\) is diagonalizable iff there
-exists a basis \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) of \(\R^n\) such that
-\(\vect{v}_1,\dotsc,\vect{v}_n\) are also eigenvectors of \(A\).
+exists a basis \(\beta=\{\vect{v}_1,\dotsc,\vect{v}_n\}\) for \(\R^n\) such that
+\(\vect{v}_1,\dotsc,\vect{v}_n\) are eigenvectors of \(A\).
 \end{theorem}
 \begin{pf}
 ``\(\Leftarrow\)'': It follows from \Cref{thm:eigen-diag}.
@@ -202,7 +202,7 @@ Let \(A\) be an \(n\times n\) matrix with only one eigenvalue \(\lambda\). Then
 \(A\) is diagonalizable iff \(A=\lambda I_n\).
 
 \begin{pf}
-``\(\Leftarrow\)'': Since \(\lambda I_n=\vect{v}=\lambda\vect{v}\) for any
+``\(\Leftarrow\)'': Since \(\lambda I_n\vect{v}=\lambda\vect{v}\) for any
 nonzero \(\vect{v}\in\R^n\), \(\lambda I_n\) has only one eigenvalue
 \(\lambda\). (So it makes sense for \(A=\lambda I_n\).) Furthermore, \(\lambda
 I_n\), as a diagonal matrix itself, is diagonalizable.
@@ -418,18 +418,18 @@ Example: Consider the matrix
 \[
 A=\mqty[1&2&3&4\\ 0&2&0&3\\ 0&0&1&0\\ 0&0&0&-1].
 \]
-Since the characteristic polynomial of \(A\) is
+The characteristic polynomial of \(A\) is
 \[
 \det(A-tI_4)=\det\mqty[1-t&2&3&4\\ 0&2-t&0&3\\ 0&0&1-t&0\\ 0&0&0&-1-t]
 =(1-t)^2(2-t)(-1-t).
 \]
-(Compute this by starting with cofactor expansion along the last row.)
+(We can compute this by starting with cofactor expansion along the last row.)
 From this we know that the eigenvalues of \(A\) are \(1\), \(2\), and \(-1\).
 Their A.M. are as follows:
 \begin{center}
 \begin{tabular}{cc}
 \toprule
-Eigenvalue \(\lambda\)&A.M\\
+Eigenvalue \(\lambda\)&A.M.\\
 \midrule
 \(1\)&\(2\)\\
 \(2\)&\(1\)\\
@@ -468,7 +468,7 @@ matrix and \(\lambda\) be an eigenvalue of \(A\). The set containing all
 
 By \Cref{thm:null-sp-vec-subsp}, every eigenspace is a vector subspace since it
 is a null space. So it makes sense to talk about the \emph{dimension} of
-\(E_{\lambda}\). This dimension \(\dim(E_{\lambda})\) is in fact the
+\(E_{\lambda}\). This dimension \(\dim(E_{\lambda})\) is said to be the
 \defn{geometric multiplicity} of \(\lambda\).
 
 \item \label{it:gm-lb} For \(\lambda\) to be an eigenvalue of \(A\), there must
@@ -528,7 +528,7 @@ Q^{-1}AQ=\mqty[\lambda I_r&*\\ O_{(n-r)\times r}&A']
 \]
 for some \((n-r)\times (n-r)\)-matrix \(A'\).
 
-Finally, we will compute the A.M. of \(\lambda\). By cofactor expansions, the
+Finally, we will compute the A.M. of \(\lambda\). By cofactor expansion, the
 characteristic polynomial of \(Q^{-1}AQ\) (also of \(A\)) is
 \[
 \det(A-tI_n)=\det(Q^{-1}AQ-tI_n)=(\lambda-t)^{r}\det(A'-tI_{n-1})
@@ -573,9 +573,10 @@ for each \(i=1,\dotsc,k\). Hence, we must have
 \(m_a(\lambda_i)=m_{g}(\lambda_i)\) for each \(i=1,\dotsc,k\).
 
 ``\(\Leftarrow\)'': Assume that the A.M. of \(\lambda\) equals the G.M.\ of
-\(\lambda\) for every eigenvalue \(\lambda\) of \(A\). Note that the sum of all
-the algebraic multiplicities is \(n\). Hence, by assumption, the sum of all the
-geometric multiplicities is also \(n\).
+\(\lambda\) for every eigenvalue \(\lambda\) of \(A\). By
+\labelcref{it:am-sum2n} the sum of all the algebraic multiplicities is \(n\).
+Hence, by assumption, the sum of all the geometric multiplicities is also
+\(n\).
 
 Next, for each eigenvalue \(\lambda\) of \(A\), we find a basis
 \(\beta_{\lambda}\) for the \(\lambda\)-eigenspace \(E_{\lambda}\). The union
@@ -616,6 +617,32 @@ eigenvalues with A.M. greater than 1. This is because when the A.M. of an
 eigenvalue is 1, then the G.M.\ of that eigenvalue has to be 1 as well since it
 is less than or equal to the A.M., by \Cref{thm:gm-leq-am}, and is also at
 least 1.
+
+\item Using both \Cref{thm:gm-leq-am} and \Cref{thm:am-gm-diag-crit}, we can
+deduce another criterion for diagonalizability.
+
+\begin{corollary}
+\label{cor:diag-iff-gm-sum2n}
+Let \(A\) be an \(n\times n\) matrix. Then, \(A\) is diagonalizable iff the sum
+of G.M.\ of all the eigenvalues is \(n\).
+\end{corollary}
+\begin{pf}
+``\(\Rightarrow\)'': Assume that \(A\) is diagonalizable. Then by
+\Cref{thm:am-gm-diag-crit}, the A.M. of \(\lambda\) equals the G.M.\ of
+\(\lambda\) for each eigenvalue \(\lambda\) of \(A\). It then follows that the
+sum of the G.M.\ of all the eigenvalues is \(n\), by \labelcref{it:am-sum2n}.
+
+``\(\Leftarrow\)'': Assume that the sum of G.M.\ of all the eigenvalues is
+\(n\). Let \(\lambda_1,\dotsc,\lambda_k\) be the eigenvalues of \(A\), and
+denote the A.M. and G.M.\ of an eigenvalue \(\lambda\) by \(m_a(\lambda)\) and
+\(m_g(\lambda)\) respectively. By \Cref{thm:gm-leq-am}, \(m_g(\lambda_i)\le
+m_a(\lambda_i)\) for every \(i=1,\dotsc,n\). By \labelcref{it:am-sum2n} and
+assumption, we have
+\(\sum_{i=1}^{n}m_g(\lambda_i)=\sum_{i=1}^{n}m_a(\lambda_i)=n\). This then
+forces \(m_g(\lambda_i)=m_a(\lambda_i)\) for every \(i=1,\dotsc,n\), hence
+\(A\) is diagonalizable by \Cref{thm:am-gm-diag-crit}.
+\end{pf}
+
 \end{enumerate}
 \subsection{Applications of Diagonalization}
 \begin{enumerate}
